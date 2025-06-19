@@ -12,7 +12,7 @@ const setViewportMeta = () => {
   // If it doesn't exist, create it
   if (!viewportMeta) {
     viewportMeta = document.createElement('meta')
-    viewportMeta.name = 'viewport'
+    viewportMeta.setAttribute('name', 'viewport')
     document.head.appendChild(viewportMeta)
   }
   
@@ -29,12 +29,12 @@ const setThemeColorMeta = () => {
   
   if (!themeColorMeta) {
     themeColorMeta = document.createElement('meta')
-    themeColorMeta.name = 'theme-color'
+    themeColorMeta.setAttribute('name', 'theme-color')
     document.head.appendChild(themeColorMeta)
   }
   
   // Set theme color to match your primary color
-  themeColorMeta.setAttribute('content', '#6366f1') // Adjust to match your primary color
+  themeColorMeta.setAttribute('content', '#f97316') // Adjust to match your primary color
 }
 
 // Set up meta tags

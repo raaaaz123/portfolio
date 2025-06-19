@@ -1,4 +1,5 @@
-import { FiGithub, FiLinkedin, FiMail, FiHeart } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { FiGithub, FiLinkedin, FiMail, FiHeart, FiArrowUp } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 
 const Footer = () => {
@@ -66,12 +67,25 @@ const Footer = () => {
             </nav>
             <div className="flex items-center text-gray-600 text-xs sm:text-sm text-center md:text-right">
               <p>
-                Built with <FiHeart className="inline text-primary mx-1" /> by {personalInfo.name} using React, TypeScript & Tailwind
+                © {currentYear} <FiHeart className="inline text-primary mx-1" /> by {personalInfo.name} using React, TypeScript & Tailwind
               </p>
             </div>
           </div>
         </div>
       </div>
+      
+      {/* Back to top button */}
+      <motion.a
+        href="#home"
+        className="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors z-50"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        aria-label="Back to top"
+      >
+        <FiArrowUp size={20} />
+      </motion.a>
     </footer>
   );
 };

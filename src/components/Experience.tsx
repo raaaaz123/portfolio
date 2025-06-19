@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { experiences } from '../data/experience';
-import { FiBriefcase, FiCalendar, FiClock, FiExternalLink } from 'react-icons/fi';
+import { FiBriefcase, FiExternalLink } from 'react-icons/fi';
 
 const Experience = () => {
   return (

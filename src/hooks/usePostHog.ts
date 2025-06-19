@@ -1,4 +1,3 @@
-import posthog from 'posthog-js'
 import { usePostHog } from 'posthog-js/react'
 
 export const useAnalytics = () => {

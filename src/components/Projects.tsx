@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode, FiArrowRight } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode } from 'react-icons/fi';
 import { projects } from '../data/projects';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -45,27 +45,9 @@ const customCarouselStyles = `
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   
   // Separate featured projects
   const featuredProjects = projects.filter(project => project.featured);
-  
-  // All non-featured projects
-  const regularProjects = projects.filter(project => !project.featured);
-
-  // Check if mobile view
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkIfMobile);
-    };
-  }, []);
 
   const openProjectDetails = (projectId: number) => {
     setSelectedProject(projectId);

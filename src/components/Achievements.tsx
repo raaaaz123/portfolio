@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiAward, FiMapPin, FiCalendar, FiCode, FiInfo } from 'react-icons/fi';
+import { FiMapPin, FiCalendar } from 'react-icons/fi';
 import { achievements } from '../data/achievements';
 
 const Achievements = () => {

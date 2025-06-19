@@ -1,59 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiCode, FiServer, FiCloud, FiLayers, FiBriefcase } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 import useAnalytics from '../hooks/usePostHog';
-
-interface FloatingElementProps {
-  children: React.ReactNode;
-  delay?: number;
-  duration?: number;
-}
-
-const FloatingElement: React.FC<FloatingElementProps> = ({ children, delay = 0, duration = 20 }) => (
-  <motion.div
-    animate={{
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
-    }}
-    transition={{
-      duration: duration,
-      delay: delay,
-      repeat: Infinity,
-      ease: "easeInOut",
-    }}
-  >
-    {children}
-  </motion.div>
-);
-
-const ParticleField = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[...Array(50)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-primary-300/30 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -100, -200],
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 4,
-            repeat: Infinity,
-            delay: Math.random() * 5,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
 
 interface TypewriterTextProps {
   texts: string[];
@@ -97,6 +46,34 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
         |
       </motion.span>
     </span>
+  );
+};
+
+const ParticleField = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      {[...Array(50)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-primary-300/30 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -100, -200],
+            opacity: [0, 1, 0],
+            scale: [0, 1.5, 0],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 5,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
