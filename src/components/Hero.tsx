@@ -50,60 +50,33 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
   );
 };
 
-const CodeBlock = ({ code, className }: { code: string; className?: string }) => (
-  <motion.div
-    className={`bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 font-mono text-sm shadow-lg border border-gray-700/50 ${className}`}
-    initial={{ opacity: 0, scale: 0.8, rotateX: -15 }}
-    animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-    transition={{ duration: 0.8 }}
-  >
-    <div className="flex items-center gap-2 mb-2">
-      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+const BinaryRain = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute text-primary-300/20 font-mono text-xs"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: '-5%',
+          }}
+          animate={{
+            y: ['0vh', '105vh'],
+          }}
+          transition={{
+            duration: 6 + Math.random() * 8,
+            repeat: Infinity,
+            delay: Math.random() * 5,
+            ease: "linear",
+          }}
+        >
+          {Array.from({ length: 10 }, () => Math.round(Math.random())).join('')}
+        </motion.div>
+      ))}
     </div>
-    <pre className="overflow-hidden">
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: "100%" }}
-        transition={{ duration: 2, delay: 0.5 }}
-        className="overflow-hidden"
-      >
-        <code className="text-gray-100">
-          {code.split('\n').map((line, i) => (
-            <div key={i} className="line flex">
-              <span className="text-gray-500 opacity-50 w-6 text-right pr-2 select-none">{i + 1}</span>
-              <div className="flex-1">
-                {line.includes(':') ? (
-                  <>
-                    <span className="text-primary-300">{line.split(':')[0]}</span>
-                    <span className="text-gray-400">:</span>
-                    <span className="text-accent-blue">{line.split(':').slice(1).join(':')}</span>
-                  </>
-                ) : line.includes('function') || line.includes('class') || line.includes('const') ? (
-                  <>
-                    <span className="text-accent-blue">{line.split('(')[0]}</span>
-                    <span className="text-gray-300">
-                      {line.includes('(') ? `(${line.split('(')[1]}` : line.substring(line.split(' ')[0].length)}
-                    </span>
-                  </>
-                ) : line.includes('"') ? (
-                  <>
-                    <span className="text-gray-300">{line.split('"')[0]}</span>
-                    <span className="text-accent-green">"{line.split('"')[1]}"</span>
-                    <span className="text-gray-300">{line.split('"').slice(2).join('"')}</span>
-                  </>
-                ) : (
-                  <span className="text-gray-300">{line}</span>
-                )}
-              </div>
-            </div>
-          ))}
-        </code>
-      </motion.div>
-    </pre>
-  </motion.div>
-);
+  );
+};
 
 const FloatingIcons = () => {
   const icons = [
@@ -142,34 +115,6 @@ const FloatingIcons = () => {
           }}
         >
           <Icon size={24} className="text-primary-400/60" />
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-const BinaryRain = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute text-primary-300/20 font-mono text-xs"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: '-5%',
-          }}
-          animate={{
-            y: ['0vh', '105vh'],
-          }}
-          transition={{
-            duration: 6 + Math.random() * 8,
-            repeat: Infinity,
-            delay: Math.random() * 5,
-            ease: "linear",
-          }}
-        >
-          {Array.from({ length: 10 }, () => Math.round(Math.random())).join('')}
         </motion.div>
       ))}
     </div>
@@ -271,32 +216,6 @@ const Hero = () => {
   const handleResumeClick = () => {
     trackEvent('resume_view');
   };
-
-  const codeSnippets = [
-    `// Developer Profile
-const developer = {
-  name: "${personalInfo.name.split(' ')[0]}",
-  role: "Full Stack Developer",
-  skills: ["AI", "Web", "Mobile"],
-  status: "available"
-};`,
-    `// Building Solutions
-function createSolution(requirements) {
-  return innovation
-    .combine(technology)
-    .with(creativity)
-    .solve(requirements);
-}`,
-    `// Tech Stack
-class Developer {
-  constructor() {
-    this.frontend = ["React", "Next.js"];
-    this.backend = ["Node.js", "Python"];
-    this.ai = ["OpenAI", "TensorFlow"];
-    this.mobile = ["Flutter", "React Native"];
-  }
-}`
-  ];
 
   return (
     <section
