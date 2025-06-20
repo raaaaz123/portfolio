@@ -54,7 +54,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
     >
       <div className="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center">
         <a href="#home" className="flex items-center">
-          <span className="text-lg sm:text-xl font-bold text-gray-800">
+          <span className={`text-lg sm:text-xl font-bold ${
+            scrolled ? 'text-gray-800' : 'text-white'
+          }`}>
             {personalInfo.name.split(' ')[0]}
             <span className="text-primary">.</span>
           </span>
@@ -69,7 +71,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
               className={`text-sm px-2 py-1 rounded-md transition-colors ${
                 activeSection === link.href.substring(1)
                   ? 'text-primary font-medium'
-                  : 'text-gray-800 hover:text-primary'
+                  : scrolled 
+                    ? 'text-gray-800 hover:text-primary' 
+                    : 'text-white hover:text-primary-200'
               }`}
               onClick={() => setActiveSection(link.href.substring(1))}
             >
@@ -80,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-800 p-1"
+          className={`md:hidden p-1 ${scrolled ? 'text-gray-800' : 'text-white'}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >

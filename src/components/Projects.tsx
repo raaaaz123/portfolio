@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode } from 'react-icons/fi';
+import { FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode } from 'react-icons/fi';
 import { projects } from '../data/projects';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -266,18 +266,6 @@ const Projects = () => {
                   <FiInfo size={14} />
                   <span>Details</span>
                 </button>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-gray-700 hover:text-primary transition-colors text-sm"
-                    aria-label={`GitHub repository for ${project.title}`}
-                  >
-                    <FiGithub size={14} />
-                    <span>Code</span>
-                  </a>
-                )}
                 {project.live && (
                   <a
                     href={project.live}
@@ -371,17 +359,6 @@ const Projects = () => {
                 </div>
                 
                 <div className="flex flex-wrap gap-4">
-                  {selectedProjectData.github && (
-                    <a
-                      href={selectedProjectData.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
-                    >
-                      <FiGithub size={18} />
-                      <span>View Code</span>
-                    </a>
-                  )}
                   {selectedProjectData.live && (
                     <a
                       href={selectedProjectData.live}

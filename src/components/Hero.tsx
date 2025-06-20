@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiCode, FiServer, FiCloud, FiLayers, FiBriefcase } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiCode, FiServer, FiCloud, FiLayers, FiBriefcase, FiTerminal, FiDatabase, FiCpu, FiHardDrive } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 import useAnalytics from '../hooks/usePostHog';
+import { colors } from '../data/colors';
 
 interface TypewriterTextProps {
   texts: string[];
@@ -13,11 +14,11 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-  
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       const fullText = texts[currentIndex];
-      
+
       if (!isDeleting) {
         setCurrentText(fullText.substring(0, currentText.length + 1));
         if (currentText === fullText) {
@@ -31,10 +32,10 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
         }
       }
     }, isDeleting ? 50 : 100);
-    
+
     return () => clearTimeout(timeout);
   }, [currentText, isDeleting, currentIndex, texts]);
-  
+
   return (
     <span className={className}>
       {currentText}
@@ -46,6 +47,132 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
         |
       </motion.span>
     </span>
+  );
+};
+
+const CodeBlock = ({ code, className }: { code: string; className?: string }) => (
+  <motion.div
+    className={`bg-gray-900/90 backdrop-blur-sm rounded-lg p-4 font-mono text-sm shadow-lg border border-gray-700/50 ${className}`}
+    initial={{ opacity: 0, scale: 0.8, rotateX: -15 }}
+    animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+    transition={{ duration: 0.8 }}
+  >
+    <div className="flex items-center gap-2 mb-2">
+      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+    </div>
+    <pre className="overflow-hidden">
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: "100%" }}
+        transition={{ duration: 2, delay: 0.5 }}
+        className="overflow-hidden"
+      >
+        <code className="text-gray-100">
+          {code.split('\n').map((line, i) => (
+            <div key={i} className="line flex">
+              <span className="text-gray-500 opacity-50 w-6 text-right pr-2 select-none">{i + 1}</span>
+              <div className="flex-1">
+                {line.includes(':') ? (
+                  <>
+                    <span className="text-primary-300">{line.split(':')[0]}</span>
+                    <span className="text-gray-400">:</span>
+                    <span className="text-accent-blue">{line.split(':').slice(1).join(':')}</span>
+                  </>
+                ) : line.includes('function') || line.includes('class') || line.includes('const') ? (
+                  <>
+                    <span className="text-accent-blue">{line.split('(')[0]}</span>
+                    <span className="text-gray-300">
+                      {line.includes('(') ? `(${line.split('(')[1]}` : line.substring(line.split(' ')[0].length)}
+                    </span>
+                  </>
+                ) : line.includes('"') ? (
+                  <>
+                    <span className="text-gray-300">{line.split('"')[0]}</span>
+                    <span className="text-accent-green">"{line.split('"')[1]}"</span>
+                    <span className="text-gray-300">{line.split('"').slice(2).join('"')}</span>
+                  </>
+                ) : (
+                  <span className="text-gray-300">{line}</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </code>
+      </motion.div>
+    </pre>
+  </motion.div>
+);
+
+const FloatingIcons = () => {
+  const icons = [
+    { Icon: FiCode, delay: 0 },
+    { Icon: FiDatabase, delay: 0.5 },
+    { Icon: FiServer, delay: 1 },
+    { Icon: FiCpu, delay: 1.5 },
+    { Icon: FiCloud, delay: 2 },
+    { Icon: FiHardDrive, delay: 2.5 },
+    { Icon: FiTerminal, delay: 3 },
+    { Icon: FiLayers, delay: 3.5 },
+  ];
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {icons.map(({ Icon, delay }, index) => (
+        <motion.div
+          key={index}
+          className="absolute"
+          style={{
+            left: `${10 + (index * 12)}%`,
+            top: `${20 + Math.sin(index) * 30}%`,
+          }}
+          initial={{ opacity: 0, y: 100, rotate: -180 }}
+          animate={{ 
+            opacity: [0, 0.6, 0],
+            y: [-100, -200, -300],
+            rotate: [0, 180, 360],
+            scale: [0.5, 1, 0.5]
+          }}
+          transition={{
+            duration: 16,
+            delay: delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <Icon size={24} className="text-primary-400/60" />
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+const BinaryRain = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute text-primary-300/20 font-mono text-xs"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: '-5%',
+          }}
+          animate={{
+            y: ['0vh', '105vh'],
+          }}
+          transition={{
+            duration: 6 + Math.random() * 8,
+            repeat: Infinity,
+            delay: Math.random() * 5,
+            ease: "linear",
+          }}
+        >
+          {Array.from({ length: 10 }, () => Math.round(Math.random())).join('')}
+        </motion.div>
+      ))}
+    </div>
   );
 };
 
@@ -66,7 +193,7 @@ const ParticleField = () => {
             scale: [0, 1.5, 0],
           }}
           transition={{
-            duration: 3 + Math.random() * 4,
+            duration: 6 + Math.random() * 8,
             repeat: Infinity,
             delay: Math.random() * 5,
             ease: "easeOut",
@@ -77,11 +204,40 @@ const ParticleField = () => {
   );
 };
 
+const GridPattern = () => (
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `
+        linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)
+      `,
+      backgroundSize: '50px 50px'
+    }} />
+  </div>
+);
+
+const CircuitPattern = () => (
+  <div className="absolute inset-0 opacity-5">
+    <svg className="w-full h-full" viewBox="0 0 1000 1000">
+      <defs>
+        <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <path d="M20 20h60v60h-60z" fill="none" stroke="currentColor" strokeWidth="1" />
+          <circle cx="20" cy="20" r="2" fill="currentColor" />
+          <circle cx="80" cy="20" r="2" fill="currentColor" />
+          <circle cx="20" cy="80" r="2" fill="currentColor" />
+          <circle cx="80" cy="80" r="2" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#circuit)" className="text-primary-400" />
+    </svg>
+  </div>
+);
+
 const Hero = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const { trackEvent } = useAnalytics();
-  
+
   const rotateX = useTransform(mouseY, [-300, 300], [5, -5]);
   const rotateY = useTransform(mouseX, [-300, 300], [-5, 5]);
 
@@ -116,100 +272,131 @@ const Hero = () => {
     trackEvent('resume_view');
   };
 
+  const codeSnippets = [
+    `// Developer Profile
+const developer = {
+  name: "${personalInfo.name.split(' ')[0]}",
+  role: "Full Stack Developer",
+  skills: ["AI", "Web", "Mobile"],
+  status: "available"
+};`,
+    `// Building Solutions
+function createSolution(requirements) {
+  return innovation
+    .combine(technology)
+    .with(creativity)
+    .solve(requirements);
+}`,
+    `// Tech Stack
+class Developer {
+  constructor() {
+    this.frontend = ["React", "Next.js"];
+    this.backend = ["Node.js", "Python"];
+    this.ai = ["OpenAI", "TensorFlow"];
+    this.mobile = ["Flutter", "React Native"];
+  }
+}`
+  ];
+
   return (
-    <section 
-      id="home" 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16 bg-gradient-to-br from-primary-50 via-white to-primary-50"
+    <section
+      id="home"
+      className="h-screen flex items-center justify-center relative overflow-hidden pt-16 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"
       onMouseMove={handleMouseMove}
     >
-      {/* Enhanced animated background */}
+      {/* Circuit board background */}
+      <CircuitPattern />
+
+      {/* Grid pattern */}
+      <GridPattern />
+
+      {/* Enhanced animated background with tech elements */}
       <motion.div
         className="absolute inset-0 z-0"
         animate={{
           background: [
-            'radial-gradient(circle at 30% 20%, #fff7ed 0%, #ffedd5 30%, #fff7ed 70%)',
-            'radial-gradient(circle at 70% 60%, #fff7ed 0%, #fed7aa 40%, #fff7ed 70%)',
-            'radial-gradient(circle at 40% 80%, #ffedd5 0%, #fff7ed 40%, #fed7aa 70%)',
-            'radial-gradient(circle at 60% 30%, #fed7aa 0%, #fff7ed 40%, #ffedd5 70%)',
+            `radial-gradient(circle at 30% 20%, ${colors.primary[500]}10 0%, ${colors.accent.blue}0D 30%, transparent 70%)`,
+            `radial-gradient(circle at 70% 60%, ${colors.accent.blue}10 0%, ${colors.primary[500]}0D 40%, transparent 70%)`,
+            `radial-gradient(circle at 40% 80%, ${colors.accent.green}14 0%, ${colors.accent.blue}0D 40%, transparent 70%)`,
+            `radial-gradient(circle at 60% 30%, ${colors.accent.blue}10 0%, ${colors.accent.green}14 40%, transparent 70%)`,
           ]
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Animated geometric shapes */}
+      {/* Tech-themed geometric shapes */}
       <div className="absolute inset-0 z-10">
         <motion.div
-          className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-gradient-to-r from-primary-100/20 to-primary-200/10 blur-3xl"
+          className={`absolute top-1/4 right-1/4 w-48 h-48 rounded-lg bg-gradient-to-r from-primary-400/10 to-accent-blue/10 blur-2xl`}
           animate={{
             scale: [1, 1.2, 1],
+            rotate: [0, 45, 0],
             x: [0, 30, 0],
             y: [0, -30, 0],
           }}
           transition={{
-            duration: 15,
+            duration: 25,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
         <motion.div
-          className="absolute bottom-1/3 left-1/5 w-72 h-72 rounded-full bg-gradient-to-r from-primary-200/10 to-primary-100/20 blur-3xl"
+          className={`absolute bottom-1/3 left-1/5 w-56 h-56 rounded-lg bg-gradient-to-r from-accent-green/10 to-primary-400/10 blur-2xl`}
           animate={{
             scale: [1, 0.8, 1],
+            rotate: [0, -30, 0],
             x: [0, -20, 0],
             y: [0, 40, 0],
           }}
           transition={{
-            duration: 20,
+            duration: 30,
             repeat: Infinity,
             ease: "easeInOut"
           }}
         />
+        
+        {/* Hexagonal tech shapes */}
         <motion.div
-          className="absolute top-1/2 left-1/3 w-48 h-48 rounded-full bg-gradient-to-r from-primary-100/30 to-primary-200/5 blur-2xl"
+          className="absolute top-1/3 left-1/4 w-24 h-24"
           animate={{
             rotate: [0, 360],
             scale: [0.8, 1, 0.8],
           }}
           transition={{
-            duration: 25,
+            duration: 35,
             repeat: Infinity,
             ease: "linear"
           }}
-        />
+        >
+          <div className="w-full h-full bg-gradient-to-r from-primary-500/20 to-accent-blue/20 clip-polygon-hexagon blur-sm"></div>
+        </motion.div>
       </div>
+
+      {/* Binary rain effect */}
+      <BinaryRain />
+
+      {/* Floating tech icons */}
+      <FloatingIcons />
 
       {/* Enhanced particle field */}
       <ParticleField />
 
-      <div className="container mx-auto px-4 py-8 md:py-16 relative z-30">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Main Content - take up more space on larger screens */}
+      <div className="container mx-auto px-4 py-4 md:py-8 relative z-30">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 items-center">
+          {/* Main Content */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* Open to Work Status */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
-              className="mb-6 relative"
+              className="mb-4 relative"
             >
-              <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm shadow-sm border border-gray-200/50 rounded-full px-4 py-2">
-                <div className="relative">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <motion.div
-                    className="absolute inset-0 w-3 h-3 bg-green-500 rounded-full"
-                    animate={{
-                      scale: [1, 1.8, 1],
-                      opacity: [1, 0, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
-                <span className="text-gray-700 font-medium text-sm">Open to Work</span>
-                <FiBriefcase className="text-gray-500" size={16} />
+              <div className="flex items-center gap-3 bg-gray-800/90 backdrop-blur-sm shadow-lg border border-gray-700/50 rounded-full px-4 py-1.5 relative">
+                <div className="w-3 h-3 rounded-full green-glow"></div>
+                <span className="text-gray-100 font-medium text-sm">Open to Work</span>
+                <FiBriefcase className="text-gray-300" size={14} />
+            
               </div>
             </motion.div>
 
@@ -218,9 +405,9 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mb-4"
+              className="mb-3"
             >
-              <span className="inline-block px-6 py-2 bg-primary-100/80 backdrop-blur-sm text-primary-700 rounded-full text-sm font-medium border border-primary-200/50 shadow-sm">
+              <span className="inline-block px-5 py-1.5 bg-gradient-to-r from-primary-500/20 to-accent-blue/20 backdrop-blur-sm text-primary-300 rounded-full text-xs font-medium border border-primary-400/30 shadow-lg">
                 {personalInfo.title}
               </span>
             </motion.div>
@@ -230,10 +417,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3"
             >
-              Hi, I'm <span className="text-primary">{personalInfo.name.split(' ')[0]}</span>
-              <span className="text-gray-800">.</span>
+              Hi, I'm <span className="text-primary-400">{personalInfo.name}</span>
+              <span className="text-primary-400">.</span>
             </motion.h1>
 
             {/* Dynamic Subtitle */}
@@ -241,23 +428,23 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-xl sm:text-2xl md:text-3xl text-gray-600 mb-8"
+              className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-5"
             >
               <span>I build </span>
-              <TypewriterText 
+              <TypewriterText
                 texts={rotatingTexts}
-                className="text-primary font-bold"
+                className="text-primary-400 font-bold"
               />
             </motion.div>
 
-            {/* Bio - shortened for better fit */}
+            {/* Bio */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg text-gray-600 mb-8 max-w-2xl leading-relaxed"
+              className="text-base md:text-lg text-gray-400 mb-5 max-w-xl leading-relaxed"
             >
-              {personalInfo.bio.split('.').slice(0, 2).join('.')+'.'}
+              {personalInfo.bio.split('.').slice(0, 2).join('.') + '.'}
             </motion.p>
 
             {/* Action Buttons */}
@@ -265,28 +452,23 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto"
+              className="flex flex-col sm:flex-row gap-3 mb-5 w-full sm:w-auto"
             >
-              <motion.a 
-                href={personalInfo.resumeUrl} 
-                target="_blank" 
+              <motion.a
+                href={personalInfo.resumeUrl}
+                target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}
-                className="relative px-8 py-4 bg-primary text-white rounded-full font-bold text-center overflow-hidden group shadow-sm"
+                className="px-6 py-2.5 bg-primary-500 text-white rounded-full font-bold text-center shadow-lg hover:bg-primary-600 transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <motion.span 
-                  className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-                <span className="relative z-10">
-                  View Resume
-                </span>
+                View Resume
               </motion.a>
-              
-              <motion.a 
-                href="#contact" 
-                className="btn-secondary"
+
+              <motion.a
+                href="#contact"
+                className="px-6 py-2.5 bg-transparent border-2 border-gray-600 text-gray-300 rounded-full font-bold text-center hover:bg-gray-800 hover:border-gray-500 transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -299,7 +481,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-center space-x-6"
+              className="flex items-center space-x-4"
             >
               {socialLinks.map((link, index) => (
                 <motion.a
@@ -308,7 +490,7 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleSocialClick(link.name.toLowerCase())}
-                  className="text-gray-600 hover:text-primary transition-colors p-3 hover:bg-gray-100 rounded-full border border-gray-200 bg-white/80 backdrop-blur-sm"
+                  className="text-gray-400 hover:text-primary-400 transition-colors p-2 hover:bg-gray-800 rounded-full border border-gray-700 bg-gray-800/50 backdrop-blur-sm flex items-center justify-center w-10 h-10"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.9 }}
                   initial={{ opacity: 0, y: 20 }}
@@ -322,8 +504,8 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Expertise Card - take up less space on larger screens */}
-          <motion.div 
+          {/* Expertise Card */}
+          <motion.div
             initial={{ opacity: 0, x: 50, rotateY: -15 }}
             animate={{ opacity: 1, x: 0, rotateY: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
@@ -332,10 +514,10 @@ const Hero = () => {
               rotateY: rotateY,
               transformStyle: "preserve-3d",
             }}
-            className="lg:col-span-5 bg-white/90 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-gray-100 relative overflow-hidden"
+            className="lg:col-span-5 bg-gray-800/90 backdrop-blur-sm p-5 md:p-6 rounded-2xl shadow-2xl border border-gray-700/50 relative overflow-hidden"
           >
-            <motion.div 
-              className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-primary-100/30 to-primary-200/20 rounded-full blur-xl"
+            <motion.div
+              className="absolute -top-24 -right-24 w-40 h-40 bg-gradient-to-br from-primary-500/20 to-accent-blue/20 rounded-full blur-xl"
               animate={{
                 scale: [1, 1.2, 1],
                 rotate: [0, 45, 0],
@@ -348,41 +530,41 @@ const Hero = () => {
             />
 
             <div className="relative z-10">
-              <motion.h3 
-                className="text-2xl font-bold mb-6 text-gray-800"
+              <motion.h3
+                className="text-xl font-bold mb-4 text-white"
                 animate={{
                   textShadow: [
-                    '0 0 1px rgba(0,0,0,0.1)',
-                    '0 0 2px rgba(0,0,0,0.2)',
-                    '0 0 1px rgba(0,0,0,0.1)',
+                    `0 0 10px ${colors.primary[500]}4D`,
+                    `0 0 20px ${colors.accent.blue}4D`,
+                    `0 0 10px ${colors.primary[500]}4D`,
                   ]
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 Expertise
               </motion.h3>
-              
-              <div className="space-y-5">
+
+              <div className="space-y-3">
                 {personalInfo.expertise.map((item, index) => (
                   <motion.div 
                     key={index}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.8 + (index * 0.1) }}
-                    className="flex items-start gap-4 group"
+                    className="flex items-center gap-3 group"
                   >
                     <motion.div 
-                      className="mt-1 p-2 bg-primary-50 rounded-lg"
+                      className="flex items-center justify-center p-1.5 bg-gradient-to-r from-primary-500/20 to-accent-blue/20 rounded-lg border border-primary-400/30"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
-                      <div className="text-primary-600">
+                      <div className="text-primary-400">
                         {expertiseIcons[index % expertiseIcons.length]}
                       </div>
                     </motion.div>
                     <div>
                       <motion.p 
-                        className="font-semibold text-gray-800 group-hover:text-primary transition-colors"
+                        className="font-semibold text-gray-200 group-hover:text-primary-400 transition-colors text-sm"
                         whileHover={{ x: 5 }}
                       >
                         {item}
@@ -391,18 +573,18 @@ const Hero = () => {
                   </motion.div>
                 ))}
               </div>
-              
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <h4 className="text-lg font-semibold text-gray-700 mb-4">Interests</h4>
+
+              <div className="mt-4 pt-4 border-t border-gray-700">
+                <h4 className="text-base font-semibold text-gray-300 mb-3">Interests</h4>
                 <div className="flex flex-wrap gap-2">
                   {personalInfo.interests.slice(0, 5).map((interest, index) => (
-                    <motion.span 
+                    <motion.span
                       key={index}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 1 + index * 0.1 }}
                       whileHover={{ scale: 1.1, y: -2 }}
-                      className="text-sm bg-primary-50 text-primary-700 px-3 py-1.5 rounded-full border border-primary-200 hover:bg-primary-100 transition-all cursor-default"
+                      className="text-xs bg-gradient-to-r from-primary-500/20 to-accent-blue/20 text-primary-300 px-2.5 py-1 rounded-full border border-primary-400/30 hover:bg-primary-500/30 transition-all cursor-default"
                     >
                       {interest}
                     </motion.span>
@@ -419,17 +601,17 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 hidden sm:block"
+        className="absolute bottom-5 left-1/2 transform -translate-x-1/2 hidden sm:block"
       >
-        <motion.a 
-          href="#about" 
+        <motion.a
+          href="#about"
           aria-label="Scroll down"
-          className="flex flex-col items-center gap-2 p-4 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200/50 hover:bg-gray-50 transition-all group shadow-sm"
+          className="flex flex-col items-center gap-1 p-2 bg-gray-800/80 backdrop-blur-sm rounded-full border border-gray-700/50 hover:bg-gray-700 transition-all group shadow-lg"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           whileHover={{ scale: 1.1 }}
         >
-          <FiArrowDown className="text-gray-600 group-hover:text-primary transition-colors" size={20} />
+          <FiArrowDown className="text-gray-400 group-hover:text-primary-400 transition-colors" size={16} />
           <span className="text-xs text-gray-500 font-medium">Scroll</span>
         </motion.a>
       </motion.div>

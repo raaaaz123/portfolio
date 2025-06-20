@@ -38,7 +38,7 @@ export const projects: Project[] = [
     title: "Bioly",
     description: "Link-in-bio platform for creators and businesses to automate services and bookings with the help of AI and automations. Streamlines scheduling, payments, and client interactions in one place.",
     image: "/images/projects/project1.jpg",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "AWS", "OpenAI", "Firebase"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Node.js", "AWS", "OpenAI", "Firebase", "MongoDB", "Redis", "Serverless", "WebSockets", "Stripe", "Razorpay", "Cashfree", "Google APIs", "Twilio", "Cloudflare"],
     live: "https://bioly.link",
     github: "https://github.com/yourusername/bioly",
     featured: true,
@@ -50,68 +50,154 @@ export const projects: Project[] = [
       "📧 Email Service for reminders and engagement",
       "📅 Google Calendar Integration for scheduling",
       "📹 Google Meet API and Zoom Video Call API for virtual meetings",
-      "💳 Payment integrations with Razorpay and Cashfree",
-      "☁️ AWS for hosting & backend services",
-      "🌐 Cloudflare for security and performance"
+      "💳 Payment integrations with Razorpay, Stripe and Cashfree",
+      "☁️ AWS for hosting & backend services with serverless architecture",
+      "🌐 Cloudflare for security, performance and edge functions",
+      "📊 Real-time analytics with MongoDB and Redis caching",
+      "🔄 WebSocket connections for live updates and notifications"
     ]
   },
   {
     id: 2,
-    title: "Snapzy App",
-    description: "AI avatar e-commerce platform allowing users to create custom avatars and purchase physical products with their avatars.",
-    image: "/images/projects/project1.jpg",
-    tags: ["Kotlin", "Android", "MVVM", "Firebase", "LLMs"],
-    github: "https://github.com/yourusername/snapzy-app",
-    live: "https://play.google.com/store/apps/details?id=com.snapzy.app"
+    title: "Dietly AI Nutrition & Calorie Tracker",
+    description: "Transform your health journey with Dietly AI – the intelligent calorie counter and meal plan app that makes tracking food and fitness as easy as snapping a photo. Uses computer vision and AI to identify foods, calculate nutritional content, and provide personalized health recommendations with over 50,000+ users worldwide.",
+    image: "/images/projects/project2.jpg",
+    tags: ["Flutter", "Dart", "Firebase", "OpenAI", "Vertex AI", "Hive", "TensorFlow Lite", "Google ML Kit", "Cloud Functions", "FCM", "Stripe", "RevenueCat", "Health APIs"],
+    github: "https://github.com/yourusername/dietly-ai",
+    live: "https://play.google.com/store/apps/details?id=com.dietly.app",
+    featured: true,
+    features: [
+      "📸 Advanced photo-based food recognition using custom-trained ML models",
+      "🍽️ Smart meal planning with AI recommendations based on nutritional goals",
+      "💪 Fitness and workout integration with activity tracking",
+      "📊 Comprehensive nutrition analytics and health insights dashboard",
+      "🧠 Powered by OpenAI and Vertex AI models for food identification",
+      "📱 Cross-platform mobile experience with Flutter and material design",
+      "🔄 Offline capabilities with Hive local database for seamless experience",
+      "🔔 Smart reminders and notifications via Firebase Cloud Messaging",
+      "💳 Subscription management with Stripe and RevenueCat integration",
+      "🔒 Secure health data storage with end-to-end encryption"
+    ]
   },
   {
     id: 3,
-    title: "Snapzy Web",
-    description: "Web platform for designing custom phone cases with AI-generated designs and user uploads.",
-    image: "/images/projects/project2.jpg",
-    tags: ["React", "TypeScript", "Next.js", "AWS"],
-    github: "https://github.com/yourusername/snapzy-web",
-    live: "https://snapzy.com",
-    featured: true,
+    title: "Snapzy App",
+    description: "AI avatar e-commerce platform allowing users to create custom avatars and purchase physical products with their avatars. Utilizes fine-tuned LoRA models for instant ID image generation with personalized styles.",
+    image: "/images/projects/project1.jpg",
+    tags: ["Kotlin", "Android", "MVVM", "Firebase", "LLMs", "LoRA", "Stable Diffusion", "AWS", "CloudFront", "WhatsApp API", "FCM", "Cloud Functions"],
+    github: "https://github.com/yourusername/snapzy-app",
+    live: "https://play.google.com/store/apps/details?id=com.genai.aiphotoeditor&hl=en_IN",
     features: [
-      "🎨 AI-powered design generation for phone cases",
-      "📱 Custom phone case creation workflow",
-      "🖼️ User image upload and editing capabilities",
-      "🛒 E-commerce integration with secure checkout",
-      "📊 User analytics and behavior tracking",
-      "🔄 Seamless mobile-to-web experience"
+      "🖼️ Custom avatar generation with fine-tuned LoRA models",
+      "🎨 Multiple AI style options using Stable Diffusion variants",
+      "☁️ AWS S3 and CloudFront for image storage and CDN delivery",
+      "📱 Firebase Cloud Messaging for real-time push notifications",
+      "🔄 WhatsApp Cloud API integration for order tracking updates",
+      "⚡ Serverless cloud functions for AI processing tasks",
+      "🛒 Seamless e-commerce integration with secure checkout",
+      "📊 User behavior analytics and personalization"
     ]
   },
   {
     id: 4,
-    title: "Lattice App",
-    description: "Secure social networking app for colleges with end-to-end encryption and event management features.",
-    image: "/images/projects/project3.jpg",
-    tags: ["Kotlin", "Android", "Firebase", "Encryption"],
-    github: "https://github.com/yourusername/lattice-app"
+    title: "Snapzy Web",
+    description: "Web platform for designing custom phone cases with AI-generated designs and user uploads. Features advanced image processing and a seamless ordering experience.",
+    image: "/images/projects/project2.jpg",
+    tags: ["React", "TypeScript", "Next.js", "AWS", "CloudFront", "Stable Diffusion", "LoRA", "WhatsApp API", "Serverless", "Cloud Functions", "Tailwind CSS"],
+    github: "https://github.com/yourusername/snapzy-web",
+    live: "https://snapzy.in",
+    featured: true,
+    features: [
+      "🎨 AI-powered design generation for phone cases using custom LoRA models",
+      "🖼️ Fine-tuned Stable Diffusion models for instant ID image generation",
+      "📱 Custom phone case creation workflow with live preview",
+      "🔄 WhatsApp Cloud API for order notifications and tracking updates",
+      "☁️ AWS S3 and CloudFront for optimized image storage and delivery",
+      "⚡ Serverless cloud functions for handling AI processing workloads",
+      "🛒 E-commerce integration with secure checkout process",
+      "📊 User analytics and behavior tracking for personalization",
+      "🔄 Seamless mobile-to-web experience with shared user accounts"
+    ]
   },
   {
     id: 5,
-    title: "M FLIX OTT App",
-    description: "Video streaming platform with ExoPlayer integration, content management, and subscription features.",
-    image: "/images/projects/project4.jpg",
-    tags: ["Java", "Android", "ExoPlayer", "Firebase"],
-    github: "https://github.com/yourusername/m-flix"
+    title: "Lattice App",
+    description: "Secure social networking app for colleges with end-to-end encryption and event management features. Built for TKMCE college with 5,000+ active users, featuring secure messaging, event organization, and campus-wide announcements.",
+    image: "/images/projects/project3.jpg",
+    tags: ["Kotlin", "Java", "Android", "Firebase", "End-to-End Encryption", "AES Cipher", "FCM", "Room DB", "MVVM", "Coroutines", "Jetpack"],
+    github: "https://github.com/yourusername/lattice-app",
+    live: "https://play.google.com/store/apps/details?id=com.tkmce.latticeapp&hl=en_IN",
+    features: [
+      "🔒 End-to-end encrypted messaging using custom AES cipher implementation",
+      "📱 Native Android development with Kotlin and Java",
+      "🔥 Firebase Realtime Database for instant message delivery",
+      "📅 Event management system for college activities and clubs",
+      "🔔 Push notifications with Firebase Cloud Messaging",
+      "💾 Offline data persistence with Room Database",
+      "🏗️ MVVM architecture with Jetpack components",
+      "⚡ Background processing with Kotlin Coroutines",
+      "👥 User authentication and profile management",
+      "📢 Campus-wide announcement system for administrators"
+    ]
   },
   {
     id: 6,
-    title: "Real Estate dApp",
-    description: "Decentralized application for real estate transactions using blockchain and NFTs. 2nd Place at Hack@Arch hackathon.",
-    image: "/images/projects/project1.jpg",
-    tags: ["Solidity", "React", "Web3", "NFTs"],
-    github: "https://github.com/yourusername/real-estate-dapp"
+    title: "M FLIX OTT App",
+    description: "Video streaming platform with ExoPlayer integration, content management, and subscription features. Serving 10,000+ users with secure video delivery, adaptive streaming, and premium content management.",
+    image: "/images/projects/project4.jpg",
+    tags: ["Java", "Android", "ExoPlayer", "Firebase", "AWS CloudFront", "HLS", "DASH", "DRM", "FCM", "Analytics", "Subscription"],
+    github: "https://github.com/yourusername/m-flix",
+    features: [
+      "🎬 Custom ExoPlayer implementation with advanced controls and features",
+      "🔐 DRM protection and anti-piracy measures for content security",
+      "📊 Adaptive streaming with HLS and DASH protocols for optimal quality",
+      "☁️ AWS CloudFront CDN integration for global content delivery",
+      "📱 Picture-in-picture and background playback capabilities",
+      "💳 In-app subscription management and premium content access",
+      "📊 User analytics and content recommendation engine",
+      "🔔 Push notifications for new content and personalized recommendations",
+      "📋 Content categorization and advanced search functionality",
+      "📶 Offline download capabilities for premium subscribers"
+    ]
   },
   {
     id: 7,
+    title: "Real Estate dApp",
+    description: "Decentralized application for real estate transactions using blockchain and NFTs. 2nd Place at Hack@Arch hackathon. Enables secure property transfers, transparent ownership records, and reduced transaction costs through smart contracts.",
+    image: "/images/projects/project1.jpg",
+    tags: ["Solidity", "React", "Web3", "NFTs", "Ethereum", "IPFS", "Flutter", "NFC", "MetaMask", "Hardhat", "Truffle", "Smart Contracts", "ERC-721"],
+    github: "https://github.com/yourusername/real-estate-dapp",
+    features: [
+      "🏢 Tokenization of real estate properties as NFTs using ERC-721 standard",
+      "📱 Cross-platform mobile app built with Flutter for property browsing",
+      "📲 NFC integration for physical property verification and access",
+      "⛓️ Smart contracts for automated escrow, payments, and ownership transfer",
+      "🔐 Secure property documentation storage using IPFS decentralized storage",
+      "💰 Fractional ownership capabilities for investment opportunities",
+      "🔍 Transparent transaction history and ownership records on blockchain",
+      "📊 Real-time property valuation using oracle price feeds",
+      "🔄 MetaMask integration for secure wallet connectivity",
+      "📜 Legal compliance framework for digital property transfers"
+    ]
+  },
+  {
+    id: 8,
     title: "Farmers Auction App",
-    description: "Platform connecting farmers directly to buyers through a bidding system. 2nd Place at Latency Hackathon.",
+    description: "Platform connecting farmers directly to buyers through a bidding system. 2nd Place at Latency Hackathon. Eliminates middlemen, increases farmer profits by 25%, and provides real-time market price data for agricultural produce.",
     image: "/images/projects/project2.jpg",
-    tags: ["Flutter", "Dart", "Firebase", "Google Maps"],
-    github: "https://github.com/yourusername/farmers-auction"
+    tags: ["Java", "Android", "Firebase", "Google Maps", "Real-time Database", "FCM", "Location Services", "Payment Gateway", "Material Design", "Analytics"],
+    github: "https://github.com/yourusername/farmers-auction",
+    features: [
+      "🧑‍🌾 Direct farmer-to-buyer marketplace eliminating middlemen",
+      "🔔 Real-time bidding system with instant notifications via FCM",
+      "🗺️ Google Maps integration for farm and pickup location tracking",
+      "📊 Live market price analytics for informed pricing decisions",
+      "📱 Native Android development with Java and Material Design",
+      "🔥 Firebase Realtime Database for instant bid updates and chat",
+      "📅 Scheduling system for produce pickup and delivery",
+      "💰 Secure payment gateway integration for transactions",
+      "🚚 Logistics coordination for bulk produce transportation",
+      "📈 Performance analytics and reporting for farmers and buyers"
+    ]
   }
 ]; 

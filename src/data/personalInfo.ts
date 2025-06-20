@@ -1,5 +1,5 @@
 export const personalInfo = {
-  name: "Rasheed Maliyekkal",
+  name: "Rasheed M",
   title: "Full-Stack Developer | AI & SaaS Specialist",
   tagline: "Building future-ready digital experiences with AI-powered solutions.",
   bio: "Full-stack engineer with 2+ years of experience crafting innovative mobile, web, and AI-driven applications. Specialized in developing SaaS platforms, AI integrations, and scalable cloud solutions using Next Js, Java, Flutter, React, TypeScript, Cursor, Claude, Vertex Ai, Open Ai Models, and modern cloud infrastructure.",

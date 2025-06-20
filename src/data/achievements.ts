@@ -29,5 +29,15 @@ export const achievements: Achievement[] = [
     projectName: "Farmers' Community Auction App",
     description: "Android app for farmers to auction bulk produce in real-time. Included bidding system and live tracking for buyers.",
     technologies: ["Android", "Firebase", "Java", "Real-time Database"]
+  },
+  {
+    id: "magnathon",
+    eventName: "Magnathon",
+    location: "GEC Vadakara IEDC",
+    year: 2023,
+    prize: "3rd Place – Hackathon",
+    projectName: "Local Vendor Sales & Delivery App",
+    description: "Mobile app connecting local vendors with customers to promote and track local products. Integrated native delivery system for efficient last-mile delivery.",
+    technologies: ["Flutter", "Firebase", "Google Maps API", "Real-time Tracking", "Payment Gateway"]
   }
 ]; 
