@@ -220,7 +220,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="h-screen flex items-center justify-center relative overflow-hidden pt-16 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"
+      className="h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 md:pt-16 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800"
       onMouseMove={handleMouseMove}
     >
       {/* Circuit board background */}
@@ -309,7 +309,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.8, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
-              className="mb-4 relative"
+              className="mt-8 sm:mt-12 md:mt-0 mb-4 relative"
             >
               <div className="flex items-center gap-3 bg-gray-800/90 backdrop-blur-sm shadow-lg border border-gray-700/50 rounded-full px-4 py-1.5 relative">
                 <div className="w-3 h-3 rounded-full green-glow"></div>

@@ -29,20 +29,20 @@ const Education = () => {
                 type: "spring",
                 stiffness: 100
               }}
-              className={`relative mb-16 last:mb-0 ${
+              className={`relative mb-8 sm:mb-16 last:mb-0 ${
                 index % 2 === 0 ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0'
-              } md:w-4/5`}
+              } w-full md:w-4/5`}
             >
               {/* Decorative elements */}
               <div className="absolute left-0 top-0 w-1 h-full bg-primary rounded-full hidden md:block"></div>
               <div className="absolute left-0 top-0 w-3 h-3 bg-primary rounded-full transform -translate-x-1 hidden md:block"></div>
               <div className="absolute left-0 bottom-0 w-3 h-3 bg-primary rounded-full transform -translate-x-1 hidden md:block"></div>
               
-              <div className="ml-6 md:ml-10">
-                <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-primary">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+              <div className="ml-0 md:ml-10">
+                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-primary">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 sm:mb-4">
                     <motion.h3 
-                      className="text-2xl font-bold text-gray-900"
+                      className="text-xl sm:text-2xl font-bold text-gray-900"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
@@ -52,35 +52,35 @@ const Education = () => {
                     </motion.h3>
                     
                     <motion.div
-                      className="flex items-center mt-2 md:mt-0"
+                      className="flex items-center mt-1 md:mt-0"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: (index * 0.2) + 0.4 }}
                     >
-                      <FiCalendar className="text-primary mr-2" />
-                      <span className="text-gray-600 font-medium">{item.period}</span>
+                      <FiCalendar className="text-primary mr-2" size={14} />
+                      <span className="text-sm sm:text-base text-gray-600 font-medium">{item.period}</span>
                     </motion.div>
                   </div>
                   
                   <motion.div 
-                    className="flex items-center mb-4"
+                    className="flex items-center mb-3 sm:mb-4"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index * 0.2) + 0.5 }}
                   >
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
-                      <FiMapPin className="text-primary" size={24} />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mr-3 sm:mr-4">
+                      <FiMapPin className="text-primary" size={20} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-semibold text-gray-800">{item.institution}</h4>
+                      <h4 className="text-lg sm:text-xl font-semibold text-gray-800">{item.institution}</h4>
                     </div>
                   </motion.div>
                   
                   {item.description && (
                     <motion.p 
-                      className="text-gray-700 bg-primary-50 p-4 rounded-md border-l-2 border-primary/30"
+                      className="text-sm sm:text-base text-gray-700 bg-primary-50 p-3 sm:p-4 rounded-md border-l-2 border-primary/30"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -91,15 +91,15 @@ const Education = () => {
                   )}
                   
                   <motion.div 
-                    className="mt-6 flex justify-end"
+                    className="mt-4 sm:mt-6 flex justify-end"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: (index * 0.2) + 0.7 }}
                   >
                     <div className="flex items-center">
-                      <FiBookOpen className="text-primary mr-2" size={18} />
-                      <span className="text-sm font-medium text-primary">Education</span>
+                      <FiBookOpen className="text-primary mr-2" size={16} />
+                      <span className="text-xs sm:text-sm font-medium text-primary">Education</span>
                     </div>
                   </motion.div>
                 </div>

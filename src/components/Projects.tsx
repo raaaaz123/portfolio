@@ -8,21 +8,23 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 // Add custom CSS to fix carousel styling
 const customCarouselStyles = `
   .featured-carousel .carousel .slide {
-    padding: 0 30px;
+    padding: 0 10px;
     box-sizing: border-box;
   }
   
   .featured-carousel .carousel .control-dots {
-    margin: 20px 0 0;
+    margin: 0;
+    padding: 16px 0;
     position: relative;
     display: flex;
     justify-content: center;
     gap: 8px;
+    bottom: 0;
   }
   
   .featured-carousel .carousel .control-dots .dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     box-shadow: none;
     background: #e2e8f0;
     opacity: 1;
@@ -33,12 +35,15 @@ const customCarouselStyles = `
   }
   
   .featured-carousel .carousel-root {
-    padding: 0 40px;
+    padding: 0;
   }
   
   @media (min-width: 768px) {
     .featured-carousel .carousel-root {
-      padding: 0 60px;
+      padding: 0;
+    }
+    .featured-carousel .carousel .slide {
+      padding: 0 30px;
     }
   }
 `;
@@ -101,7 +106,7 @@ const Projects = () => {
             {/* Featured Projects Carousel */}
             <div className="max-w-6xl mx-auto featured-carousel">
               <Carousel
-                showArrows={true}
+                showArrows={false}
                 infiniteLoop={true}
                 showThumbs={false}
                 showStatus={false}
@@ -112,67 +117,37 @@ const Projects = () => {
                 emulateTouch={true}
                 centerMode={false}
                 centerSlidePercentage={100}
-                renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                  hasPrev && (
-                    <button
-                      type="button"
-                      onClick={onClickHandler}
-                      title={label}
-                      className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-md hover:bg-primary-50 transition-colors"
-                    >
-                      <span className="sr-only">Previous</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg>
-                    </button>
-                  )
-                }
-                renderArrowNext={(onClickHandler, hasNext, label) =>
-                  hasNext && (
-                    <button
-                      type="button"
-                      onClick={onClickHandler}
-                      title={label}
-                      className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full p-3 shadow-md hover:bg-primary-50 transition-colors"
-                    >
-                      <span className="sr-only">Next</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-800">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg>
-                    </button>
-                  )
-                }
               >
                 {featuredProjects.map((project) => (
-                  <div key={project.id} className="px-4 py-6">
+                  <div key={project.id} className="px-2 py-3 sm:px-4 sm:py-6">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5 }}
-                      className="bg-white border border-primary-200 rounded-xl p-6 md:p-8 shadow-md h-full max-w-3xl mx-auto"
+                      className="bg-white border border-primary-200 rounded-xl p-4 sm:p-6 md:p-8 shadow-md h-full max-w-3xl mx-auto"
                     >
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-2xl font-bold text-gray-800">{project.title}</h3>
-                        <span className="bg-primary/10 p-2 rounded-full">
-                          <FiStar className="text-primary" size={18} />
+                      <div className="flex items-center justify-between mb-3 sm:mb-4">
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{project.title}</h3>
+                        <span className="bg-primary/10 p-1.5 sm:p-2 rounded-full">
+                          <FiStar className="text-primary" size={16} />
                         </span>
                       </div>
                       
-                      <p className="text-gray-600 mb-6 line-clamp-3">{project.description}</p>
+                      <p className="text-gray-600 mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-sm sm:text-base">{project.description}</p>
                       
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tags.slice(0, 5).map((tag) => (
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
+                        {project.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 bg-primary-50 rounded-full text-sm font-medium text-primary-700"
+                            className="px-2 sm:px-3 py-0.5 sm:py-1 bg-primary-50 rounded-full text-xs sm:text-sm font-medium text-primary-700"
                           >
                             {tag}
                           </span>
                         ))}
-                        {project.tags.length > 5 && (
-                          <span className="px-3 py-1 bg-primary-50 rounded-full text-sm font-medium text-primary-700">
-                            +{project.tags.length - 5}
+                        {project.tags.length > 3 && (
+                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-primary-50 rounded-full text-xs sm:text-sm font-medium text-primary-700">
+                            +{project.tags.length - 3}
                           </span>
                         )}
                       </div>
