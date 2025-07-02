@@ -64,7 +64,7 @@ export const projects: Project[] = [
     image: "/images/projects/project2.jpg",
     tags: ["Flutter", "Dart", "Firebase", "OpenAI", "Vertex AI", "Hive", "TensorFlow Lite", "Google ML Kit", "Cloud Functions", "FCM", "Stripe", "RevenueCat", "Health APIs"],
     github: "https://github.com/yourusername/dietly-ai",
-    live: "https://play.google.com/store/apps/details?id=com.dietly.app",
+    live: "https://play.google.com/store/apps/details?id=com.rexa.nutrizenai",
     featured: true,
     features: [
       "📸 Advanced photo-based food recognition using custom-trained ML models",
