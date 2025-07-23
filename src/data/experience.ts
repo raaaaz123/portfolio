@@ -12,7 +12,7 @@ export const experiences: Experience[] = [
   {
     title: "Indie SaaS Developer",
     company: "Self-employed",
-    period: "2023–Present",
+    period: "2022–Present",
     type: "Full-time",
     description: [
       "Built and launched MakeMyFlyer.com, a profitable SaaS for automated design generation",
@@ -31,7 +31,7 @@ export const experiences: Experience[] = [
   {
     title: "Software Development Consultant",
     company: "Freelance",
-    period: "2022–2023",
+    period: "2020–2023",
     type: "Contract",
     description: [
       "Delivered custom software solutions for multiple clients",

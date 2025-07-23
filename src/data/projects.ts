@@ -14,6 +14,30 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 0,
+    title: "Rexa Hire AI",
+    description: "AI-powered hiring platform with agentic workflows for smart job pages, resume ranking, and real-time interviews. Features real-time coding test execution with live code editor and voice-based interviews using OpenAI and Eleven Labs APIs.",
+    image: "/images/projects/rexa-hire.jpg",
+    tags: ["Next.js", "TypeScript", "React", "OpenAI", "Eleven Labs", "WebRTC", "Node.js", "MongoDB", "Redis", "WebSockets", "AI Agents", "Voice AI", "Code Editor", "Real-time"],
+    live: "https://rexahire.com",
+    featured: true,
+    role: "Full-stack developer & AI Engineer",
+    features: [
+      "🤖 Agentic workflows for automated candidate screening and evaluation",
+      "📄 Smart job page generation with AI-powered content optimization",
+      "🎯 Advanced resume ranking using machine learning algorithms",
+      "🎤 Voice-based real-time interviews with Eleven Labs speech synthesis",
+      "💻 Real-time coding test execution with live code editor and evaluation",
+      "🧠 OpenAI integration for intelligent candidate assessment",
+      "⚡ WebSocket connections for real-time interview collaboration",
+      "📊 Comprehensive analytics dashboard for hiring insights",
+      "🔄 Automated workflow orchestration for end-to-end hiring process",
+      "🎯 Personalized candidate matching with AI-driven recommendations",
+      "📹 Video interview capabilities with WebRTC integration",
+      "🔒 Enterprise-grade security for sensitive hiring data"
+    ]
+  },
+  {
+    id: 1,
     title: "MakeMyFlyer.com",
     description: "Transform your products into AI-powered designs. Create stunning flyers, ads, and marketing materials in seconds with our AI design tool. Generate faceless videos and professional visuals without design skills.",
     image: "/images/projects/project1.jpg",
@@ -34,7 +58,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     title: "Bioly",
     description: "Link-in-bio platform for creators and businesses to automate services and bookings with the help of AI and automations. Streamlines scheduling, payments, and client interactions in one place.",
     image: "/images/projects/project1.jpg",
@@ -58,7 +82,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 2,
+    id: 3,
     title: "Dietly AI Nutrition & Calorie Tracker",
     description: "Transform your health journey with Dietly AI – the intelligent calorie counter and meal plan app that makes tracking food and fitness as easy as snapping a photo. Uses computer vision and AI to identify foods, calculate nutritional content, and provide personalized health recommendations with over 50,000+ users worldwide.",
     image: "/images/projects/project2.jpg",
@@ -80,7 +104,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 3,
+    id: 4,
     title: "Snapzy App",
     description: "AI avatar e-commerce platform allowing users to create custom avatars and purchase physical products with their avatars. Utilizes fine-tuned LoRA models for instant ID image generation with personalized styles.",
     image: "/images/projects/project1.jpg",
@@ -99,7 +123,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 4,
+    id: 5,
     title: "Snapzy Web",
     description: "Web platform for designing custom phone cases with AI-generated designs and user uploads. Features advanced image processing and a seamless ordering experience.",
     image: "/images/projects/project2.jpg",
@@ -120,7 +144,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 5,
+    id: 6,
     title: "Lattice App",
     description: "Secure social networking app for colleges with end-to-end encryption and event management features. Built for TKMCE college with 5,000+ active users, featuring secure messaging, event organization, and campus-wide announcements.",
     image: "/images/projects/project3.jpg",
@@ -141,7 +165,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 6,
+    id: 7,
     title: "M FLIX OTT App",
     description: "Video streaming platform with ExoPlayer integration, content management, and subscription features. Serving 10,000+ users with secure video delivery, adaptive streaming, and premium content management.",
     image: "/images/projects/project4.jpg",
@@ -161,7 +185,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 7,
+    id: 8,
     title: "Real Estate dApp",
     description: "Decentralized application for real estate transactions using blockchain and NFTs. 2nd Place at Hack@Arch hackathon. Enables secure property transfers, transparent ownership records, and reduced transaction costs through smart contracts.",
     image: "/images/projects/project1.jpg",
@@ -181,7 +205,7 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 8,
+    id: 9,
     title: "Farmers Auction App",
     description: "Platform connecting farmers directly to buyers through a bidding system. 2nd Place at Latency Hackathon. Eliminates middlemen, increases farmer profits by 25%, and provides real-time market price data for agricultural produce.",
     image: "/images/projects/project2.jpg",
