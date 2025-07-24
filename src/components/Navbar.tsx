@@ -49,31 +49,29 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-sm' : 'bg-transparent'
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200/50' 
+          : 'bg-white/80 backdrop-blur-sm'
       }`}
     >
-      <div className="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center">
-        <a href="#home" className="flex items-center">
-          <span className={`text-lg sm:text-xl font-bold ${
-            scrolled ? 'text-gray-800' : 'text-white'
-          }`}>
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#home" className="flex items-center group">
+          <span className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
             {personalInfo.name.split(' ')[0]}
-            <span className="text-primary">.</span>
+            <span className="text-primary-600">.</span>
           </span>
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-1 lg:space-x-6">
+        <nav className="hidden md:flex items-center space-x-2 lg:space-x-4">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className={`text-sm px-2 py-1 rounded-md transition-colors ${
+              className={`text-sm font-medium px-4 py-2 rounded-full transition-all duration-300 ${
                 activeSection === link.href.substring(1)
-                  ? 'text-primary font-medium'
-                  : scrolled 
-                    ? 'text-gray-800 hover:text-primary' 
-                    : 'text-white hover:text-primary-200'
+                  ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/25'
+                  : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
               }`}
               onClick={() => setActiveSection(link.href.substring(1))}
             >
@@ -84,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden p-1 ${scrolled ? 'text-gray-800' : 'text-white'}`}
+          className="md:hidden p-2 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-full transition-all duration-300"
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
@@ -94,16 +92,16 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <nav className="md:hidden bg-white shadow-lg py-3 absolute w-full max-h-[80vh] overflow-y-auto">
-          <div className="container mx-auto px-4 flex flex-col space-y-3">
+        <nav className="md:hidden bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-200/50 absolute w-full max-h-[80vh] overflow-y-auto">
+          <div className="container mx-auto px-4 py-6 flex flex-col space-y-2">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className={`py-2 px-3 rounded-md ${
+                className={`py-3 px-4 rounded-xl font-medium transition-all duration-300 ${
                   activeSection === link.href.substring(1)
-                    ? 'bg-primary/10 text-primary font-medium'
-                    : 'text-gray-800 hover:bg-primary-50'
+                    ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/25'
+                    : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
                 }`}
                 onClick={() => {
                   setIsMenuOpen(false);
