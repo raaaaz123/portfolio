@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiCode, FiServer, FiCloud, FiLayers, FiBriefcase, FiTerminal, FiDatabase, FiCpu, FiHardDrive } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { FiGithub, FiLinkedin, FiMail, FiArrowDown, FiCode, FiServer, FiCloud, FiLayers, FiBriefcase, FiDatabase } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 import useAnalytics from '../hooks/usePostHog';
-import { colors } from '../data/colors';
 
 interface TypewriterTextProps {
   texts: string[];
@@ -50,133 +49,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
   );
 };
 
-const BinaryRain = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute text-primary-300/20 font-mono text-xs"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: '-5%',
-          }}
-          animate={{
-            y: ['0vh', '105vh'],
-          }}
-          transition={{
-            duration: 6 + Math.random() * 8,
-            repeat: Infinity,
-            delay: Math.random() * 5,
-            ease: "linear",
-          }}
-        >
-          {Array.from({ length: 10 }, () => Math.round(Math.random())).join('')}
-        </motion.div>
-      ))}
-    </div>
-  );
-};
 
-const FloatingIcons = () => {
-  const icons = [
-    { Icon: FiCode, delay: 0 },
-    { Icon: FiDatabase, delay: 0.5 },
-    { Icon: FiServer, delay: 1 },
-    { Icon: FiCpu, delay: 1.5 },
-    { Icon: FiCloud, delay: 2 },
-    { Icon: FiHardDrive, delay: 2.5 },
-    { Icon: FiTerminal, delay: 3 },
-    { Icon: FiLayers, delay: 3.5 },
-  ];
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {icons.map(({ Icon, delay }, index) => (
-        <motion.div
-          key={index}
-          className="absolute"
-          style={{
-            left: `${10 + (index * 12)}%`,
-            top: `${20 + Math.sin(index) * 30}%`,
-          }}
-          initial={{ opacity: 0, y: 100, rotate: -180 }}
-          animate={{
-            opacity: [0, 0.6, 0],
-            y: [-100, -200, -300],
-            rotate: [0, 180, 360],
-            scale: [0.5, 1, 0.5]
-          }}
-          transition={{
-            duration: 16,
-            delay: delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <Icon size={24} className="text-primary-400/60" />
-        </motion.div>
-      ))}
-    </div>
-  );
-};
-
-const ParticleField = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {[...Array(50)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-primary-300/30 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            y: [0, -100, -200],
-            opacity: [0, 1, 0],
-            scale: [0, 1.5, 0],
-          }}
-          transition={{
-            duration: 6 + Math.random() * 8,
-            repeat: Infinity,
-            delay: Math.random() * 5,
-            ease: "easeOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
-const GridPattern = () => (
-  <div className="absolute inset-0 opacity-10">
-    <div className="absolute inset-0" style={{
-      backgroundImage: `
-        linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)
-      `,
-      backgroundSize: '50px 50px'
-    }} />
-  </div>
-);
-
-const CircuitPattern = () => (
-  <div className="absolute inset-0 opacity-5">
-    <svg className="w-full h-full" viewBox="0 0 1000 1000">
-      <defs>
-        <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-          <path d="M20 20h60v60h-60z" fill="none" stroke="currentColor" strokeWidth="1" />
-          <circle cx="20" cy="20" r="2" fill="currentColor" />
-          <circle cx="80" cy="20" r="2" fill="currentColor" />
-          <circle cx="20" cy="80" r="2" fill="currentColor" />
-          <circle cx="80" cy="80" r="2" fill="currentColor" />
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#circuit)" className="text-primary-400" />
-    </svg>
-  </div>
-);
 
 const Hero = () => {
   const { trackEvent } = useAnalytics();
