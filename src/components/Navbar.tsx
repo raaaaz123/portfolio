@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FiMenu, FiX, FiHome, FiUser, FiBriefcase, FiFolder, FiAward, FiMail } from 'react-icons/fi';
+import { FiMenu, FiX, FiHome, FiBriefcase, FiFolder, FiAward, FiMail } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 import ThemeToggle from './ThemeToggle';
 
 interface NavbarProps {
   activeSection: string;
   setActiveSection: (section: string) => void;
+  scrolled: boolean;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {

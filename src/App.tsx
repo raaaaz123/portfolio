@@ -12,6 +12,7 @@ import Footer from './components/Footer'
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [activeSection, setActiveSection] = useState('home')
 
   // Handle scroll events for navbar
   useEffect(() => {
@@ -80,7 +81,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-900 overflow-x-hidden">
-      <Navbar scrolled={scrolled} />
+      <Navbar 
+        scrolled={scrolled} 
+        activeSection={activeSection} 
+        setActiveSection={setActiveSection} 
+      />
       <main>
         <Hero />
      <Projects />
