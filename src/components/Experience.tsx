@@ -4,7 +4,7 @@ import { FiBriefcase, FiExternalLink } from 'react-icons/fi';
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-20 bg-gradient-to-b from-white to-primary-50">
+    <section id="experience" className="py-20" style={{ backgroundColor: 'var(--notion-default-bg)' }}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -13,10 +13,10 @@ const Experience = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--notion-default-text)' }}>
             Experience
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-4" />
+          <div className="w-20 h-1 mx-auto rounded-full mb-4" style={{ backgroundColor: 'var(--notion-gray-text)' }} />
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
@@ -32,19 +32,19 @@ const Experience = () => {
               <div className="flex flex-col md:flex-row gap-4 md:gap-8">
                 {/* Left side - Timeline marker */}
                 <div className="md:w-1/3">
-                  <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-sm border border-primary-100 h-full">
+                  <div className="p-4 rounded-xl shadow-sm h-full" style={{ backgroundColor: 'var(--notion-default-bg)', border: `1px solid var(--notion-gray-text)` }}>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="w-3 h-3 bg-primary rounded-full"></span>
-                      <span className="text-sm font-medium text-gray-500">{experience.period}</span>
+                      <span className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--notion-gray-text)' }}></span>
+                      <span className="text-sm font-medium" style={{ color: 'var(--notion-gray-text)' }}>{experience.period}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-800">{experience.title}</h3>
+                    <h3 className="text-lg font-bold" style={{ color: 'var(--notion-default-text)' }}>{experience.title}</h3>
                     <div className="flex items-center gap-2 mt-2">
-                      <FiBriefcase className="text-primary" size={14} />
-                      <span className="text-sm text-gray-600">{experience.company}</span>
+                      <FiBriefcase style={{ color: 'var(--notion-gray-text)' }} size={14} />
+                      <span className="text-sm" style={{ color: 'var(--notion-gray-text)' }}>{experience.company}</span>
                     </div>
                     {experience.type && (
                       <div className="mt-2">
-                        <span className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                        <span className="inline-block px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: 'var(--notion-gray-bg)', color: 'var(--notion-gray-text)', border: `1px solid var(--notion-gray-text)` }}>
                           {experience.type}
                         </span>
                       </div>
@@ -59,7 +59,8 @@ const Experience = () => {
                             href={website.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors text-sm font-medium"
+                            className="flex items-center gap-2 transition-colors text-sm font-medium"
+                            style={{ color: 'var(--notion-gray-text)' }}
                           >
                             <FiExternalLink size={12} />
                             {website.name}
@@ -72,15 +73,15 @@ const Experience = () => {
 
                 {/* Right side - Content */}
                 <div className="md:w-2/3 relative">
-                  <div className="bg-white/90 backdrop-blur-sm p-5 rounded-xl shadow-sm border border-primary-100 h-full">
+                  <div className="p-5 rounded-xl shadow-sm h-full" style={{ backgroundColor: 'var(--notion-default-bg)', border: `1px solid var(--notion-gray-text)` }}>
                     {/* Connector line (visible only on desktop) */}
-                    <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-8 h-px bg-primary-200 hidden md:block"></div>
+                    <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-8 h-px hidden md:block" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
                     
                     <ul className="space-y-2 mb-4">
                       {experience.description.map((item, i) => (
                         <li key={i} className="flex items-start">
-                          <span className="text-primary mr-2 mt-1">•</span>
-                          <span className="text-gray-700">{item}</span>
+                          <span className="mr-2 mt-1" style={{ color: 'var(--notion-gray-text)' }}>•</span>
+                          <span style={{ color: 'var(--notion-gray-text)' }}>{item}</span>
                         </li>
                       ))}
                     </ul>
@@ -89,7 +90,12 @@ const Experience = () => {
                       {experience.technologies?.map((tech, i) => (
                         <span 
                           key={i}
-                          className="px-3 py-1 bg-primary-50 rounded-full text-xs font-medium text-primary-700 border border-primary-100"
+                          className="px-3 py-1 rounded-full text-xs font-medium"
+                          style={{
+                            backgroundColor: 'var(--notion-gray-bg)',
+                            color: 'var(--notion-gray-text)',
+                            border: `1px solid var(--notion-gray-text)`
+                          }}
                         >
                           {tech}
                         </span>
@@ -106,4 +112,4 @@ const Experience = () => {
   );
 };
 
-export default Experience; 
+export default Experience;

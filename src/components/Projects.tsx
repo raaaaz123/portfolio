@@ -1,257 +1,169 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode } from 'react-icons/fi';
+import { FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode, FiGithub } from 'react-icons/fi';
 import { projects } from '../data/projects';
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-
-// Add custom CSS to fix carousel styling
-const customCarouselStyles = `
-  .featured-carousel .carousel .slide {
-    padding: 0 10px;
-    box-sizing: border-box;
-  }
-  
-  .featured-carousel .carousel .control-dots {
-    margin: 0;
-    padding: 16px 0;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    bottom: 0;
-  }
-  
-  .featured-carousel .carousel .control-dots .dot {
-    width: 8px;
-    height: 8px;
-    box-shadow: none;
-    background: #e2e8f0;
-    opacity: 1;
-  }
-  
-  .featured-carousel .carousel .control-dots .dot.selected {
-    background: #f97316;
-  }
-  
-  .featured-carousel .carousel-root {
-    padding: 0;
-  }
-  
-  @media (min-width: 768px) {
-    .featured-carousel .carousel-root {
-      padding: 0;
-    }
-    .featured-carousel .carousel .slide {
-      padding: 0 30px;
-    }
-  }
-`;
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   
-  // Separate featured projects
-  const featuredProjects = projects.filter(project => project.featured);
-
-  const openProjectDetails = (projectId: number) => {
+  const openProjectDetails = (projectId: string) => {
     setSelectedProject(projectId);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   };
-
+  
   const closeProjectDetails = () => {
     setSelectedProject(null);
-    document.body.style.overflow = 'auto'; // Re-enable scrolling
   };
-
-  const getProject = (id: number | null) => {
-    if (id === null) return null;
-    return projects.find(project => project.id === id) || null;
-  };
-
-  const selectedProjectData = getProject(selectedProject);
-
+  
+  const selectedProjectData = selectedProject ? projects.find(p => String(p.id) === selectedProject) : null;
+  
   return (
-    <section id="projects" className="py-20 bg-primary-50">
-      {/* Inject custom carousel styles */}
-      <style>{customCarouselStyles}</style>
-      
-      <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-3xl font-bold text-center mb-8 sm:mb-16"
+    <section className="py-20 px-4" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          Projects
-        </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--notion-default-text)' }}>
+            My Projects
+          </h2>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--notion-gray-text)' }}>
+            A collection of projects showcasing my skills in web development
+          </p>
+        </motion.div>
         
-        {/* Featured Projects Carousel */}
-        {featuredProjects.length > 0 && (
-          <div className="mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="flex items-center justify-center mb-8"
-            >
-              <div className="flex items-center gap-2 bg-primary/10 px-4 py-1.5 rounded-full">
-                <FiStar className="text-primary" size={16} />
-                <span className="text-primary font-medium text-sm">Featured Projects</span>
-              </div>
-            </motion.div>
-            
-            {/* Featured Projects Carousel */}
-            <div className="max-w-6xl mx-auto featured-carousel">
-              <Carousel
-                showArrows={false}
-                infiniteLoop={true}
-                showThumbs={false}
-                showStatus={false}
-                autoPlay={true}
-                interval={5000}
-                stopOnHover={true}
-                swipeable={true}
-                emulateTouch={true}
-                centerMode={false}
-                centerSlidePercentage={100}
-              >
-                {featuredProjects.map((project) => (
-                  <div key={project.id} className="px-2 py-3 sm:px-4 sm:py-6">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5 }}
-                      className="bg-white border border-primary-200 rounded-xl p-4 sm:p-6 md:p-8 shadow-md h-full max-w-3xl mx-auto"
-                    >
-                      <div className="flex items-center justify-between mb-3 sm:mb-4">
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{project.title}</h3>
-                        <span className="bg-primary/10 p-1.5 sm:p-2 rounded-full">
-                          <FiStar className="text-primary" size={16} />
-                        </span>
-                      </div>
-                      
-                      <p className="text-gray-600 mb-4 sm:mb-6 line-clamp-2 sm:line-clamp-3 text-sm sm:text-base">{project.description}</p>
-                      
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
-                        {project.tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 sm:px-3 py-0.5 sm:py-1 bg-primary-50 rounded-full text-xs sm:text-sm font-medium text-primary-700"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                        {project.tags.length > 3 && (
-                          <span className="px-2 sm:px-3 py-0.5 sm:py-1 bg-primary-50 rounded-full text-xs sm:text-sm font-medium text-primary-700">
-                            +{project.tags.length - 3}
-                          </span>
-                        )}
-                      </div>
-                      
-                      <div className="flex flex-wrap gap-4 mt-auto">
-                        <motion.button
-                          onClick={() => openProjectDetails(project.id)}
-                          className="btn-primary"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                        >
-                          View Details
-                        </motion.button>
-                        
-                        {project.live && (
-                          <motion.a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn-secondary"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            Visit Project
-                          </motion.a>
-                        )}
-                      </div>
-                    </motion.div>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          </div>
-        )}
-        
-        {/* All Projects Grid */}
-        <motion.h3
-          className="text-2xl font-bold text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          All Projects
-        </motion.h3>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              className={`bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-all border ${
-                project.featured ? 'border-primary/20' : 'border-primary-100'
-              }`}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative overflow-hidden rounded-3xl p-8 h-full flex flex-col cursor-pointer"
+              style={{
+                backgroundColor: 'var(--notion-default-bg)',
+                border: `1px solid var(--notion-gray-text)`,
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+              }}
+              onClick={() => openProjectDetails(String(project.id))}
             >
-              <div className="flex justify-between items-start mb-3">
-                <h3 className="text-lg font-bold text-gray-900 truncate">{project.title}</h3>
-                {project.featured && (
-                  <span className="bg-primary/10 p-1 rounded-full">
-                    <FiStar className="text-primary" size={14} />
-                  </span>
-                )}
+              {/* Featured Badge */}
+              {project.featured && (
+                <div className="absolute top-4 right-4">
+                  <motion.div
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full"
+                    style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-default-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: 'spring' }}
+                  >
+                    <FiStar size={12} />
+                    <span className="text-xs font-semibold">Featured</span>
+                  </motion.div>
+                </div>
+              )}
+              
+              {/* Project Header */}
+              <div className="mb-6">
+                <h3 className="text-xl font-bold mb-3 transition-colors" 
+                    style={{ color: 'var(--notion-default-text)' }}>
+                  {project.title}
+                </h3>
+                <p className="text-sm leading-relaxed" 
+                   style={{ color: 'var(--notion-gray-text)' }}>
+                  {project.description}
+                </p>
               </div>
               
-              <p className="text-gray-700 text-sm mb-4 line-clamp-3">{project.description}</p>
-              
-              <div className="flex flex-wrap gap-1.5 mb-4">
+              {/* Tech Stack */}
+              <div className="flex flex-wrap gap-2 mb-8">
                 {project.tags.slice(0, 4).map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 py-0.5 bg-primary-50 rounded-full text-xs font-medium text-primary-700"
+                    className="px-3 py-1.5 rounded-xl text-xs font-medium transition-all hover:scale-105"
+                    style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-gray-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}
                   >
                     {tag}
                   </span>
                 ))}
                 {project.tags.length > 4 && (
-                  <span className="px-2 py-0.5 bg-primary-50 rounded-full text-xs font-medium text-primary-700">
+                  <span 
+                    className="px-3 py-1.5 rounded-xl text-xs font-medium" 
+                    style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-gray-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}
+                  >
                     +{project.tags.length - 4}
                   </span>
                 )}
               </div>
               
+              {/* Action Buttons */}
               <div className="flex gap-3 mt-auto">
-                <button
-                  onClick={() => openProjectDetails(project.id)}
-                  className="flex items-center gap-1 text-primary hover:text-primary/80 transition-colors text-sm font-medium"
+                <motion.button
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all"
+                  style={{
+                    backgroundColor: 'var(--notion-gray-bg)',
+                    color: 'var(--notion-default-text)',
+                    border: `1px solid var(--notion-gray-text)`
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <FiInfo size={14} />
+                  <FiInfo size={16} />
                   <span>Details</span>
-                </button>
+                </motion.button>
+                
                 {project.live && (
-                  <a
+                  <motion.a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-gray-700 hover:text-primary transition-colors text-sm"
+                    className="flex items-center justify-center p-3 rounded-xl transition-all"
+                    style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-gray-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     aria-label={`Live demo for ${project.title}`}
                   >
-                    <FiExternalLink size={14} />
-                    <span>Live</span>
-                  </a>
+                    <FiExternalLink size={16} />
+                  </motion.a>
+                )}
+                
+                {project.github && (
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center p-3 rounded-xl transition-all"
+                    style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-gray-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={`GitHub repository for ${project.title}`}
+                  >
+                    <FiGithub size={16} />
+                  </motion.a>
                 )}
               </div>
             </motion.div>
@@ -266,84 +178,169 @@ const Projects = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
             onClick={closeProjectDetails}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+              initial={{ scale: 0.8, opacity: 0, y: 50 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: 50 }}
+              className="rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl"
+              style={{ 
+                backgroundColor: 'var(--notion-default-bg)',
+                border: `1px solid var(--notion-gray-text)`
+              }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="sticky top-0 bg-white z-10 flex justify-between items-center p-6 border-b border-primary-100">
-                <h3 className="text-2xl font-bold">{selectedProjectData.title}</h3>
-                <button
+              {/* Header */}
+              <div className="sticky top-0 z-10 flex justify-between items-center p-8 backdrop-blur-sm" style={{
+                backgroundColor: 'var(--notion-default-bg)',
+                borderBottom: `1px solid var(--notion-gray-text)`
+              }}>
+                <div className="flex items-center gap-4">
+                  <h3 className="text-3xl font-bold" style={{ color: 'var(--notion-default-text)' }}>
+                    {selectedProjectData.title}
+                  </h3>
+                  {selectedProjectData.featured && (
+                    <span className="flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold" style={{
+                      backgroundColor: 'var(--notion-gray-bg)',
+                      color: 'var(--notion-default-text)',
+                      border: `1px solid var(--notion-gray-text)`
+                    }}>
+                      <FiStar size={14} />
+                      Featured
+                    </span>
+                  )}
+                </div>
+                <motion.button
                   onClick={closeProjectDetails}
-                  className="p-2 rounded-full hover:bg-primary-50 transition-colors"
+                  className="p-3 rounded-full transition-all hover:bg-opacity-10"
+                  style={{ 
+                    color: 'var(--notion-gray-text)',
+                    backgroundColor: 'var(--notion-gray-bg)'
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
                   aria-label="Close details"
                 >
-                  <FiX size={20} />
-                </button>
+                  <FiX size={24} />
+                </motion.button>
               </div>
               
-              <div className="p-6">
+              {/* Content */}
+              <div className="p-8 space-y-8">
                 {selectedProjectData.role && (
-                  <div className="flex items-center gap-2 mb-6">
-                    <FiUser className="text-primary" size={18} />
-                    <span className="font-medium">{selectedProjectData.role}</span>
+                  <div className="flex items-center gap-3 p-4 rounded-2xl" style={{
+                    backgroundColor: 'var(--notion-gray-bg)',
+                    border: `1px solid var(--notion-gray-text)`
+                  }}>
+                    <FiUser style={{ color: 'var(--notion-gray-text)' }} size={20} />
+                    <span className="font-semibold" style={{ color: 'var(--notion-default-text)' }}>
+                      Role: {selectedProjectData.role}
+                    </span>
                   </div>
                 )}
                 
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold mb-2">Overview</h4>
-                  <p className="text-gray-700">{selectedProjectData.description}</p>
+                <div>
+                  <h4 className="text-xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--notion-default-text)' }}>
+                    <FiInfo style={{ color: 'var(--notion-gray-text)' }} size={20} />
+                    Overview
+                  </h4>
+                  <p className="text-base leading-relaxed" style={{ color: 'var(--notion-gray-text)' }}>
+                    {selectedProjectData.description}
+                  </p>
                 </div>
                 
                 {selectedProjectData.features && (
-                  <div className="mb-8">
-                    <div className="flex items-center gap-2 mb-4">
-                      <FiLayers className="text-primary" size={18} />
-                      <h4 className="text-lg font-semibold">Features</h4>
-                    </div>
-                    <ul className="space-y-3">
+                  <div>
+                    <h4 className="text-xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--notion-default-text)' }}>
+                      <FiLayers style={{ color: 'var(--notion-gray-text)' }} size={20} />
+                      Key Features
+                    </h4>
+                    <div className="grid gap-3">
                       {selectedProjectData.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span>{feature}</span>
-                        </li>
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="flex items-start gap-3 p-3 rounded-xl" 
+                          style={{
+                            backgroundColor: 'var(--notion-gray-bg)',
+                            border: `1px solid var(--notion-gray-text)`
+                          }}
+                        >
+                          <div className="w-2 h-2 rounded-full mt-2" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
+                          <span style={{ color: 'var(--notion-gray-text)' }}>{feature}</span>
+                        </motion.div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 )}
                 
-                <div className="mb-8">
-                  <div className="flex items-center gap-2 mb-4">
-                    <FiCode className="text-primary" size={18} />
-                    <h4 className="text-lg font-semibold">Tech Stack</h4>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProjectData.tags.map((tag) => (
-                      <span
+                <div>
+                  <h4 className="text-xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--notion-default-text)' }}>
+                    <FiCode style={{ color: 'var(--notion-gray-text)' }} size={20} />
+                    Tech Stack
+                  </h4>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedProjectData.tags.map((tag, i) => (
+                      <motion.span
                         key={tag}
-                        className="px-3 py-1 bg-primary-50 rounded-full text-sm font-medium text-primary-700"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05 }}
+                        className="px-4 py-2 rounded-xl text-sm font-semibold"
+                        style={{
+                          backgroundColor: 'var(--notion-gray-bg)',
+                          color: 'var(--notion-gray-text)',
+                          border: `1px solid var(--notion-gray-text)`
+                        }}
                       >
                         {tag}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
                 </div>
                 
-                <div className="flex flex-wrap gap-4">
+                {/* Action Buttons */}
+                <div className="flex flex-wrap gap-4 pt-4">
                   {selectedProjectData.live && (
-                    <a
+                    <motion.a
                       href={selectedProjectData.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-600 transition-colors"
+                      className="flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all"
+                      style={{
+                        backgroundColor: 'var(--notion-gray-bg)',
+                        color: 'var(--notion-default-text)',
+                        border: `1px solid var(--notion-gray-text)`
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <FiExternalLink size={18} />
-                      <span>Visit Project</span>
-                    </a>
+                      <FiExternalLink size={20} />
+                      <span>Visit Live Project</span>
+                    </motion.a>
+                  )}
+                  
+                  {selectedProjectData.github && (
+                    <motion.a
+                      href={selectedProjectData.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all"
+                      style={{
+                        backgroundColor: 'var(--notion-gray-bg)',
+                        color: 'var(--notion-gray-text)',
+                        border: `1px solid var(--notion-gray-text)`
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FiGithub size={20} />
+                      <span>View Source Code</span>
+                    </motion.a>
                   )}
                 </div>
               </div>
@@ -355,4 +352,4 @@ const Projects = () => {
   );
 };
 
-export default Projects; 
+export default Projects;

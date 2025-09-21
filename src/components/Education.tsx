@@ -4,10 +4,11 @@ import { education } from '../data/education';
 
 const Education = () => {
   return (
-    <section id="education" className="py-20 bg-primary-50">
+    <section id="education" className="py-20" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
       <div className="container mx-auto px-4">
         <motion.h2
           className="text-3xl font-bold text-center mb-16"
+          style={{ color: 'var(--notion-default-text)' }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -34,15 +35,16 @@ const Education = () => {
               } w-full md:w-4/5`}
             >
               {/* Decorative elements */}
-              <div className="absolute left-0 top-0 w-1 h-full bg-primary rounded-full hidden md:block"></div>
-              <div className="absolute left-0 top-0 w-3 h-3 bg-primary rounded-full transform -translate-x-1 hidden md:block"></div>
-              <div className="absolute left-0 bottom-0 w-3 h-3 bg-primary rounded-full transform -translate-x-1 hidden md:block"></div>
+              <div className="absolute left-0 top-0 w-1 h-full rounded-full hidden md:block" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
+              <div className="absolute left-0 top-0 w-3 h-3 rounded-full transform -translate-x-1 hidden md:block" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
+              <div className="absolute left-0 bottom-0 w-3 h-3 rounded-full transform -translate-x-1 hidden md:block" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
               
               <div className="ml-0 md:ml-10">
-                <div className="bg-white p-4 sm:p-6 md:p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-primary">
+                <div className="p-4 sm:p-6 md:p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300" style={{ backgroundColor: 'var(--notion-default-bg)', borderLeft: `4px solid var(--notion-gray-text)` }}>
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 sm:mb-4">
                     <motion.h3 
-                      className="text-xl sm:text-2xl font-bold text-gray-900"
+                      className="text-xl sm:text-2xl font-bold"
+                      style={{ color: 'var(--notion-default-text)' }}
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
@@ -58,8 +60,8 @@ const Education = () => {
                       viewport={{ once: true }}
                       transition={{ duration: 0.3, delay: (index * 0.2) + 0.4 }}
                     >
-                      <FiCalendar className="text-primary mr-2" size={14} />
-                      <span className="text-sm sm:text-base text-gray-600 font-medium">{item.period}</span>
+                      <FiCalendar style={{ color: 'var(--notion-gray-text)' }} className="mr-2" size={14} />
+                      <span className="text-sm sm:text-base font-medium" style={{ color: 'var(--notion-gray-text)' }}>{item.period}</span>
                     </motion.div>
                   </div>
                   
@@ -70,17 +72,22 @@ const Education = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: (index * 0.2) + 0.5 }}
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mr-3 sm:mr-4">
-                      <FiMapPin className="text-primary" size={20} />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mr-3 sm:mr-4" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
+                      <FiMapPin style={{ color: 'var(--notion-gray-text)' }} size={20} />
                     </div>
                     <div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-gray-800">{item.institution}</h4>
+                      <h4 className="text-lg sm:text-xl font-semibold" style={{ color: 'var(--notion-default-text)' }}>{item.institution}</h4>
                     </div>
                   </motion.div>
                   
                   {item.description && (
                     <motion.p 
-                      className="text-sm sm:text-base text-gray-700 bg-primary-50 p-3 sm:p-4 rounded-md border-l-2 border-primary/30"
+                      className="text-sm sm:text-base p-3 sm:p-4 rounded-md"
+                      style={{
+                        color: 'var(--notion-gray-text)',
+                        backgroundColor: 'var(--notion-gray-bg)',
+                        borderLeft: `2px solid var(--notion-gray-text)`
+                      }}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -98,8 +105,8 @@ const Education = () => {
                     transition={{ duration: 0.3, delay: (index * 0.2) + 0.7 }}
                   >
                     <div className="flex items-center">
-                      <FiBookOpen className="text-primary mr-2" size={16} />
-                      <span className="text-xs sm:text-sm font-medium text-primary">Education</span>
+                      <FiBookOpen style={{ color: 'var(--notion-gray-text)' }} className="mr-2" size={16} />
+                      <span className="text-xs sm:text-sm font-medium" style={{ color: 'var(--notion-gray-text)' }}>Education</span>
                     </div>
                   </motion.div>
                 </div>
@@ -108,12 +115,12 @@ const Education = () => {
           ))}
           
           {/* Decorative Background Elements */}
-          <div className="absolute top-1/4 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-          <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+          <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full blur-3xl -z-10" style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.05 }}></div>
+          <div className="absolute bottom-1/4 left-0 w-96 h-96 rounded-full blur-3xl -z-10" style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.05 }}></div>
         </div>
       </div>
     </section>
   );
 };
 
-export default Education; 
+export default Education;

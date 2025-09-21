@@ -52,11 +52,12 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-primary-50 to-white relative overflow-hidden">
+    <section id="contact" className="py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div 
-          className="absolute top-0 left-0 w-64 h-64 bg-primary-100/30 rounded-full blur-3xl"
+          className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.1 }}
           animate={{
             x: [0, 50, 0],
             y: [0, 30, 0],
@@ -69,7 +70,8 @@ const Contact = () => {
           }}
         />
         <motion.div 
-          className="absolute bottom-0 right-0 w-80 h-80 bg-primary-100/40 rounded-full blur-3xl"
+          className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.15 }}
           animate={{
             x: [0, -40, 0],
             y: [0, -20, 0],
@@ -92,18 +94,23 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white border border-primary-200 rounded-full text-primary-700 text-sm font-medium shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full text-sm font-medium shadow-sm"
+            style={{
+              backgroundColor: 'var(--notion-default-bg)',
+              border: `1px solid var(--notion-gray-text)`,
+              color: 'var(--notion-gray-text)'
+            }}
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <FiMail className="w-4 h-4 text-primary" />
+            <FiMail className="w-4 h-4" style={{ color: 'var(--notion-gray-text)' }} />
             Contact Me
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--notion-default-text)' }}>
             Get In Touch
           </h2>
-          <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <div className="w-16 h-0.5 mx-auto rounded-full mb-6" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--notion-gray-text)' }}>
             Feel free to reach out if you want to collaborate with me, discuss new projects,
             or simply have a chat about technology and innovation.
           </p>
@@ -124,23 +131,28 @@ const Contact = () => {
                 y: -5,
                 boxShadow: "0 10px 25px -5px rgba(249, 115, 22, 0.1)",
               }}
-              className="bg-white/90 backdrop-blur-sm rounded-xl p-6 border border-primary-100 shadow-sm flex flex-col h-full group"
+              className="backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl transition-all duration-300 group"
+              style={{
+                backgroundColor: 'var(--notion-default-bg)',
+                border: `1px solid var(--notion-gray-text)`,
+                opacity: 0.95
+              }}
             >
               <div className="flex items-center mb-4">
-                <div className={`w-12 h-12 ${link.color} rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform`}>
-                  <span className={link.iconColor}>{link.icon}</span>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
+                  <span style={{ color: 'var(--notion-gray-text)' }}>{link.icon}</span>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-gray-800">{link.name}</h3>
-                  <p className="text-primary-600 text-sm font-medium">{link.label}</p>
+                  <h3 className="font-bold text-lg" style={{ color: 'var(--notion-default-text)' }}>{link.name}</h3>
+                  <p className="text-sm font-medium" style={{ color: 'var(--notion-gray-text)' }}>{link.label}</p>
                 </div>
               </div>
               
-              <p className="text-gray-600 mt-2 mb-4 text-sm flex-grow">
+              <p className="mt-2 mb-4 text-sm flex-grow" style={{ color: 'var(--notion-gray-text)' }}>
                 {link.description}
               </p>
               
-              <div className="flex items-center text-primary font-medium text-sm mt-auto group-hover:text-primary-600 transition-colors">
+              <div className="flex items-center font-medium text-sm mt-auto transition-colors" style={{ color: 'var(--notion-gray-text)' }}>
                 <span>Connect</span>
                 <FiExternalLink className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
               </div>
@@ -155,13 +167,18 @@ const Contact = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-16 text-center"
         >
-          <p className="text-gray-600 mb-6">
+          <p className="mb-6" style={{ color: 'var(--notion-gray-text)' }}>
             Prefer a direct approach? Reach out now.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <motion.a 
               href={`mailto:${personalInfo.email}`}
-              className="px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary-600 transition-colors flex items-center gap-2 shadow-sm"
+              className="w-full font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
+              style={{
+                backgroundColor: 'var(--notion-gray-bg)',
+                color: 'var(--notion-default-text)',
+                border: `1px solid var(--notion-gray-text)`
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -170,7 +187,12 @@ const Contact = () => {
             </motion.a>
             <motion.a 
               href={personalInfo.socialLinks.whatsapp}
-              className="px-6 py-3 bg-white border border-primary text-primary rounded-full font-medium hover:bg-primary-50 transition-colors flex items-center gap-2 shadow-sm"
+              className="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-200 resize-none flex items-center justify-center gap-2"
+              style={{
+                backgroundColor: 'var(--notion-gray-bg)',
+                border: `1px solid var(--notion-gray-text)`,
+                color: 'var(--notion-gray-text)'
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -184,4 +206,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;

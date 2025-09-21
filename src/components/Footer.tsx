@@ -13,7 +13,6 @@ const Footer = () => {
 
   const navLinks = [
     { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
@@ -23,15 +22,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white py-8 sm:py-12 border-t border-primary-100">
+    <footer className="py-12 relative overflow-hidden" style={{ backgroundColor: 'var(--notion-gray-bg)', color: 'var(--notion-default-text)' }}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 sm:mb-8">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <a href="#home" className="text-lg sm:text-xl font-bold text-gray-900">
+            <a href="#home" className="text-lg sm:text-xl font-bold" style={{ color: 'var(--notion-default-text)' }}>
               {personalInfo.name.split(' ')[0]}
-              <span className="text-primary">.</span>
+              <span style={{ color: 'var(--notion-blue-text)' }}>.</span>
             </a>
-            <p className="mt-2 text-gray-600 max-w-md text-sm sm:text-base">
+            <p className="mt-2 max-w-md text-sm sm:text-base" style={{ color: 'var(--notion-gray-text)' }}>
               {personalInfo.tagline}
             </p>
           </div>
@@ -43,7 +42,8 @@ const Footer = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 hover:text-primary transition-colors p-1"
+                className="transition-colors duration-200 p-1 hover:text-[var(--notion-default-text)]"
+                style={{ color: 'var(--notion-gray-text)' }}
                 aria-label={link.name}
               >
                 {link.icon}
@@ -52,22 +52,23 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-primary-100 pt-6 sm:pt-8">
+        <div className="border-t pt-6 sm:pt-8" style={{ borderColor: 'var(--notion-gray-text)' }}>
           <div className="flex flex-col md:flex-row justify-between items-center">
             <nav className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 mb-4 md:mb-0">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-gray-600 hover:text-primary transition-colors text-xs sm:text-sm"
+                  className="transition-colors duration-200 text-xs sm:text-sm hover:text-[var(--notion-default-text)]"
+                  style={{ color: 'var(--notion-gray-text)' }}
                 >
                   {link.name}
                 </a>
               ))}
             </nav>
-            <div className="flex items-center text-gray-600 text-xs sm:text-sm text-center md:text-right">
+            <div className="flex items-center text-xs sm:text-sm text-center md:text-right" style={{ color: 'var(--notion-gray-text)' }}>
               <p>
-                © {currentYear} <FiHeart className="inline text-primary mx-1" /> by {personalInfo.name} using React, TypeScript & Tailwind
+                © {currentYear} <FiHeart className="inline mx-1" style={{ color: 'var(--notion-blue-text)' }} /> by {personalInfo.name} using React, TypeScript & Tailwind
               </p>
             </div>
           </div>
@@ -77,7 +78,11 @@ const Footer = () => {
       {/* Back to top button */}
       <motion.a
         href="#home"
-        className="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-600 transition-colors z-50"
+        className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-colors z-50 hover:bg-[var(--notion-default-text)]"
+        style={{
+          backgroundColor: 'var(--notion-gray-text)',
+          color: 'var(--notion-default-bg)'
+        }}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0 }}
@@ -90,4 +95,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

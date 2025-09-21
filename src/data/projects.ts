@@ -223,5 +223,27 @@ export const projects: Project[] = [
       "🚚 Logistics coordination for bulk produce transportation",
       "📈 Performance analytics and reporting for farmers and buyers"
     ]
+  },
+  {
+    id: 10,
+    title: "Makemyflyer App",
+    description: "AI-powered photo editor and image generator mobile app. Create stunning photos, remove backgrounds, restore old photos, make professional headshots, and generate images from text prompts with advanced AI technology.",
+    image: "/images/projects/makemyflyer-app.jpg",
+    tags: ["React Native", "TypeScript", "AI", "Image Processing", "Machine Learning", "Photo Editor", "Background Removal", "Text-to-Image", "Firebase", "Cloud Functions"],
+    live: "https://play.google.com/store/apps/details?id=com.flyeraidesigner.app",
+    featured: true,
+    role: "Mobile App Developer",
+    features: [
+      "🎨 AI-powered photo editing with advanced filters and effects",
+      "🖼️ Text-to-image generation using state-of-the-art AI models",
+      "✂️ One-tap background removal with transparent PNG export",
+      "📸 Photo restoration and colorization for old or damaged images",
+      "👔 Professional AI headshot generation for LinkedIn and resumes",
+      "👗 Virtual try-on feature for digital outfit experimentation",
+      "🎭 Multiple art styles including anime, Pixar, Disney, and more",
+      "⚡ AI upscaling, noise reduction, and image enhancement tools",
+      "📱 Cross-platform mobile experience with React Native",
+      "🔒 Private and secure image processing with user data control"
+    ]
   }
-]; 
+];

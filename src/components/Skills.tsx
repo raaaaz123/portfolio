@@ -78,7 +78,7 @@ const FloatingOrb: React.FC<FloatingOrbProps> = ({ delay, duration, size = "w-32
     <motion.div
       className={`absolute ${size} rounded-full opacity-10`}
       style={{
-        background: 'linear-gradient(135deg, #fff7ed 0%, #fdba74 100%)',
+        background: 'linear-gradient(135deg, var(--notion-blue-bg) 0%, var(--notion-blue-text) 100%)',
         filter: 'blur(40px)',
       }}
       animate={{
@@ -104,36 +104,35 @@ interface SkillCardProps {
 const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{
-        duration: 0.3,
-        delay: index * 0.03,
+        duration: 0.2,
+        delay: index * 0.02,
         type: "spring",
-        stiffness: 100,
+        stiffness: 120,
       }}
-      whileHover={{ scale: 1.05 }}
-      className="group"
+      whileHover={{ scale: 1.03 }}
+      className="inline-block"
     >
-      {/* Ultra-compact card design */}
-      <div className="bg-white/80 backdrop-blur-sm border border-primary-100 rounded-lg p-2 hover:shadow-sm transition-all duration-300 flex items-center gap-2">
+      {/* Compact tag-style design */}
+      <div className="rounded-full px-3 py-1.5 transition-all duration-200 flex items-center gap-1.5 shadow-sm" style={{
+        backgroundColor: 'var(--notion-default-bg)',
+        border: `1px solid var(--notion-gray-text)`,
+        color: 'var(--notion-default-text)'
+      }}>
         {/* Skill icon */}
-        <motion.div
-          className="w-6 h-6 flex items-center justify-center"
-          whileHover={{ rotate: 10 }}
-        >
-          <img 
-            src={skill.icon} 
-            alt={skill.name} 
-            className="w-5 h-5 object-contain"
-          />
-        </motion.div>
+        <img 
+          src={skill.icon} 
+          alt={skill.name} 
+          className="w-3.5 h-3.5 object-contain"
+        />
         
         {/* Skill name */}
-        <p className="text-xs font-medium text-gray-800">
+        <span className="text-xs font-medium whitespace-nowrap" style={{ color: 'var(--notion-default-text)' }}>
           {skill.name}
-        </p>
+        </span>
       </div>
     </motion.div>
   );
@@ -141,53 +140,48 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
 
 const Skills: React.FC = () => {
   return (
-    <section className="relative py-20 overflow-hidden bg-primary-50">
-      {/* Light gradient background */}
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #fed7aa 100%)',
-        }}
-      />
-      
-      {/* Subtle floating orbs */}
-      <FloatingOrb delay={0} duration={20} size="w-96 h-96" />
-      <FloatingOrb delay={5} duration={25} size="w-64 h-64" />
-      <FloatingOrb delay={10} duration={30} size="w-32 h-32" />
+    <section className="relative py-12 overflow-hidden" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
+      {/* Minimal floating orbs */}
+      <FloatingOrb delay={0} duration={25} size="w-64 h-64" />
+      <FloatingOrb delay={8} duration={30} size="w-48 h-48" />
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+        {/* Compact Header */}
         <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-4 text-gray-800"
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--notion-default-text)' }}>
             Skills & Expertise
-          </motion.h2>
-          <motion.div className="w-20 h-1 bg-primary mx-auto rounded-full mb-4" />
+          </h2>
+          <div className="w-16 h-0.5 mx-auto rounded-full" style={{ backgroundColor: 'var(--notion-gray-text)' }} />
         </motion.div>
 
-        {/* Skills categories - horizontal on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* New horizontal flow layout */}
+        <div className="space-y-6">
           {skills.map((category, catIndex) => (
             <motion.div 
               key={category.category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: catIndex * 0.1, duration: 0.5 }}
-              className="bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-primary-100/50 hover:shadow-md transition-all duration-300"
+              transition={{ delay: catIndex * 0.1, duration: 0.4 }}
+              className="rounded-2xl p-4 transition-all duration-300"
+              style={{
+                backgroundColor: 'var(--notion-default-bg)',
+                border: `1px solid var(--notion-gray-text)`
+              }}
             >
-              <h3 className="text-lg font-bold mb-4 text-gray-800 border-b border-primary-100 pb-2">
+              <h3 className="text-base font-semibold mb-3 flex items-center gap-2" style={{ color: 'var(--notion-default-text)' }}>
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--notion-blue-text)' }}></div>
                 {category.category}
               </h3>
               
-              <div className="grid grid-cols-2 gap-2">
+              {/* Horizontal flowing tags */}
+              <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, index) => (
                   <SkillCard
                     key={skill.name}
@@ -200,23 +194,25 @@ const Skills: React.FC = () => {
           ))}
         </div>
 
-        {/* Subtle particles */}
-        {[...Array(15)].map((_, i) => (
+        {/* Reduced particles */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-primary-300/30 rounded-full"
+            className="absolute w-1.5 h-1.5 rounded-full"
             style={{
+              backgroundColor: 'var(--notion-gray-text)',
+              opacity: 0.4,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -100, 0],
-              opacity: [0, 0.5, 0],
+              y: [0, -60, 0],
+              opacity: [0, 0.4, 0],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 4 + Math.random() * 2,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 3,
             }}
           />
         ))}

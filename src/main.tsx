@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { PostHogProvider } from 'posthog-js/react'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 // Ensure proper viewport meta tag is set for mobile responsiveness
 const setViewportMeta = () => {
@@ -47,11 +48,13 @@ const options = {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <PostHogProvider 
-      apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
-      options={options}
-    >
-      <App />
-    </PostHogProvider>
+    <ThemeProvider>
+      <PostHogProvider 
+        apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
+        options={options}
+      >
+        <App />
+      </PostHogProvider>
+    </ThemeProvider>
   </React.StrictMode>,
 )

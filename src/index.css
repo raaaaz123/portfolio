@@ -3,33 +3,89 @@
 @tailwind utilities;
 
 :root {
-  /* Primary colors */
-  --color-primary: #f97316;
-  --color-primary-light: #fb923c;
-  --color-primary-dark: #ea580c;
-  --color-primary-background: #fff7ed;
-
-  /* Text colors */
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #4b5563;
-
-  /* Background colors */
-  --color-background-light: #ffffff;
-  --color-background-default: #fafafa;
-  --color-background-darker: #f5f5f4;
+  /* Notion Light Mode Colors - Active by default */
+  --notion-default-bg: #FFFFFF;
+  --notion-default-text: #373530;
+  --notion-gray-bg: #F1F1EF;
+  --notion-gray-text: #787774;
+  --notion-brown-bg: #F3EEEE;
+  --notion-brown-text: #976D57;
+  --notion-orange-bg: #F8ECDF;
+  --notion-orange-text: #CC782F;
+  --notion-yellow-bg: #FAF3DD;
+  --notion-yellow-text: #C29343;
+  --notion-green-bg: #EEF3ED;
+  --notion-green-text: #548164;
+  --notion-blue-bg: #E9F3F7;
+  --notion-blue-text: #487CA5;
+  --notion-purple-bg: #F6F3F8;
+  --notion-purple-text: #8A67AB;
+  --notion-pink-bg: #F9F2F5;
+  --notion-pink-text: #B35488;
+  --notion-red-bg: #FAECEC;
+  --notion-red-text: #C4554D;
 }
+
+/* Dark mode color overrides */
+.dark {
+  --notion-default-bg: #191919;
+  --notion-default-text: #D4D4D4;
+  --notion-gray-bg: #252525;
+  --notion-gray-text: #9B9B9B;
+  --notion-brown-bg: #2E2724;
+  --notion-brown-text: #A27763;
+  --notion-orange-bg: #36291F;
+  --notion-orange-text: #CB7B37;
+  --notion-yellow-bg: #372E20;
+  --notion-yellow-text: #C19138;
+  --notion-green-bg: #242B26;
+  --notion-green-text: #4F9768;
+  --notion-blue-bg: #1F282D;
+  --notion-blue-text: #447ACB;
+  --notion-purple-bg: #2A2430;
+  --notion-purple-text: #865DBB;
+  --notion-pink-bg: #2E2328;
+  --notion-pink-text: #BA4A78;
+  --notion-red-bg: #332523;
+  --notion-red-text: #BE524B;
+
+  /* RGB Variables for transparency */
+  --notion-default-bg-rgb: 25, 25, 25;
+  --notion-gray-text-rgb: 155, 155, 155;
+}
+
+:root {
+  /* Primary colors (using Notion blue as primary) */
+  --color-primary: var(--notion-blue-text);
+  --color-primary-light: var(--notion-blue-bg);
+  --color-primary-background: var(--notion-blue-bg);
+
+  /* Theme colors */
+  --text-primary: var(--notion-default-text);
+  --bg-primary: var(--notion-default-bg);
+  --bg-secondary: var(--notion-gray-bg);
+  --border-primary: var(--notion-gray-text);
+  
+  /* RGB Variables for transparency */
+  --notion-default-bg-rgb: 255, 255, 255;
+  --notion-gray-text-rgb: 120, 119, 116;
+}
+
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   body {
-    @apply text-gray-800 bg-white;
+    background-color: var(--notion-default-bg);
+    color: var(--notion-default-text);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -110,19 +166,21 @@
 .featured-carousel .carousel .control-arrow {
   opacity: 0.8 !important;
   background: none !important;
-  color: #f97316 !important; /* Primary-600 color */
+  color: var(--notion-blue-text) !important;
 }
 
 .featured-carousel .carousel .control-dots .dot {
-  background: #fb923c !important; /* Primary-400 color */
+  background: var(--notion-gray-text) !important;
   box-shadow: none !important;
   width: 10px;
   height: 10px;
 }
 
 .featured-carousel .carousel .control-dots .dot.selected {
-  background: #f97316 !important; /* Primary-600 color */
+  background: var(--notion-blue-text) !important;
 }
+
+/* Dark mode styles are now handled automatically by CSS variables */
 
 .featured-carousel .carousel .slide {
   padding: 10px 0;
