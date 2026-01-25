@@ -4,7 +4,7 @@ import { personalInfo } from '../data/personalInfo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   const socialLinks = [
     { name: 'GitHub', icon: <FiGithub size={18} />, href: personalInfo.socialLinks.github },
     { name: 'LinkedIn', icon: <FiLinkedin size={18} />, href: personalInfo.socialLinks.linkedin },
@@ -22,15 +22,15 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="py-12 relative overflow-hidden" style={{ backgroundColor: 'var(--notion-gray-bg)', color: 'var(--notion-default-text)' }}>
+    <footer className="py-12 relative overflow-hidden bg-background border-t border-border text-foreground">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 sm:mb-8">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <a href="#home" className="text-lg sm:text-xl font-bold" style={{ color: 'var(--notion-default-text)' }}>
+            <a href="#home" className="text-lg sm:text-xl font-bold text-foreground">
               {personalInfo.name.split(' ')[0]}
-              <span style={{ color: 'var(--notion-blue-text)' }}>.</span>
+              <span className="text-primary">.</span>
             </a>
-            <p className="mt-2 max-w-md text-sm sm:text-base" style={{ color: 'var(--notion-gray-text)' }}>
+            <p className="mt-2 max-w-md text-sm sm:text-base text-muted-foreground">
               {personalInfo.tagline}
             </p>
           </div>
@@ -42,8 +42,7 @@ const Footer = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors duration-200 p-1 hover:text-[var(--notion-default-text)]"
-                style={{ color: 'var(--notion-gray-text)' }}
+                className="transition-colors duration-200 p-1 text-muted-foreground hover:text-foreground"
                 aria-label={link.name}
               >
                 {link.icon}
@@ -52,37 +51,32 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t pt-6 sm:pt-8" style={{ borderColor: 'var(--notion-gray-text)' }}>
+        <div className="border-t border-border pt-6 sm:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <nav className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 mb-4 md:mb-0">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="transition-colors duration-200 text-xs sm:text-sm hover:text-[var(--notion-default-text)]"
-                  style={{ color: 'var(--notion-gray-text)' }}
+                  className="transition-colors duration-200 text-xs sm:text-sm text-muted-foreground hover:text-foreground"
                 >
                   {link.name}
                 </a>
               ))}
             </nav>
-            <div className="flex items-center text-xs sm:text-sm text-center md:text-right" style={{ color: 'var(--notion-gray-text)' }}>
+            <div className="flex items-center text-xs sm:text-sm text-center md:text-right text-muted-foreground">
               <p>
-                © {currentYear} <FiHeart className="inline mx-1" style={{ color: 'var(--notion-blue-text)' }} /> by {personalInfo.name} using React, TypeScript & Tailwind
+                © {currentYear} <FiHeart className="inline mx-1 text-red-500" /> by {personalInfo.name}
               </p>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* Back to top button */}
       <motion.a
         href="#home"
-        className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-colors z-50 hover:bg-[var(--notion-default-text)]"
-        style={{
-          backgroundColor: 'var(--notion-gray-text)',
-          color: 'var(--notion-default-bg)'
-        }}
+        className="fixed bottom-6 right-6 p-3 rounded-full shadow-lg transition-colors z-50 bg-primary text-primary-foreground hover:bg-primary/90"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         initial={{ opacity: 0 }}

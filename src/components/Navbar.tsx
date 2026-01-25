@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -32,39 +32,32 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
   ];
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 w-full z-50 transition-all duration-300"
-      style={{
-        backgroundColor: 'var(--notion-default-bg)',
-        borderBottom: `1px solid var(--notion-gray-text)`,
-        boxShadow: scrolled 
-          ? '0 4px 20px rgba(0, 0, 0, 0.1)' 
-          : '0 2px 10px rgba(0, 0, 0, 0.05)'
-      }}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
+          ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
+          : 'bg-transparent border-transparent'
+        }`}
     >
       <div className="max-w-6xl mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <motion.a 
-            href="#home" 
+          <motion.a
+            href="#home"
             className="flex items-center group"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            <span className="text-xl font-bold" style={{ color: 'var(--notion-default-text)' }}>
+            <span className="text-xl font-bold text-foreground">
               {personalInfo.name}
             </span>
           </motion.a>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center">
-            <div className="flex items-center space-x-1 p-1 rounded-xl" style={{
-              backgroundColor: 'var(--notion-gray-bg)',
-              border: `1px solid var(--notion-gray-text)`
-            }}>
+            <div className="flex items-center space-x-1 p-1 rounded-xl bg-secondary/50 border border-border backdrop-blur-sm">
               {navLinks.map((link, index) => {
                 const Icon = link.icon;
                 const isActive = activeSection === link.href.substring(1);
@@ -72,11 +65,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
                   <motion.a
                     key={link.name}
                     href={link.href}
-                    className="relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-                    style={{
-                      backgroundColor: isActive ? 'var(--notion-blue-text)' : 'transparent',
-                      color: isActive ? 'white' : 'var(--notion-gray-text)'
-                    }}
+                    className={`relative flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive
+                        ? 'bg-primary text-primary-foreground shadow-sm'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-background/50'
+                      }`}
                     onClick={() => setActiveSection(link.href.substring(1))}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -90,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
                 );
               })}
             </div>
-            
+
             <div className="ml-4">
               <ThemeToggle />
             </div>
@@ -101,11 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
             <ThemeToggle />
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg transition-all duration-200"
-              style={{
-                backgroundColor: 'var(--notion-gray-bg)',
-                border: `1px solid var(--notion-gray-text)`
-              }}
+              className="p-2 rounded-lg md:hidden bg-secondary border border-border text-foreground hover:bg-accent transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -114,9 +102,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
                 transition={{ duration: 0.2 }}
               >
                 {isMenuOpen ? (
-                  <FiX size={18} style={{ color: 'var(--notion-default-text)' }} />
+                  <FiX size={18} />
                 ) : (
-                  <FiMenu size={18} style={{ color: 'var(--notion-default-text)' }} />
+                  <FiMenu size={18} />
                 )}
               </motion.div>
             </motion.button>
@@ -127,16 +115,12 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
       {/* Mobile Navigation */}
       <motion.div
         initial={{ opacity: 0, height: 0 }}
-        animate={{ 
-          opacity: isMenuOpen ? 1 : 0, 
-          height: isMenuOpen ? 'auto' : 0 
+        animate={{
+          opacity: isMenuOpen ? 1 : 0,
+          height: isMenuOpen ? 'auto' : 0
         }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="md:hidden absolute top-full left-0 w-full overflow-hidden"
-        style={{
-          backgroundColor: 'var(--notion-default-bg)',
-          borderBottom: `1px solid var(--notion-gray-text)`
-        }}
+        className="md:hidden absolute top-full left-0 w-full overflow-hidden bg-background border-b border-border shadow-xl"
       >
         <nav className="max-w-6xl mx-auto px-4 py-4">
           <div className="space-y-1">
@@ -147,12 +131,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, setActiveSection }) => {
                 <motion.a
                   key={link.name}
                   href={link.href}
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-all duration-200"
-                  style={{
-                    backgroundColor: isActive ? 'var(--notion-blue-text)' : 'var(--notion-gray-bg)',
-                    color: isActive ? 'white' : 'var(--notion-default-text)',
-                    border: `1px solid ${isActive ? 'var(--notion-blue-text)' : 'var(--notion-gray-text)'}`
-                  }}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg font-medium transition-all duration-200 ${isActive
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary/50 text-foreground hover:bg-secondary'
+                    }`}
                   onClick={() => {
                     setActiveSection(link.href.substring(1));
                     setIsMenuOpen(false);

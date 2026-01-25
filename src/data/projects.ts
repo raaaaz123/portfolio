@@ -13,6 +13,50 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 100,
+    title: "Chatlo.io",
+    description: "AI RAG-based customer engagement platform that enables businesses to provide intelligent, context-aware customer support. Built with advanced retrieval-augmented generation for accurate, real-time responses from your knowledge base.",
+    image: "/images/projects/chatlo.jpg",
+    tags: ["Next.js", "LangChain", "Qdrant Vector DB", "Voyage Re-ranker", "RAG", "TypeScript", "AI Agents", "Customer Support", "VPS Hosting"],
+    live: "https://chatlo.io",
+    featured: true,
+    role: "Full-stack Developer & AI Engineer",
+    features: [
+      "🤖 Advanced RAG pipeline with LangChain for intelligent document retrieval",
+      "🗄️ Qdrant vector database for efficient semantic search across knowledge bases",
+      "🎯 Voyage re-ranker integration for highly accurate result ordering",
+      "💬 Real-time customer engagement with context-aware AI responses",
+      "📊 Analytics dashboard for tracking customer interactions and insights",
+      "🔄 Seamless knowledge base sync and automatic document processing",
+      "⚡ Self-hosted on VPS (12GB) for optimal performance and data control",
+      "🔒 Enterprise-grade security for sensitive customer data",
+      "🌐 Multi-channel support for web, chat widgets, and API integration",
+      "📈 Continuous learning and improvement from customer interactions"
+    ]
+  },
+  {
+    id: 101,
+    title: "Notes.chatlo.io",
+    description: "AI-powered note-taking application with seamless web and mobile experiences. Features intelligent RAG-based search, smart organization, and AI-assisted writing to help you capture and retrieve knowledge effortlessly.",
+    image: "/images/projects/notes-chatlo.jpg",
+    tags: ["Next.js", "React Native", "RAG", "TypeScript", "AI", "Mobile App", "Web App", "VPS Hosting", "Vector Search"],
+    live: "https://notes.chatlo.io",
+    featured: true,
+    role: "Full-stack Developer & Mobile Developer",
+    features: [
+      "📱 Cross-platform experience with React Native mobile app and Next.js web app",
+      "🧠 RAG-powered intelligent search across all your notes and documents",
+      "✍️ AI-assisted writing with smart suggestions and auto-completion",
+      "🔍 Semantic search to find notes by meaning, not just keywords",
+      "📂 Smart organization with AI-generated tags and categories",
+      "🔄 Real-time sync between web and mobile platforms",
+      "⚡ Self-hosted RAG infrastructure on VPS (12GB) for speed and privacy",
+      "🔒 End-to-end encryption for secure note storage",
+      "📊 Knowledge graph visualization for connected ideas",
+      "🌙 Beautiful dark mode and customizable themes"
+    ]
+  },
+  {
     id: 0,
     title: "Makemyflyer App",
     description: "AI-powered photo editor and image generator mobile app. Create stunning photos, remove backgrounds, restore old photos, make professional headshots, and generate images from text prompts with advanced AI technology.",
@@ -205,46 +249,5 @@ export const projects: Project[] = [
       "📋 Content categorization and advanced search functionality",
       "📶 Offline download capabilities for premium subscribers"
     ]
-  },
-  {
-    id: 9,
-    title: "Real Estate dApp",
-    description: "Decentralized application for real estate transactions using blockchain and NFTs. 2nd Place at Hack@Arch hackathon. Enables secure property transfers, transparent ownership records, and reduced transaction costs through smart contracts.",
-    image: "/images/projects/project1.jpg",
-    tags: ["Solidity", "React", "Web3", "NFTs", "Ethereum", "IPFS", "Flutter", "NFC", "MetaMask", "Hardhat", "Truffle", "Smart Contracts", "ERC-721"],
-    github: "https://github.com/yourusername/real-estate-dapp",
-    features: [
-      "🏢 Tokenization of real estate properties as NFTs using ERC-721 standard",
-      "📱 Cross-platform mobile app built with Flutter for property browsing",
-      "📲 NFC integration for physical property verification and access",
-      "⛓️ Smart contracts for automated escrow, payments, and ownership transfer",
-      "🔐 Secure property documentation storage using IPFS decentralized storage",
-      "💰 Fractional ownership capabilities for investment opportunities",
-      "🔍 Transparent transaction history and ownership records on blockchain",
-      "📊 Real-time property valuation using oracle price feeds",
-      "🔄 MetaMask integration for secure wallet connectivity",
-      "📜 Legal compliance framework for digital property transfers"
-    ]
-  },
-  {
-    id: 10,
-    title: "Farmers Auction App",
-    description: "Platform connecting farmers directly to buyers through a bidding system. 2nd Place at Latency Hackathon. Eliminates middlemen, increases farmer profits by 25%, and provides real-time market price data for agricultural produce.",
-    image: "/images/projects/project2.jpg",
-    tags: ["Java", "Android", "Firebase", "Google Maps", "Real-time Database", "FCM", "Location Services", "Payment Gateway", "Material Design", "Analytics"],
-    github: "https://github.com/yourusername/farmers-auction",
-    features: [
-      "🧑‍🌾 Direct farmer-to-buyer marketplace eliminating middlemen",
-      "🔔 Real-time bidding system with instant notifications via FCM",
-      "🗺️ Google Maps integration for farm and pickup location tracking",
-      "📊 Live market price analytics for informed pricing decisions",
-      "📱 Native Android development with Java and Material Design",
-      "🔥 Firebase Realtime Database for instant bid updates and chat",
-      "📅 Scheduling system for produce pickup and delivery",
-      "💰 Secure payment gateway integration for transactions",
-      "🚚 Logistics coordination for bulk produce transportation",
-      "📈 Performance analytics and reporting for farmers and buyers"
-    ]
-  },
-
+  }
 ];

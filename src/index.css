@@ -2,107 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Notion Light Mode Colors - Active by default */
-  --notion-default-bg: #FFFFFF;
-  --notion-default-text: #373530;
-  --notion-gray-bg: #F1F1EF;
-  --notion-gray-text: #787774;
-  --notion-brown-bg: #F3EEEE;
-  --notion-brown-text: #976D57;
-  --notion-orange-bg: #F8ECDF;
-  --notion-orange-text: #CC782F;
-  --notion-yellow-bg: #FAF3DD;
-  --notion-yellow-text: #C29343;
-  --notion-green-bg: #EEF3ED;
-  --notion-green-text: #548164;
-  --notion-blue-bg: #E9F3F7;
-  --notion-blue-text: #487CA5;
-  --notion-purple-bg: #F6F3F8;
-  --notion-purple-text: #8A67AB;
-  --notion-pink-bg: #F9F2F5;
-  --notion-pink-text: #B35488;
-  --notion-red-bg: #FAECEC;
-  --notion-red-text: #C4554D;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+    --radius: 0.5rem;
+
+    /* Legacy mapping for backward compatibility until refactor is complete */
+    --notion-default-bg: var(--background);
+    /* --notion-default-text: var(--foreground); -- THIS WAS CAUSING ISSUES, MAPPING TO HEX IS SAFER FOR NOW OR JUST REMOVING */
+    /* Wait, the existing code uses hex inline style often. */
+
+    /* We will map notion-variables to the HSL output using CSS functions if possible, 
+       but standard inline styles expect hex/rgb often. 
+       Actually, `var(--variable)` works in inline styles too. 
+    */
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
 }
 
-/* Dark mode color overrides */
+/* Re-defining strict notion variables to utilize the new colors 
+   so we don't break the app while refactoring.
+   Note: inline styles like `backgroundColor: 'var(--notion-default-bg)'` 
+   require the variable to be a valid color value. 
+   HSL values like `0 0% 100%` need `hsl()` wrapper if used directly in properties 
+   that aren't tailwind utilities.
+   So I must define these as full color strings.
+*/
+
+:root {
+  --notion-default-bg: hsl(0 0% 100%);
+  --notion-default-text: hsl(240 10% 3.9%);
+  --notion-gray-bg: hsl(240 4.8% 95.9%);
+  --notion-gray-text: hsl(240 3.8% 46.1%);
+  --notion-blue-text: hsl(240 5.9% 10%);
+  /* Map primary blue to Black/Primary */
+  --notion-green-text: #16a34a;
+  /* Keep green */
+}
+
 .dark {
-  --notion-default-bg: #191919;
-  --notion-default-text: #D4D4D4;
-  --notion-gray-bg: #252525;
-  --notion-gray-text: #9B9B9B;
-  --notion-brown-bg: #2E2724;
-  --notion-brown-text: #A27763;
-  --notion-orange-bg: #36291F;
-  --notion-orange-text: #CB7B37;
-  --notion-yellow-bg: #372E20;
-  --notion-yellow-text: #C19138;
-  --notion-green-bg: #242B26;
-  --notion-green-text: #4F9768;
-  --notion-blue-bg: #1F282D;
-  --notion-blue-text: #447ACB;
-  --notion-purple-bg: #2A2430;
-  --notion-purple-text: #865DBB;
-  --notion-pink-bg: #2E2328;
-  --notion-pink-text: #BA4A78;
-  --notion-red-bg: #332523;
-  --notion-red-text: #BE524B;
-
-  /* RGB Variables for transparency */
-  --notion-default-bg-rgb: 25, 25, 25;
-  --notion-gray-text-rgb: 155, 155, 155;
+  --notion-default-bg: hsl(240 10% 3.9%);
+  --notion-default-text: hsl(0 0% 98%);
+  --notion-gray-bg: hsl(240 3.7% 15.9%);
+  --notion-gray-text: hsl(240 5% 64.9%);
+  --notion-blue-text: hsl(0 0% 98%);
 }
-
-:root {
-  /* Primary colors (using Notion blue as primary) */
-  --color-primary: var(--notion-blue-text);
-  --color-primary-light: var(--notion-blue-bg);
-  --color-primary-background: var(--notion-blue-bg);
-
-  /* Theme colors */
-  --text-primary: var(--notion-default-text);
-  --bg-primary: var(--notion-default-bg);
-  --bg-secondary: var(--notion-gray-bg);
-  --border-primary: var(--notion-gray-text);
-  
-  /* RGB Variables for transparency */
-  --notion-default-bg-rgb: 255, 255, 255;
-  --notion-gray-text-rgb: 120, 119, 116;
-}
-
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  body {
-    background-color: var(--notion-default-bg);
-    color: var(--notion-default-text);
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
-  }
-  
-  /* Improve touch targets on mobile */
-  button, a {
-    @apply outline-none;
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Prevent image overflow on mobile */
-  img {
-    max-width: 100%;
-    height: auto;
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
@@ -110,133 +107,29 @@
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .btn {
     @apply inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-full shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
-  }
-  
-  .btn-primary {
-    @apply px-6 py-3 bg-primary text-white rounded-full font-semibold shadow-sm hover:shadow-md transition-all duration-300;
-  }
-  
-  .btn-secondary {
-    @apply px-6 py-3 bg-white text-primary border border-primary rounded-full font-semibold shadow-sm hover:shadow-md hover:bg-primary-50 transition-all duration-300;
-  }
-  
-  .section {
-    @apply py-12 sm:py-16 md:py-24;
-  }
-  
-  .section-title {
-    @apply text-3xl sm:text-4xl font-bold text-center mb-8;
-  }
-  
-  /* Mobile optimized scrolling */
-  .scroll-container {
-    @apply overflow-x-auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-  
-  .scroll-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-  }
-  
-  /* Responsive text utilities */
-  .text-responsive {
-    @apply text-base sm:text-lg md:text-xl;
-  }
-
-  .text-primary {
-    @apply text-primary-600;
-  }
-}
-
-/* Prevent text size adjustment on orientation change */
-@media screen and (orientation: portrait) {
-  html {
-    -webkit-text-size-adjust: 100%;
   }
 }
 
 /* Import Inter font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-/* Carousel Custom Styles */
+/* Carousel Custom Styles - minimally updated */
 .featured-carousel .carousel .control-arrow {
   opacity: 0.8 !important;
   background: none !important;
-  color: var(--notion-blue-text) !important;
+  color: hsl(var(--foreground)) !important;
 }
 
 .featured-carousel .carousel .control-dots .dot {
-  background: var(--notion-gray-text) !important;
+  background: hsl(var(--muted-foreground)) !important;
   box-shadow: none !important;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 .featured-carousel .carousel .control-dots .dot.selected {
-  background: var(--notion-blue-text) !important;
-}
-
-/* Dark mode styles are now handled automatically by CSS variables */
-
-.featured-carousel .carousel .slide {
-  padding: 10px 0;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.featured-carousel .carousel .slide.selected {
-  opacity: 1;
-}
-
-/* Ensure slides have consistent height */
-.featured-carousel .carousel .slider-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-/* Smooth slide transitions */
-.featured-carousel .carousel .slider {
-  transition: all 0.5s ease-in-out;
-}
-
-/* Ensure content is centered */
-.featured-carousel .carousel .slide > div {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Green glow effect for status indicator */
-.green-glow {
-  background-color: rgb(16, 185, 129);
-  box-shadow: 0 0 6px 2px rgba(16, 185, 129, 0.6);
-  position: relative;
-}
-
-.green-glow::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 50%;
-  background: transparent;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-  }
+  background: hsl(var(--primary)) !important;
 }

@@ -4,60 +4,49 @@ import { personalInfo } from '../data/personalInfo';
 
 const Contact = () => {
   const contactLinks = [
-    { 
-      name: 'Email', 
-      icon: <FiMail size={24} />, 
+    {
+      name: 'Email',
+      icon: <FiMail size={24} />,
       href: `mailto:${personalInfo.email}`,
       label: personalInfo.email,
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
       description: 'Send me an email for business inquiries or project discussions.'
     },
-    { 
-      name: 'Phone', 
-      icon: <FiPhone size={24} />, 
+    {
+      name: 'Phone',
+      icon: <FiPhone size={24} />,
       href: personalInfo.socialLinks.phone,
       label: personalInfo.phone,
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
       description: 'Call me directly for urgent matters or quick consultations.'
     },
-    { 
-      name: 'WhatsApp', 
-      icon: <FiMessageCircle size={24} />, 
+    {
+      name: 'WhatsApp',
+      icon: <FiMessageCircle size={24} />,
       href: personalInfo.socialLinks.whatsapp,
       label: 'Chat on WhatsApp',
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
       description: 'Message me on WhatsApp for faster responses and casual discussions.'
     },
-    { 
-      name: 'GitHub', 
-      icon: <FiGithub size={24} />, 
+    {
+      name: 'GitHub',
+      icon: <FiGithub size={24} />,
       href: personalInfo.socialLinks.github,
       label: 'GitHub Profile',
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
       description: 'Check out my open source projects and code repositories.'
     },
-    { 
-      name: 'LinkedIn', 
-      icon: <FiLinkedin size={24} />, 
+    {
+      name: 'LinkedIn',
+      icon: <FiLinkedin size={24} />,
       href: personalInfo.socialLinks.linkedin,
       label: 'LinkedIn Profile',
-      color: 'bg-primary/10',
-      iconColor: 'text-primary',
       description: 'Connect with me professionally and view my work experience.'
     },
   ];
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
+    <section id="contact" className="py-20 relative overflow-hidden bg-background text-foreground">
       {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl"
-          style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.1 }}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl bg-secondary/50"
           animate={{
             x: [0, 50, 0],
             y: [0, 30, 0],
@@ -69,9 +58,8 @@ const Contact = () => {
             ease: "easeInOut",
           }}
         />
-        <motion.div 
-          className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl"
-          style={{ backgroundColor: 'var(--notion-gray-text)', opacity: 0.15 }}
+        <motion.div
+          className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl bg-secondary/50"
           animate={{
             x: [0, -40, 0],
             y: [0, -20, 0],
@@ -94,23 +82,18 @@ const Contact = () => {
           transition={{ duration: 0.5 }}
         >
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full text-sm font-medium shadow-sm"
-            style={{
-              backgroundColor: 'var(--notion-default-bg)',
-              border: `1px solid var(--notion-gray-text)`,
-              color: 'var(--notion-gray-text)'
-            }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full text-sm font-medium shadow-sm bg-secondary text-secondary-foreground border border-border"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            <FiMail className="w-4 h-4" style={{ color: 'var(--notion-gray-text)' }} />
+            <FiMail className="w-4 h-4" />
             Contact Me
           </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--notion-default-text)' }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             Get In Touch
           </h2>
-          <div className="w-16 h-0.5 mx-auto rounded-full mb-6" style={{ backgroundColor: 'var(--notion-gray-text)' }}></div>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--notion-gray-text)' }}>
+          <div className="w-16 h-0.5 mx-auto rounded-full mb-6 bg-border"></div>
+          <p className="text-lg max-w-2xl mx-auto text-muted-foreground">
             Feel free to reach out if you want to collaborate with me, discuss new projects,
             or simply have a chat about technology and innovation.
           </p>
@@ -127,32 +110,27 @@ const Contact = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ 
+              whileHover={{
                 y: -5,
-                boxShadow: "0 10px 25px -5px rgba(249, 115, 22, 0.1)",
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
               }}
-              className="backdrop-blur-sm rounded-2xl p-6 hover:shadow-xl transition-all duration-300 group"
-              style={{
-                backgroundColor: 'var(--notion-default-bg)',
-                border: `1px solid var(--notion-gray-text)`,
-                opacity: 0.95
-              }}
+              className="group backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 bg-card border border-border hover:border-primary/50 text-card-foreground shadow-sm"
             >
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: 'var(--notion-gray-bg)' }}>
-                  <span style={{ color: 'var(--notion-gray-text)' }}>{link.icon}</span>
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110 bg-secondary text-foreground">
+                  {link.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg" style={{ color: 'var(--notion-default-text)' }}>{link.name}</h3>
-                  <p className="text-sm font-medium" style={{ color: 'var(--notion-gray-text)' }}>{link.label}</p>
+                  <h3 className="font-bold text-lg text-foreground">{link.name}</h3>
+                  <p className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">{link.label}</p>
                 </div>
               </div>
-              
-              <p className="mt-2 mb-4 text-sm flex-grow" style={{ color: 'var(--notion-gray-text)' }}>
+
+              <p className="mt-2 mb-4 text-sm flex-grow text-muted-foreground">
                 {link.description}
               </p>
-              
-              <div className="flex items-center font-medium text-sm mt-auto transition-colors" style={{ color: 'var(--notion-gray-text)' }}>
+
+              <div className="flex items-center font-medium text-sm mt-auto transition-colors text-foreground">
                 <span>Connect</span>
                 <FiExternalLink className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
               </div>
@@ -167,32 +145,22 @@ const Contact = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-16 text-center"
         >
-          <p className="mb-6" style={{ color: 'var(--notion-gray-text)' }}>
+          <p className="mb-6 text-muted-foreground">
             Prefer a direct approach? Reach out now.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <motion.a 
+            <motion.a
               href={`mailto:${personalInfo.email}`}
-              className="w-full font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-              style={{
-                backgroundColor: 'var(--notion-gray-bg)',
-                color: 'var(--notion-default-text)',
-                border: `1px solid var(--notion-gray-text)`
-              }}
+              className="w-full font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <FiMail size={18} />
               <span>Send Email</span>
             </motion.a>
-            <motion.a 
+            <motion.a
               href={personalInfo.socialLinks.whatsapp}
-              className="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-200 resize-none flex items-center justify-center gap-2"
-              style={{
-                backgroundColor: 'var(--notion-gray-bg)',
-                border: `1px solid var(--notion-gray-text)`,
-                color: 'var(--notion-gray-text)'
-              }}
+              className="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-200 resize-none flex items-center justify-center gap-2 bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

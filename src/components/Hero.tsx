@@ -41,7 +41,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
       <motion.span
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.5, repeat: Infinity }}
-        className="ml-1"
+        className="ml-1 text-primary"
       >
         |
       </motion.span>
@@ -54,7 +54,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ texts, className }) => 
 const Hero = () => {
   const { trackEvent } = useAnalytics();
 
-  const rotatingTexts = ["AI Solutions", "SaaS Platforms", "Mobile Apps", "Web Applications"];
+  const rotatingTexts = ["AI Solutions", "SaaS Platforms", "Mobile Apps", "RAG Systems"];
 
   const socialLinks = [
     { name: 'GitHub', icon: <FiGithub size={20} />, href: personalInfo.socialLinks.github },
@@ -80,14 +80,8 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 md:pt-16"
-      style={{
-        backgroundColor: 'var(--notion-default-bg)',
-        color: 'var(--notion-default-text)'
-      }}
+      className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 sm:pt-24 md:pt-16 bg-background text-foreground"
     >
-
-
       <div className="container mx-auto px-4 py-8 md:py-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center">
           {/* Main Content */}
@@ -99,13 +93,10 @@ const Hero = () => {
               transition={{ duration: 0.6, type: "spring", stiffness: 200 }}
               className="mb-6 relative"
             >
-              <div className="flex items-center gap-3 shadow-lg rounded-full px-5 py-2 relative" style={{
-                backgroundColor: 'var(--notion-default-bg)',
-                border: `1px solid var(--notion-gray-text)`
-              }}>
-                <div className="w-3 h-3 rounded-full shadow-lg shadow-green-500/50 animate-pulse" style={{ backgroundColor: 'var(--notion-green-text)' }}></div>
-                <span className="font-medium text-sm" style={{ color: 'var(--notion-gray-text)' }}>Open to Work</span>
-                <FiBriefcase style={{ color: 'var(--notion-gray-text)' }} size={16} />
+              <div className="flex items-center gap-3 shadow-sm rounded-full px-5 py-2 relative bg-secondary border border-border">
+                <div className="w-3 h-3 rounded-full shadow-lg shadow-green-500/50 animate-pulse bg-green-500"></div>
+                <span className="font-medium text-sm text-secondary-foreground">Open to Work</span>
+                <FiBriefcase className="text-muted-foreground" size={16} />
               </div>
             </motion.div>
 
@@ -116,11 +107,7 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-4"
             >
-              <span className="inline-block px-6 py-2 rounded-full text-sm font-semibold shadow-sm" style={{
-                backgroundColor: 'var(--notion-gray-bg)',
-                color: 'var(--notion-gray-text)',
-                border: `1px solid var(--notion-gray-text)`
-              }}>
+              <span className="inline-block px-6 py-2 rounded-full text-sm font-semibold shadow-sm bg-secondary text-secondary-foreground border border-border">
                 {personalInfo.title}
               </span>
             </motion.div>
@@ -130,11 +117,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
-              style={{ color: 'var(--notion-default-text)' }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight tracking-tight text-foreground"
             >
-              Hi, I'm <span style={{ color: 'var(--notion-default-text)' }}>{personalInfo.name}</span>
-              <span style={{ color: 'var(--notion-gray-text)' }}>.</span>
+              Hi, I'm <span className="text-foreground">{personalInfo.name}</span>
+              <span className="text-muted-foreground">.</span>
             </motion.h1>
 
             {/* Dynamic Subtitle */}
@@ -142,11 +128,10 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-xl sm:text-2xl md:text-3xl mb-6"
-              style={{ color: 'var(--notion-gray-text)' }}
+              className="text-xl sm:text-2xl md:text-3xl mb-6 text-muted-foreground"
             >
               <span>I build </span>
-              <span className="font-bold" style={{ color: 'var(--notion-default-text)' }}>
+              <span className="font-bold text-foreground">
                 <TypewriterText
                   texts={rotatingTexts}
                   className=""
@@ -159,8 +144,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-lg mb-8 max-w-2xl leading-relaxed"
-              style={{ color: 'var(--notion-gray-text)' }}
+              className="text-lg mb-8 max-w-2xl leading-relaxed text-muted-foreground"
             >
               {personalInfo.bio.split('.').slice(0, 2).join('.') + '.'}
             </motion.p>
@@ -177,11 +161,7 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}
-                className="px-8 py-3 rounded-full font-semibold text-center shadow-lg hover:shadow-xl transition-all duration-300"
-                style={{
-                  backgroundColor: 'var(--notion-default-text)',
-                  color: 'var(--notion-default-bg)'
-                }}
+                className="px-8 py-3 rounded-full font-semibold text-center shadow-lg hover:shadow-xl transition-all duration-300 bg-primary text-primary-foreground hover:bg-primary/90"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -190,12 +170,7 @@ const Hero = () => {
 
               <motion.a
                 href="#contact"
-                className="px-8 py-3 rounded-full font-semibold text-center hover:shadow-lg transition-all duration-300"
-                style={{
-                  backgroundColor: 'var(--notion-default-bg)',
-                  color: 'var(--notion-default-text)',
-                  border: `2px solid var(--notion-default-text)`
-                }}
+                className="px-8 py-3 rounded-full font-semibold text-center hover:shadow-lg transition-all duration-300 bg-background text-foreground border-2 border-input hover:bg-secondary/50"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -217,12 +192,7 @@ const Hero = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleSocialClick(link.name.toLowerCase())}
-                  className="transition-colors p-3 rounded-full flex items-center justify-center w-12 h-12 shadow-sm hover:shadow-md"
-                  style={{
-                    color: 'var(--notion-gray-text)',
-                    backgroundColor: 'var(--notion-default-bg)',
-                    border: `1px solid var(--notion-gray-text)`
-                  }}
+                  className="transition-colors p-3 rounded-full flex items-center justify-center w-12 h-12 shadow-sm hover:shadow-md bg-secondary text-muted-foreground hover:text-foreground hover:bg-secondary/80 border border-border"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.9 }}
                   initial={{ opacity: 0, y: 20 }}
@@ -241,17 +211,10 @@ const Hero = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="lg:col-span-5 p-8 rounded-3xl shadow-xl relative overflow-hidden"
-            style={{
-              backgroundColor: 'var(--notion-default-bg)',
-              border: `1px solid var(--notion-gray-text)`
-            }}
+            className="lg:col-span-5 p-8 rounded-3xl shadow-xl relative overflow-hidden bg-white dark:bg-zinc-900 border border-border"
           >
             <motion.div
-              className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl"
-              style={{
-                background: `linear-gradient(to bottom right, var(--notion-gray-bg), var(--notion-gray-text))`
-              }}
+              className="absolute -top-20 -right-20 w-40 h-40 rounded-full blur-2xl opacity-50 bg-secondary"
               animate={{
                 scale: [1, 1.2, 1],
                 rotate: [0, 45, 0],
@@ -265,8 +228,7 @@ const Hero = () => {
 
             <div className="relative z-10">
               <motion.h3
-                className="text-2xl font-bold mb-6"
-                style={{ color: 'var(--notion-default-text)' }}
+                className="text-2xl font-bold mb-6 text-foreground"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
@@ -284,22 +246,17 @@ const Hero = () => {
                     className="flex items-center gap-4 group"
                   >
                     <motion.div
-                      className="flex items-center justify-center p-2 rounded-xl"
-                      style={{
-                        backgroundColor: 'var(--notion-gray-bg)',
-                        border: `1px solid var(--notion-gray-text)`
-                      }}
+                      className="flex items-center justify-center p-2 rounded-xl bg-secondary border border-border"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
-                      <div style={{ color: 'var(--notion-gray-text)' }}>
+                      <div className="text-muted-foreground group-hover:text-primary transition-colors">
                         {expertiseIcons[index % expertiseIcons.length]}
                       </div>
                     </motion.div>
                     <div>
                       <motion.p
-                        className="font-semibold transition-colors"
-                        style={{ color: 'var(--notion-default-text)' }}
+                        className="font-semibold transition-colors text-foreground group-hover:translate-x-1"
                         whileHover={{ x: 5 }}
                       >
                         {item}
@@ -309,8 +266,8 @@ const Hero = () => {
                 ))}
               </div>
 
-              <div className="mt-6 pt-6" style={{ borderTop: `1px solid var(--notion-gray-text)` }}>
-                <h4 className="text-lg font-semibold mb-4" style={{ color: 'var(--notion-default-text)' }}>Interests</h4>
+              <div className="mt-6 pt-6 border-t border-border">
+                <h4 className="text-lg font-semibold mb-4 text-foreground">Interests</h4>
                 <div className="flex flex-wrap gap-2">
                   {personalInfo.interests.slice(0, 5).map((interest, index) => (
                     <motion.span
@@ -319,12 +276,7 @@ const Hero = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 1.2 + index * 0.1 }}
                       whileHover={{ scale: 1.05, y: -2 }}
-                      className="text-sm px-3 py-1.5 rounded-full hover:shadow-sm transition-all cursor-default font-medium"
-                      style={{
-                        backgroundColor: 'var(--notion-gray-bg)',
-                        color: 'var(--notion-gray-text)',
-                        border: `1px solid var(--notion-gray-text)`
-                      }}
+                      className="text-sm px-3 py-1.5 rounded-full hover:shadow-sm transition-all cursor-default font-medium bg-secondary text-muted-foreground border border-border"
                     >
                       {interest}
                     </motion.span>
@@ -346,17 +298,13 @@ const Hero = () => {
         <motion.a
           href="#about"
           aria-label="Scroll down"
-          className="flex flex-col items-center gap-2 p-3 rounded-full hover:shadow-lg transition-all group"
-          style={{
-            backgroundColor: 'var(--notion-default-bg)',
-            border: `1px solid var(--notion-gray-text)`
-          }}
+          className="flex flex-col items-center gap-2 p-3 rounded-full hover:shadow-lg transition-all group bg-background border border-border"
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           whileHover={{ scale: 1.1 }}
         >
-          <FiArrowDown className="transition-colors" style={{ color: 'var(--notion-gray-text)' }} size={18} />
-          <span className="text-xs font-medium" style={{ color: 'var(--notion-gray-text)' }}>Scroll</span>
+          <FiArrowDown className="transition-colors text-muted-foreground group-hover:text-primary" size={18} />
+          <span className="text-xs font-medium text-muted-foreground group-hover:text-primary">Scroll</span>
         </motion.a>
       </motion.div>
     </section>
