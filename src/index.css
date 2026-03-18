@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -100,9 +102,6 @@
     @apply inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-full shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
   }
 }
-
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* Carousel Custom Styles - minimally updated */
 .featured-carousel .carousel .control-arrow {
