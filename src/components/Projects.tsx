@@ -10,7 +10,7 @@ const SectionHeader = () => (
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
   >
     <motion.span
       className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
@@ -40,7 +40,7 @@ const ProjectCard: React.FC<{
     initial={{ opacity: 0, y: 32 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-60px' }}
-    transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
     className="group relative rounded-2xl overflow-hidden cursor-pointer h-full flex flex-col"
     onClick={onClick}
   >
@@ -143,7 +143,7 @@ const ProjectModal: React.FC<{
       initial={{ scale: 0.95, opacity: 0, y: 20 }}
       animate={{ scale: 1, opacity: 1, y: 0 }}
       exit={{ scale: 0.95, opacity: 0, y: 20 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
       className="rounded-2xl max-w-3xl w-full max-h-[85vh] overflow-y-auto relative shadow-2xl bg-card border border-border/60"
       onClick={(e) => e.stopPropagation()}
     >

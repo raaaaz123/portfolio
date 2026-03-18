@@ -87,7 +87,7 @@ const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
     initial={{ opacity: 0, scale: 0.85 }}
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.3, delay: index * 0.025, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.3, delay: index * 0.025, ease: [0.22, 1, 0.36, 1] as const }}
     whileHover={{ y: -3, transition: { duration: 0.2 } }}
     className="group relative"
   >
@@ -132,7 +132,7 @@ const CategoryCard: React.FC<{ category: SkillCategory; index: number }> = ({ ca
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
       className={`rounded-2xl p-5 sm:p-6 border ${accent.border} ${accent.bg} transition-all duration-300`}
     >
       {/* Category Header */}
@@ -173,7 +173,7 @@ const Skills: React.FC = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <motion.span
             className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"

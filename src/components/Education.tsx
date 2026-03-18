@@ -4,7 +4,7 @@ import { education } from '../data/education';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 /* ─── Education Card ─── */
@@ -16,7 +16,7 @@ const EducationCard: React.FC<{
     initial={{ opacity: 0, y: 28 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-40px' }}
-    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] as const }}
     className="group relative"
   >
     {/* Gradient border on hover */}

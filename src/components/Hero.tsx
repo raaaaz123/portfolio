@@ -186,7 +186,7 @@ const ExpertisePill: React.FC<{ text: string; index: number }> = ({ text, index 
   <motion.div
     initial={{ opacity: 0, y: 12 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 1 + index * 0.08, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+    transition={{ delay: 1 + index * 0.08, duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     whileHover={{ y: -3, transition: { duration: 0.2 } }}
     className="group flex items-center gap-2.5 px-5 py-3 rounded-xl bg-card border border-border/70 hover:border-teal-500/40 dark:hover:border-teal-400/30 hover:bg-teal-50/60 dark:hover:bg-teal-500/[0.08] shadow-sm hover:shadow-md hover:shadow-teal-500/[0.06] backdrop-blur-sm transition-all duration-300 cursor-default"
   >
@@ -202,7 +202,7 @@ const StatItem: React.FC<{ value: string; label: string; index: number }> = ({ v
   <motion.div
     initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
-    transition={{ delay: 1.1 + index * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+    transition={{ delay: 1.1 + index * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const }}
     className="text-center px-4"
   >
     <div className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">{value}</div>
@@ -257,7 +257,7 @@ const Hero = () => {
 
   const fadeUp = {
     hidden: { opacity: 0, y: 28 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
   };
 
   return (
@@ -316,7 +316,7 @@ const Hero = () => {
                 className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-teal-500/60 via-cyan-400/60 to-emerald-400/60"
                 initial={{ scaleX: 0, originX: 0 }}
                 animate={{ scaleX: 1 }}
-                transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
               />
             </span>
           </motion.h1>

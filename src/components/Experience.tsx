@@ -4,7 +4,7 @@ import { FiBriefcase, FiExternalLink, FiArrowUpRight } from 'react-icons/fi';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 /* ─── Timeline Dot ─── */
@@ -28,7 +28,7 @@ const ExperienceCard: React.FC<{
     initial={{ opacity: 0, y: 28 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: '-40px' }}
-    transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] as const }}
     className="relative flex gap-5 sm:gap-8 pb-10 last:pb-0"
   >
     {/* Timeline Line + Dot */}

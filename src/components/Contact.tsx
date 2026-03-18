@@ -4,7 +4,7 @@ import { personalInfo } from '../data/personalInfo';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
 const contactLinks = [
@@ -62,7 +62,7 @@ const ContactCard: React.FC<{
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] as const }}
     whileHover={{ y: -3 }}
     whileTap={{ scale: 0.98 }}
     className="group flex items-center gap-4 p-4 rounded-xl bg-card border border-border/60 hover:shadow-md hover:shadow-teal-500/[0.03] transition-all duration-300"
@@ -144,7 +144,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
           >
             <motion.a
               href={`mailto:${personalInfo.email}`}
