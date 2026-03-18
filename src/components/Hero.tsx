@@ -313,8 +313,8 @@ const Hero = () => {
               </span>
               {/* Underline accent */}
               <motion.span
-                className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-teal-500/60 via-cyan-400/60 to-emerald-400/60"
-                initial={{ scaleX: 0, originX: 0 }}
+                className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-teal-500/60 via-cyan-400/60 to-emerald-400/60 origin-left"
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ delay: 0.9, duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
               />
