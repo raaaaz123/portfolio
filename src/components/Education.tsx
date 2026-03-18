@@ -1,114 +1,100 @@
 import { motion } from 'framer-motion';
-import { FiBookOpen, FiCalendar, FiMapPin } from 'react-icons/fi';
+import { FiCalendar, FiMapPin } from 'react-icons/fi';
 import { education } from '../data/education';
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+/* ─── Education Card ─── */
+const EducationCard: React.FC<{
+  item: (typeof education)[0];
+  index: number;
+}> = ({ item, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 28 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '-40px' }}
+    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+    className="group relative"
+  >
+    {/* Gradient border on hover */}
+    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-teal-500/0 via-cyan-500/0 to-emerald-500/0 group-hover:from-teal-500/15 group-hover:via-cyan-500/15 group-hover:to-emerald-500/15 transition-all duration-500 pointer-events-none" />
+
+    <div className="relative rounded-2xl bg-card border border-border/60 group-hover:border-teal-500/20 dark:group-hover:border-teal-400/15 p-6 sm:p-7 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/[0.04]">
+      <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+        {/* Icon */}
+        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-500/10 border border-teal-200/50 dark:border-teal-500/15 flex items-center justify-center">
+          <FiMapPin size={20} className="text-teal-600 dark:text-teal-400" />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          {/* Period */}
+          <div className="flex items-center gap-1.5 mb-2">
+            <FiCalendar size={12} className="text-muted-foreground" />
+            <span className="text-xs font-medium text-muted-foreground tabular-nums">{item.period}</span>
+          </div>
+
+          {/* Degree */}
+          <h3 className="text-lg sm:text-xl font-bold text-foreground mb-1 leading-snug">
+            {item.degree}
+          </h3>
+
+          {/* Institution */}
+          <p className="text-sm font-medium text-muted-foreground mb-3">{item.institution}</p>
+
+          {/* Description */}
+          {item.description && (
+            <p className="text-sm text-muted-foreground leading-relaxed px-4 py-3 rounded-xl bg-secondary/50 dark:bg-secondary/30 border border-border/30">
+              {item.description}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+/* ─── Main Education Section ─── */
 const Education = () => {
   return (
-    <section id="education" className="py-20 bg-secondary/30 text-foreground">
-      <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-3xl font-bold text-center mb-16 text-foreground"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <section id="education" className="py-16 sm:py-20 bg-background text-foreground relative">
+      {/* Subtle gradient */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-secondary/20 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          className="text-center mb-10"
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={fadeUp}
         >
-          Education
-        </motion.h2>
+          <motion.span
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Background
+          </motion.span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight">
+            Education
+          </h2>
+          <p className="text-base sm:text-lg max-w-xl mx-auto text-muted-foreground leading-relaxed">
+            Computer Science foundations from diploma through B.Tech.
+          </p>
+        </motion.div>
 
-        <div className="max-w-5xl mx-auto">
+        {/* Cards */}
+        <div className="max-w-2xl mx-auto space-y-5">
           {education.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.2,
-                type: "spring",
-                stiffness: 100
-              }}
-              className={`relative mb-8 sm:mb-16 last:mb-0 ${index % 2 === 0 ? 'md:ml-auto md:mr-0' : 'md:mr-auto md:ml-0'
-                } w-full md:w-4/5`}
-            >
-              {/* Decorative elements */}
-              <div className="absolute left-0 top-0 w-1 h-full rounded-full hidden md:block bg-border"></div>
-              <div className="absolute left-0 top-0 w-3 h-3 rounded-full transform -translate-x-1 hidden md:block bg-primary"></div>
-              <div className="absolute left-0 bottom-0 w-3 h-3 rounded-full transform -translate-x-1 hidden md:block bg-primary"></div>
-
-              <div className="ml-0 md:ml-10">
-                <div className="p-4 sm:p-6 md:p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card border-l-4 border-primary">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3 sm:mb-4">
-                    <motion.h3
-                      className="text-xl sm:text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: (index * 0.2) + 0.3 }}
-                    >
-                      {item.degree}
-                    </motion.h3>
-
-                    <motion.div
-                      className="flex items-center mt-1 md:mt-0"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: (index * 0.2) + 0.4 }}
-                    >
-                      <FiCalendar className="mr-2 text-muted-foreground" size={14} />
-                      <span className="text-sm sm:text-base font-medium text-muted-foreground">{item.period}</span>
-                    </motion.div>
-                  </div>
-
-                  <motion.div
-                    className="flex items-center mb-3 sm:mb-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: (index * 0.2) + 0.5 }}
-                  >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mr-3 sm:mr-4 bg-secondary text-foreground">
-                      <FiMapPin className="text-muted-foreground" size={20} />
-                    </div>
-                    <div>
-                      <h4 className="text-lg sm:text-xl font-semibold text-foreground">{item.institution}</h4>
-                    </div>
-                  </motion.div>
-
-                  {item.description && (
-                    <motion.p
-                      className="text-sm sm:text-base p-3 sm:p-4 rounded-md bg-secondary/50 text-muted-foreground border-l-2 border-border"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: (index * 0.2) + 0.6 }}
-                    >
-                      {item.description}
-                    </motion.p>
-                  )}
-
-                  <motion.div
-                    className="mt-4 sm:mt-6 flex justify-end"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: (index * 0.2) + 0.7 }}
-                  >
-                    <div className="flex items-center">
-                      <FiBookOpen className="mr-2 text-primary" size={16} />
-                      <span className="text-xs sm:text-sm font-medium text-muted-foreground">Education</span>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
+            <EducationCard key={index} item={item} index={index} />
           ))}
-
-          {/* Decorative Background Elements */}
-          <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full blur-3xl -z-10 bg-primary/5"></div>
-          <div className="absolute bottom-1/4 left-0 w-96 h-96 rounded-full blur-3xl -z-10 bg-primary/5"></div>
         </div>
       </div>
     </section>

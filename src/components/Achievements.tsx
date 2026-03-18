@@ -1,155 +1,129 @@
 import { motion } from 'framer-motion';
-import { FiMapPin, FiCalendar, FiAward, FiCode, FiExternalLink } from 'react-icons/fi';
+import { FiMapPin, FiCalendar, FiCode, FiAward } from 'react-icons/fi';
 import { achievements } from '../data/achievements';
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const getPrizeStyle = (prize: string) => {
+  if (prize.includes('1st'))
+    return { badge: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/60 dark:border-amber-500/20', dot: 'bg-amber-500' };
+  if (prize.includes('2nd'))
+    return { badge: 'bg-slate-50 dark:bg-slate-500/10 text-slate-600 dark:text-slate-300 border-slate-200/60 dark:border-slate-500/20', dot: 'bg-slate-400' };
+  return { badge: 'bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200/60 dark:border-orange-500/20', dot: 'bg-orange-500' };
+};
+
+/* ─── Achievement Card — horizontal layout ─── */
+const AchievementCard: React.FC<{
+  achievement: (typeof achievements)[0];
+  index: number;
+}> = ({ achievement, index }) => {
+  const prize = getPrizeStyle(achievement.prize);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex gap-5"
+    >
+      {/* Timeline dot + line */}
+      <div className="hidden sm:flex flex-col items-center pt-1.5">
+        <div className={`w-3 h-3 rounded-full ${prize.dot} shadow-sm z-10`} />
+        <div className="w-px flex-1 bg-border/50 mt-2" />
+      </div>
+
+      {/* Card */}
+      <div className="flex-1 rounded-2xl bg-card border border-border/60 group-hover:border-teal-500/20 dark:group-hover:border-teal-400/15 p-5 sm:p-6 transition-all duration-300 group-hover:shadow-md group-hover:shadow-teal-500/[0.04] mb-2">
+        {/* Row 1: Prize + Meta */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+          <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border w-fit ${prize.badge}`}>
+            <FiAward size={11} />
+            {achievement.prize}
+          </span>
+          <div className="flex items-center gap-3 text-[11px] text-muted-foreground sm:ml-auto">
+            <span className="flex items-center gap-1">
+              <FiCalendar size={10} />
+              {achievement.year}
+            </span>
+            <span className="flex items-center gap-1">
+              <FiMapPin size={10} />
+              {achievement.location}
+            </span>
+          </div>
+        </div>
+
+        {/* Row 2: Event + Project inline */}
+        <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
+          <h3 className="text-base font-bold text-foreground leading-snug">{achievement.eventName}</h3>
+          <div className="flex items-center gap-1.5">
+            <FiCode size={12} className="text-teal-600 dark:text-teal-400" />
+            <span className="text-sm font-medium text-teal-600 dark:text-teal-400">{achievement.projectName}</span>
+          </div>
+        </div>
+
+        {/* Description */}
+        <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+          {achievement.description}
+        </p>
+
+        {/* Tech Tags */}
+        {achievement.technologies && (
+          <div className="flex flex-wrap gap-1.5">
+            {achievement.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-medium bg-secondary/70 dark:bg-secondary/50 text-muted-foreground border border-border/40"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+/* ─── Main Achievements Section ─── */
 const Achievements = () => {
   return (
-    <section id="achievements" className="py-20 relative overflow-hidden bg-background text-foreground">
-      {/* Background elements */}
-      <motion.div
-        className="absolute top-20 right-0 w-64 h-64 rounded-full blur-3xl bg-secondary/30"
-        animate={{
-          x: [0, -50, 0],
-          y: [0, 30, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 left-0 w-80 h-80 rounded-full blur-3xl bg-secondary/30"
-        animate={{
-          x: [0, 40, 0],
-          y: [0, -20, 0],
-          scale: [1, 0.8, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="achievements" className="py-16 sm:py-20 relative overflow-hidden bg-background text-foreground">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="text-center mb-10"
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          variants={fadeUp}
         >
-          <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full text-sm font-medium shadow-sm bg-secondary text-secondary-foreground border border-border"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+          <motion.span
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            <FiAward className="w-4 h-4" />
             Recognition
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+          </motion.span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight">
             Hackathons & Awards
           </h2>
-          <div className="w-24 h-1 mx-auto rounded-full mb-6 bg-border"></div>
-          <p className="text-lg max-w-2xl mx-auto text-muted-foreground">
-            Showcasing innovative projects and competitive achievements from various hackathons
+          <p className="text-base sm:text-lg max-w-xl mx-auto text-muted-foreground leading-relaxed">
+            Competitive wins from national-level hackathons building real-world solutions.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
+        {/* Timeline Cards */}
+        <div className="max-w-3xl mx-auto">
           {achievements.map((achievement, index) => (
-            <motion.div
-              key={achievement.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="mb-8 last:mb-0"
-            >
-              <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                {/* Left side - Event details */}
-                <div className="md:w-1/3">
-                  <motion.div
-                    className="backdrop-blur-sm p-4 rounded-xl shadow-sm h-full bg-card/95 border border-border"
-                    whileHover={{
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                      y: -5
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="font-semibold px-3 py-1 rounded-full text-xs inline-block mb-3 bg-secondary text-secondary-foreground border border-border">
-                      🏆 {achievement.prize}
-                    </div>
-                    <h3 className="text-lg font-bold mb-2 text-foreground">{achievement.eventName}</h3>
-
-                    <div className="flex flex-col space-y-2 mt-3 text-muted-foreground">
-                      <div className="flex items-center gap-2">
-                        <FiMapPin className="flex-shrink-0" size={14} />
-                        <span className="text-sm">{achievement.location}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <FiCalendar className="flex-shrink-0" size={14} />
-                        <span className="text-sm">{achievement.year}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Right side - Project details */}
-                <div className="md:w-2/3 relative">
-                  <motion.div
-                    className="p-5 rounded-xl shadow-sm h-full bg-card border border-border"
-                    whileHover={{
-                      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {/* Connector line (visible only on desktop) */}
-                    <div className="absolute left-0 top-1/2 transform -translate-x-full -translate-y-1/2 w-8 h-px hidden md:block bg-border"></div>
-
-                    <div className="flex items-center gap-2 mb-3">
-                      <FiCode className="text-muted-foreground" size={16} />
-                      <h4 className="font-bold text-foreground">{achievement.projectName}</h4>
-                    </div>
-
-                    <p className="mb-4 text-muted-foreground">{achievement.description}</p>
-
-                    {achievement.technologies && (
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {achievement.technologies.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full text-xs font-medium bg-secondary text-secondary-foreground border border-border"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
-                </div>
-              </div>
-            </motion.div>
+            <AchievementCard key={achievement.id} achievement={achievement} index={index} />
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-12"
-        >
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 font-medium transition-colors text-muted-foreground hover:text-foreground"
-          >
-            <span>Let's build something amazing together</span>
-            <FiExternalLink size={16} />
-          </a>
-        </motion.div>
       </div>
     </section>
   );

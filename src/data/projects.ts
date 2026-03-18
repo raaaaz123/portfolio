@@ -13,6 +13,26 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 102,
+    title: "ClawInst",
+    description: "One-click OpenClaw instance deployment platform. Spin up fully configured OpenClaw instances instantly with automated provisioning, Docker-based isolation, and integrated billing via Polar Pay.",
+    image: "/images/projects/clawinst.jpg",
+    tags: ["Next.js", "Docker", "VPS", "Polar Pay", "TypeScript", "OpenClaw", "Automation", "DevOps"],
+    live: "https://clawinst.com",
+    featured: true,
+    role: "Full-stack Developer",
+    features: [
+      "One-click OpenClaw instance provisioning with zero configuration",
+      "Docker-based container isolation for each deployed instance",
+      "Automated VPS setup and resource allocation",
+      "Integrated billing and subscription management via Polar Pay",
+      "Real-time instance monitoring and health checks",
+      "Custom domain support for deployed instances",
+      "Auto-scaling and resource management",
+      "Secure deployment pipeline with automated backups"
+    ]
+  },
+  {
     id: 100,
     title: "Chatlo.io",
     description: "AI RAG-based customer engagement platform that enables businesses to provide intelligent, context-aware customer support. Built with advanced retrieval-augmented generation for accurate, real-time responses from your knowledge base.",
@@ -67,7 +87,8 @@ export const projects: Project[] = [
     role: "Mobile App Developer",
     features: [
       "🎨 AI-powered photo editing with advanced filters and effects",
-      "🖼️ Text-to-image generation using state-of-the-art AI models",
+
+      12+12+      "🖼️ Text-to-image generation using state-of-the-art AI models",
       "✂️ One-tap background removal with transparent PNG export",
       "📸 Photo restoration and colorization for old or damaged images",
       "👔 Professional AI headshot generation for LinkedIn and resumes",

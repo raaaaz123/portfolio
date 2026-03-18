@@ -10,6 +10,23 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    title: "AI Engineer",
+    company: "Geekflare",
+    period: "Sep 2025–Present",
+    type: "Full-time",
+    description: [
+      "Built and deployed scalable RAG pipelines using LangChain and Qdrant vector database for intelligent document retrieval",
+      "Developed generative AI features with OpenAI LLMs and custom embedding models",
+      "Designed and implemented FastAPI-based microservices for AI inference and document processing",
+      "Set up async task processing with Celery and Redis for handling heavy AI workloads",
+      "Containerized services with Docker for consistent deployment across environments"
+    ],
+    technologies: ["LangChain", "OpenAI", "RAG", "FastAPI", "Qdrant", "Celery", "Redis", "Docker", "Gen AI", "Embeddings", "LLMs", "Python"],
+    websites: [
+      { name: "Geekflare.ai", url: "https://geekflare.ai" }
+    ]
+  },
+  {
     title: "Indie SaaS Developer",
     company: "Self-employed",
     period: "2022–Present",

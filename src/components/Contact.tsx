@@ -1,174 +1,175 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiGithub, FiLinkedin, FiPhone, FiMessageCircle, FiExternalLink } from 'react-icons/fi';
+import { FiMail, FiGithub, FiLinkedin, FiPhone, FiMessageCircle, FiArrowUpRight } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const contactLinks = [
+  {
+    name: 'Email',
+    icon: <FiMail size={20} />,
+    href: `mailto:${personalInfo.email}`,
+    label: personalInfo.email,
+    color: 'group-hover:text-teal-600 dark:group-hover:text-teal-400',
+    bg: 'group-hover:bg-teal-50 dark:group-hover:bg-teal-500/10 group-hover:border-teal-200/60 dark:group-hover:border-teal-500/20',
+  },
+  {
+    name: 'WhatsApp',
+    icon: <FiMessageCircle size={20} />,
+    href: personalInfo.socialLinks.whatsapp,
+    label: 'Chat on WhatsApp',
+    color: 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
+    bg: 'group-hover:bg-emerald-50 dark:group-hover:bg-emerald-500/10 group-hover:border-emerald-200/60 dark:group-hover:border-emerald-500/20',
+  },
+  {
+    name: 'Phone',
+    icon: <FiPhone size={20} />,
+    href: personalInfo.socialLinks.phone,
+    label: personalInfo.phone,
+    color: 'group-hover:text-cyan-600 dark:group-hover:text-cyan-400',
+    bg: 'group-hover:bg-cyan-50 dark:group-hover:bg-cyan-500/10 group-hover:border-cyan-200/60 dark:group-hover:border-cyan-500/20',
+  },
+  {
+    name: 'GitHub',
+    icon: <FiGithub size={20} />,
+    href: personalInfo.socialLinks.github,
+    label: 'GitHub Profile',
+    color: 'group-hover:text-foreground',
+    bg: 'group-hover:bg-secondary group-hover:border-border',
+  },
+  {
+    name: 'LinkedIn',
+    icon: <FiLinkedin size={20} />,
+    href: personalInfo.socialLinks.linkedin,
+    label: 'LinkedIn Profile',
+    color: 'group-hover:text-sky-600 dark:group-hover:text-sky-400',
+    bg: 'group-hover:bg-sky-50 dark:group-hover:bg-sky-500/10 group-hover:border-sky-200/60 dark:group-hover:border-sky-500/20',
+  },
+];
+
+/* ─── Contact Link Card ─── */
+const ContactCard: React.FC<{
+  link: (typeof contactLinks)[0];
+  index: number;
+}> = ({ link, index }) => (
+  <motion.a
+    href={link.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ y: -3 }}
+    whileTap={{ scale: 0.98 }}
+    className="group flex items-center gap-4 p-4 rounded-xl bg-card border border-border/60 hover:shadow-md hover:shadow-teal-500/[0.03] transition-all duration-300"
+  >
+    {/* Icon */}
+    <div className={`flex-shrink-0 w-11 h-11 rounded-xl border border-border/60 flex items-center justify-center text-muted-foreground transition-all duration-300 ${link.color} ${link.bg}`}>
+      {link.icon}
+    </div>
+
+    {/* Text */}
+    <div className="flex-1 min-w-0">
+      <div className="text-sm font-semibold text-foreground">{link.name}</div>
+      <div className="text-xs text-muted-foreground truncate">{link.label}</div>
+    </div>
+
+    {/* Arrow */}
+    <FiArrowUpRight
+      size={16}
+      className="flex-shrink-0 text-muted-foreground/40 group-hover:text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+    />
+  </motion.a>
+);
+
+/* ─── Main Contact Section ─── */
 const Contact = () => {
-  const contactLinks = [
-    {
-      name: 'Email',
-      icon: <FiMail size={24} />,
-      href: `mailto:${personalInfo.email}`,
-      label: personalInfo.email,
-      description: 'Send me an email for business inquiries or project discussions.'
-    },
-    {
-      name: 'Phone',
-      icon: <FiPhone size={24} />,
-      href: personalInfo.socialLinks.phone,
-      label: personalInfo.phone,
-      description: 'Call me directly for urgent matters or quick consultations.'
-    },
-    {
-      name: 'WhatsApp',
-      icon: <FiMessageCircle size={24} />,
-      href: personalInfo.socialLinks.whatsapp,
-      label: 'Chat on WhatsApp',
-      description: 'Message me on WhatsApp for faster responses and casual discussions.'
-    },
-    {
-      name: 'GitHub',
-      icon: <FiGithub size={24} />,
-      href: personalInfo.socialLinks.github,
-      label: 'GitHub Profile',
-      description: 'Check out my open source projects and code repositories.'
-    },
-    {
-      name: 'LinkedIn',
-      icon: <FiLinkedin size={24} />,
-      href: personalInfo.socialLinks.linkedin,
-      label: 'LinkedIn Profile',
-      description: 'Connect with me professionally and view my work experience.'
-    },
-  ];
-
   return (
-    <section id="contact" className="py-20 relative overflow-hidden bg-background text-foreground">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl bg-secondary/50"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-0 w-80 h-80 rounded-full blur-3xl bg-secondary/50"
-          animate={{
-            x: [0, -40, 0],
-            y: [0, -20, 0],
-            scale: [1, 0.8, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+    <section id="contact" className="py-16 sm:py-20 relative overflow-hidden bg-background text-foreground">
+      {/* Subtle aurora blob */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.05] dark:opacity-[0.08] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, hsl(168 76% 50%) 0%, transparent 70%)',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          filter: 'blur(80px)',
+        }}
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-2xl mx-auto">
+          {/* Header */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full text-sm font-medium shadow-sm bg-secondary text-secondary-foreground border border-border"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.2 }}
+            className="text-center mb-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
           >
-            <FiMail className="w-4 h-4" />
-            Contact Me
-          </motion.div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            Get In Touch
-          </h2>
-          <div className="w-16 h-0.5 mx-auto rounded-full mb-6 bg-border"></div>
-          <p className="text-lg max-w-2xl mx-auto text-muted-foreground">
-            Feel free to reach out if you want to collaborate with me, discuss new projects,
-            or simply have a chat about technology and innovation.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {contactLinks.map((link, index) => (
-            <motion.a
-              key={link.name}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 20 }}
+            <motion.span
+              className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+              initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{
-                y: -5,
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-              }}
-              className="group backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 bg-card border border-border hover:border-primary/50 text-card-foreground shadow-sm"
+              transition={{ duration: 0.5 }}
             >
-              <div className="flex items-center mb-4">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-4 transition-all duration-300 group-hover:scale-110 bg-secondary text-foreground">
-                  {link.icon}
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg text-foreground">{link.name}</h3>
-                  <p className="text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors">{link.label}</p>
-                </div>
-              </div>
+              Contact
+            </motion.span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight">
+              Get in Touch
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+              Interested in working together? Reach out through any of these channels.
+            </p>
+          </motion.div>
 
-              <p className="mt-2 mb-4 text-sm flex-grow text-muted-foreground">
-                {link.description}
-              </p>
+          {/* Contact Links */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
+            {contactLinks.map((link, index) => (
+              <ContactCard key={link.name} link={link} index={index} />
+            ))}
+          </div>
 
-              <div className="flex items-center font-medium text-sm mt-auto transition-colors text-foreground">
-                <span>Connect</span>
-                <FiExternalLink className="ml-2 group-hover:translate-x-1 transition-transform" size={16} />
-              </div>
-            </motion.a>
-          ))}
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-16 text-center"
-        >
-          <p className="mb-6 text-muted-foreground">
-            Prefer a direct approach? Reach out now.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <motion.a
               href={`mailto:${personalInfo.email}`}
-              className="w-full font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="group flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-teal-600 to-cyan-600 dark:from-teal-500 dark:to-cyan-500 shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30 transition-all duration-300"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
             >
-              <FiMail size={18} />
-              <span>Send Email</span>
+              <FiMail size={16} />
+              Send Email
+              <FiArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </motion.a>
+
             <motion.a
               href={personalInfo.socialLinks.whatsapp}
-              className="w-full px-4 py-3 rounded-lg focus:outline-none transition-all duration-200 resize-none flex items-center justify-center gap-2 bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm border border-border/80 text-foreground bg-card hover:bg-teal-50/40 dark:hover:bg-teal-500/[0.06] hover:border-teal-500/30 dark:hover:border-teal-400/20 transition-all duration-300"
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
             >
-              <FiMessageCircle size={18} />
-              <span>WhatsApp</span>
+              <FiMessageCircle size={16} />
+              WhatsApp
             </motion.a>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

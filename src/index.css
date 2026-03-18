@@ -4,58 +4,48 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 99%;
+    --foreground: 210 40% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 210 40% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 210 40% 10%;
+    --primary: 168 76% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 210 40% 10%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 168 76% 42%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-
-    /* Legacy mapping for backward compatibility until refactor is complete */
-    --notion-default-bg: var(--background);
-    /* --notion-default-text: var(--foreground); -- THIS WAS CAUSING ISSUES, MAPPING TO HEX IS SAFER FOR NOW OR JUST REMOVING */
-    /* Wait, the existing code uses hex inline style often. */
-
-    /* We will map notion-variables to the HSL output using CSS functions if possible, 
-       but standard inline styles expect hex/rgb often. 
-       Actually, `var(--variable)` works in inline styles too. 
-    */
+    --border: 214 20% 91%;
+    --input: 214 20% 91%;
+    --ring: 168 76% 42%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 222 30% 5%;
+    --foreground: 210 40% 98%;
+    --card: 220 22% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 22% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 168 76% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 16%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 220 20% 16%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 168 76% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --border: 220 16% 22%;
+    --input: 220 16% 22%;
+    --ring: 168 76% 50%;
   }
 }
 
@@ -69,22 +59,20 @@
 */
 
 :root {
-  --notion-default-bg: hsl(0 0% 100%);
-  --notion-default-text: hsl(240 10% 3.9%);
-  --notion-gray-bg: hsl(240 4.8% 95.9%);
-  --notion-gray-text: hsl(240 3.8% 46.1%);
-  --notion-blue-text: hsl(240 5.9% 10%);
-  /* Map primary blue to Black/Primary */
+  --notion-default-bg: hsl(0 0% 99%);
+  --notion-default-text: hsl(210 40% 10%);
+  --notion-gray-bg: hsl(210 20% 96%);
+  --notion-gray-text: hsl(215 16% 47%);
+  --notion-blue-text: hsl(168 76% 42%);
   --notion-green-text: #16a34a;
-  /* Keep green */
 }
 
 .dark {
-  --notion-default-bg: hsl(240 10% 3.9%);
-  --notion-default-text: hsl(0 0% 98%);
-  --notion-gray-bg: hsl(240 3.7% 15.9%);
-  --notion-gray-text: hsl(240 5% 64.9%);
-  --notion-blue-text: hsl(0 0% 98%);
+  --notion-default-bg: hsl(222 30% 5%);
+  --notion-default-text: hsl(210 40% 98%);
+  --notion-gray-bg: hsl(220 20% 16%);
+  --notion-gray-text: hsl(215 20% 65%);
+  --notion-blue-text: hsl(168 76% 50%);
 }
 
 @layer base {

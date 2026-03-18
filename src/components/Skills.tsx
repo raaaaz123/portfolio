@@ -11,7 +11,6 @@ interface SkillCategory {
   skills: Skill[];
 }
 
-// Skills data with actual icon paths
 const skills: SkillCategory[] = [
   {
     category: "RAG & LLM Infrastructure",
@@ -82,141 +81,155 @@ const skills: SkillCategory[] = [
   }
 ];
 
-interface FloatingOrbProps {
-  delay: number;
-  duration: number;
-  size?: string;
-}
+/* ─── Skill Tag ─── */
+const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.85 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.3, delay: index * 0.025, ease: [0.22, 1, 0.36, 1] }}
+    whileHover={{ y: -3, transition: { duration: 0.2 } }}
+    className="group relative"
+  >
+    <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border/60 hover:border-teal-500/30 dark:hover:border-teal-400/20 hover:bg-teal-50/40 dark:hover:bg-teal-500/[0.06] shadow-sm hover:shadow-md hover:shadow-teal-500/[0.04] transition-all duration-300 cursor-default">
+      <img
+        src={skill.icon}
+        alt={skill.name}
+        className="w-4 h-4 object-contain opacity-60 group-hover:opacity-100 transition-opacity"
+      />
+      <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors whitespace-nowrap">
+        {skill.name}
+      </span>
 
-const FloatingOrb: React.FC<FloatingOrbProps> = ({ delay, duration, size = "w-32 h-32" }) => {
+      {/* Level indicator dot */}
+      <span
+        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+          skill.level >= 90
+            ? 'bg-teal-500 dark:bg-teal-400'
+            : skill.level >= 80
+            ? 'bg-cyan-500 dark:bg-cyan-400'
+            : 'bg-muted-foreground/40'
+        }`}
+      />
+    </div>
+  </motion.div>
+);
+
+/* ─── Category Card ─── */
+const CategoryCard: React.FC<{ category: SkillCategory; index: number }> = ({ category, index }) => {
+  // Category accent colors
+  const accents = [
+    { dot: 'bg-teal-500', border: 'border-teal-500/20 dark:border-teal-400/15', bg: 'bg-teal-500/[0.04]' },
+    { dot: 'bg-cyan-500', border: 'border-cyan-500/20 dark:border-cyan-400/15', bg: 'bg-cyan-500/[0.04]' },
+    { dot: 'bg-emerald-500', border: 'border-emerald-500/20 dark:border-emerald-400/15', bg: 'bg-emerald-500/[0.04]' },
+    { dot: 'bg-sky-500', border: 'border-sky-500/20 dark:border-sky-400/15', bg: 'bg-sky-500/[0.04]' },
+    { dot: 'bg-indigo-500', border: 'border-indigo-500/20 dark:border-indigo-400/15', bg: 'bg-indigo-500/[0.04]' },
+  ];
+  const accent = accents[index % accents.length];
+
   return (
     <motion.div
-      className={`absolute ${size} rounded-full opacity-20 bg-primary/30 blur-3xl`}
-      animate={{
-        x: [0, 100, -50, 0],
-        y: [0, -80, 100, 0],
-        scale: [1, 1.2, 0.8, 1],
-      }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    />
-  );
-};
-
-interface SkillCardProps {
-  skill: Skill;
-  index: number;
-}
-
-const SkillCard: React.FC<SkillCardProps> = ({ skill, index }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{
-        duration: 0.2,
-        delay: index * 0.02,
-        type: "spring",
-        stiffness: 120,
-      }}
-      whileHover={{ scale: 1.03 }}
-      className="inline-block"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ delay: index * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className={`rounded-2xl p-5 sm:p-6 border ${accent.border} ${accent.bg} transition-all duration-300`}
     >
-      {/* Compact tag-style design */}
-      <div className="rounded-full px-3 py-1.5 transition-all duration-200 flex items-center gap-1.5 shadow-sm bg-secondary text-secondary-foreground border border-border">
-        {/* Skill icon */}
-        <img
-          src={skill.icon}
-          alt={skill.name}
-          className="w-3.5 h-3.5 object-contain"
-        />
-
-        {/* Skill name */}
-        <span className="text-xs font-medium whitespace-nowrap text-foreground">
-          {skill.name}
+      {/* Category Header */}
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className={`w-2 h-2 rounded-full ${accent.dot}`} />
+        <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+          {category.category}
+        </h3>
+        <span className="text-[10px] text-muted-foreground ml-auto tabular-nums">
+          {category.skills.length} skills
         </span>
+      </div>
+
+      {/* Skill Tags */}
+      <div className="flex flex-wrap gap-2">
+        {category.skills.map((skill, i) => (
+          <SkillTag key={skill.name} skill={skill} index={i} />
+        ))}
       </div>
     </motion.div>
   );
 };
 
+/* ─── Main Skills Section ─── */
 const Skills: React.FC = () => {
-  return (
-    <section id="skills" className="relative py-12 overflow-hidden bg-background text-foreground">
-      {/* Minimal floating orbs */}
-      <FloatingOrb delay={0} duration={25} size="w-64 h-64" />
-      <FloatingOrb delay={8} duration={30} size="w-48 h-48" />
+  const totalSkills = skills.reduce((acc, cat) => acc + cat.skills.length, 0);
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Compact Header */}
+  return (
+    <section id="skills" className="relative py-16 sm:py-20 overflow-hidden bg-background text-foreground">
+      {/* Subtle gradient bg */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-secondary/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-secondary/20 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
         <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-foreground">
+          <motion.span
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Tech Stack
+          </motion.span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground tracking-tight">
             Skills & Expertise
           </h2>
-          <div className="w-16 h-0.5 mx-auto rounded-full bg-border" />
+          <p className="text-base sm:text-lg max-w-xl mx-auto text-muted-foreground leading-relaxed">
+            {totalSkills}+ technologies across AI, full-stack, cloud, and mobile development.
+          </p>
         </motion.div>
 
-        {/* New horizontal flow layout */}
-        <div className="space-y-6">
-          {skills.map((category, catIndex) => (
-            <motion.div
-              key={category.category}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: catIndex * 0.1, duration: 0.4 }}
-              className="rounded-2xl p-4 transition-all duration-300 bg-card border border-border shadow-sm"
-            >
-              <h3 className="text-base font-semibold mb-3 flex items-center gap-2 text-foreground">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                {category.category}
-              </h3>
+        {/* Legend */}
+        <motion.div
+          className="flex items-center justify-center gap-6 mb-10"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400" />
+            <span className="text-xs text-muted-foreground">Expert (90+)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+            <span className="text-xs text-muted-foreground">Advanced (80+)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-muted-foreground/40" />
+            <span className="text-xs text-muted-foreground">Proficient</span>
+          </div>
+        </motion.div>
 
-              {/* Horizontal flowing tags */}
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill, index) => (
-                  <SkillCard
-                    key={skill.name}
-                    skill={skill}
-                    index={index}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          ))}
+        {/* Categories Grid — first 2 full width, rest in 3-col */}
+        <div className="space-y-5">
+          {/* Top 2 categories (RAG & AI) — wider */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            {skills.slice(0, 2).map((category, index) => (
+              <CategoryCard key={category.category} category={category} index={index} />
+            ))}
+          </div>
+
+          {/* Remaining categories — 3-col grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {skills.slice(2).map((category, index) => (
+              <CategoryCard key={category.category} category={category} index={index + 2} />
+            ))}
+          </div>
         </div>
-
-        {/* Reduced particles */}
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 rounded-full bg-muted-foreground/40"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -60, 0],
-              opacity: [0, 0.4, 0],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-            }}
-          />
-        ))}
       </div>
     </section>
   );
