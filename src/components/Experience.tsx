@@ -12,7 +12,7 @@ const TimelineDot: React.FC<{ isFirst: boolean }> = ({ isFirst }) => (
   <div className="relative flex flex-col items-center">
     <div className={`w-3 h-3 rounded-full border-2 z-10 ${
       isFirst
-        ? 'bg-teal-500 border-teal-500 shadow-md shadow-teal-500/30'
+        ? 'bg-primary border-primary shadow-md shadow-primary/30'
         : 'bg-card border-border'
     }`} />
   </div>
@@ -47,9 +47,9 @@ const ExperienceCard: React.FC<{
             <span className="w-1 h-1 rounded-full bg-border" />
             <span className={`text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md ${
               experience.type === 'Full-time'
-                ? 'text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-500/10'
+                ? 'text-primary dark:text-primary bg-primary dark:bg-primary/10'
                 : experience.type === 'Contract'
-                ? 'text-cyan-600 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-500/10'
+                ? 'text-primary dark:text-primary bg-primary dark:bg-primary/10'
                 : 'text-muted-foreground bg-secondary'
             }`}>
               {experience.type}
@@ -71,7 +71,7 @@ const ExperienceCard: React.FC<{
         <ul className="space-y-2.5">
           {experience.description.map((item, i) => (
             <li key={i} className="flex items-start gap-2.5 text-sm text-muted-foreground leading-relaxed">
-              <div className="w-1.5 h-1.5 rounded-full bg-teal-500/50 dark:bg-teal-400/50 mt-1.5 flex-shrink-0" />
+              <div className="w-1.5 h-1.5 rounded-full bg-primary/50 dark:bg-primary/50 mt-1.5 flex-shrink-0" />
               {item}
             </li>
           ))}
@@ -100,7 +100,7 @@ const ExperienceCard: React.FC<{
                 href={website.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1.5 text-xs font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
+                className="group inline-flex items-center gap-1.5 text-xs font-medium text-primary dark:text-primary hover:text-primary dark:hover:text-primary transition-colors"
               >
                 <FiExternalLink size={11} />
                 {website.name}
@@ -128,7 +128,7 @@ const Experience = () => {
           variants={fadeUp}
         >
           <motion.span
-            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-primary dark:text-primary mb-3"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

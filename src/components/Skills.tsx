@@ -91,7 +91,7 @@ const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
     whileHover={{ y: -3, transition: { duration: 0.2 } }}
     className="group relative"
   >
-    <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border/60 hover:border-teal-500/30 dark:hover:border-teal-400/20 hover:bg-teal-50/40 dark:hover:bg-teal-500/[0.06] shadow-sm hover:shadow-md hover:shadow-teal-500/[0.04] transition-all duration-300 cursor-default">
+    <div className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-card border border-border/60 hover:border-primary/30 dark:hover:border-primary/20 hover:bg-primary/40 dark:hover:bg-primary/[0.06] shadow-sm hover:shadow-md hover:shadow-primary/[0.04] transition-all duration-300 cursor-default">
       <img
         src={skill.icon}
         alt={skill.name}
@@ -105,9 +105,9 @@ const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
       <span
         className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
           skill.level >= 90
-            ? 'bg-teal-500 dark:bg-teal-400'
+            ? 'bg-primary dark:bg-primary'
             : skill.level >= 80
-            ? 'bg-cyan-500 dark:bg-cyan-400'
+            ? 'bg-primary dark:bg-primary'
             : 'bg-muted-foreground/40'
         }`}
       />
@@ -119,9 +119,9 @@ const SkillTag: React.FC<{ skill: Skill; index: number }> = ({ skill, index }) =
 const CategoryCard: React.FC<{ category: SkillCategory; index: number }> = ({ category, index }) => {
   // Category accent colors
   const accents = [
-    { dot: 'bg-teal-500', border: 'border-teal-500/20 dark:border-teal-400/15', bg: 'bg-teal-500/[0.04]' },
-    { dot: 'bg-cyan-500', border: 'border-cyan-500/20 dark:border-cyan-400/15', bg: 'bg-cyan-500/[0.04]' },
-    { dot: 'bg-emerald-500', border: 'border-emerald-500/20 dark:border-emerald-400/15', bg: 'bg-emerald-500/[0.04]' },
+    { dot: 'bg-primary', border: 'border-primary/20 dark:border-primary/15', bg: 'bg-primary/[0.04]' },
+    { dot: 'bg-primary', border: 'border-primary/20 dark:border-primary/15', bg: 'bg-primary/[0.04]' },
+    { dot: 'bg-primary', border: 'border-primary/20 dark:border-primary/15', bg: 'bg-primary/[0.04]' },
     { dot: 'bg-sky-500', border: 'border-sky-500/20 dark:border-sky-400/15', bg: 'bg-sky-500/[0.04]' },
     { dot: 'bg-indigo-500', border: 'border-indigo-500/20 dark:border-indigo-400/15', bg: 'bg-indigo-500/[0.04]' },
   ];
@@ -176,7 +176,7 @@ const Skills: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
         >
           <motion.span
-            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-primary dark:text-primary mb-3"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -201,11 +201,11 @@ const Skills: React.FC = () => {
           transition={{ delay: 0.3, duration: 0.5 }}
         >
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-teal-500 dark:bg-teal-400" />
+            <span className="w-2 h-2 rounded-full bg-primary dark:bg-primary" />
             <span className="text-xs text-muted-foreground">Expert (90+)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400" />
+            <span className="w-2 h-2 rounded-full bg-primary dark:bg-primary" />
             <span className="text-xs text-muted-foreground">Advanced (80+)</span>
           </div>
           <div className="flex items-center gap-1.5">

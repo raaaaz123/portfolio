@@ -37,7 +37,7 @@ const AchievementCard: React.FC<{
       </div>
 
       {/* Card */}
-      <div className="flex-1 rounded-2xl bg-card border border-border/60 group-hover:border-teal-500/20 dark:group-hover:border-teal-400/15 p-5 sm:p-6 transition-all duration-300 group-hover:shadow-md group-hover:shadow-teal-500/[0.04] mb-2">
+      <div className="flex-1 rounded-2xl bg-card border border-border/60 group-hover:border-primary/20 dark:group-hover:border-primary/15 p-5 sm:p-6 transition-all duration-300 group-hover:shadow-md group-hover:shadow-primary/[0.04] mb-2">
         {/* Row 1: Prize + Meta */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
           <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border w-fit ${prize.badge}`}>
@@ -60,8 +60,8 @@ const AchievementCard: React.FC<{
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-2">
           <h3 className="text-base font-bold text-foreground leading-snug">{achievement.eventName}</h3>
           <div className="flex items-center gap-1.5">
-            <FiCode size={12} className="text-teal-600 dark:text-teal-400" />
-            <span className="text-sm font-medium text-teal-600 dark:text-teal-400">{achievement.projectName}</span>
+            <FiCode size={12} className="text-primary dark:text-primary" />
+            <span className="text-sm font-medium text-primary dark:text-primary">{achievement.projectName}</span>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ const Achievements = () => {
           variants={fadeUp}
         >
           <motion.span
-            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-primary dark:text-primary mb-3"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

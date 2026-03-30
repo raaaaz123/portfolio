@@ -20,13 +20,13 @@ const EducationCard: React.FC<{
     className="group relative"
   >
     {/* Gradient border on hover */}
-    <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-teal-500/0 via-cyan-500/0 to-emerald-500/0 group-hover:from-teal-500/15 group-hover:via-cyan-500/15 group-hover:to-emerald-500/15 transition-all duration-500 pointer-events-none" />
+    <div className="absolute -inset-[1px] rounded-2xl bg-primary/5 group-hover:bg-primary/5 transition-all duration-500 pointer-events-none" />
 
-    <div className="relative rounded-2xl bg-card border border-border/60 group-hover:border-teal-500/20 dark:group-hover:border-teal-400/15 p-6 sm:p-7 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/[0.04]">
+    <div className="relative rounded-2xl bg-card border border-border/60 group-hover:border-primary/20 dark:group-hover:border-primary/15 p-6 sm:p-7 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/[0.04]">
       <div className="flex flex-col sm:flex-row sm:items-start gap-5">
         {/* Icon */}
-        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-500/10 border border-teal-200/50 dark:border-teal-500/15 flex items-center justify-center">
-          <FiMapPin size={20} className="text-teal-600 dark:text-teal-400" />
+        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary dark:bg-primary/10 border border-primary/50 dark:border-primary/15 flex items-center justify-center">
+          <FiMapPin size={20} className="text-primary dark:text-primary" />
         </div>
 
         {/* Content */}
@@ -74,7 +74,7 @@ const Education = () => {
           variants={fadeUp}
         >
           <motion.span
-            className="inline-block text-sm font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400 mb-3"
+            className="inline-block text-sm font-semibold uppercase tracking-widest text-primary dark:text-primary mb-3"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
