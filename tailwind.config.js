@@ -48,7 +48,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Manrope"', 'sans-serif'],
+        display: ['"Outfit"', 'sans-serif'],
       },
     },
   },

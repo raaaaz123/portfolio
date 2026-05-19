@@ -6,6 +6,8 @@ export interface Project {
   tags: string[];
   github?: string;
   live?: string;
+  ios?: string;
+  android?: string;
   featured?: boolean;
   features?: string[];
   role?: string;
@@ -13,11 +15,35 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 101,
+    title: "Notes.chatlo.io",
+    description: "AI-powered note-taking application with seamless web and mobile experiences. Features intelligent RAG-based search, smart organization, and AI-assisted writing to help you capture and retrieve knowledge effortlessly.",
+    image: "/images/projects/notes-chatlo.jpg",
+    tags: ["Next.js", "React Native", "RAG", "TypeScript", "AI", "Mobile App", "Web App", "VPS Hosting", "Vector Search"],
+    live: "https://notes.chatlo.io",
+    ios: "https://apps.apple.com/us/app/chatlo-ai-notes-transcribe/id6761918530",
+    android: "https://play.google.com/store/apps/details?id=com.ainotesassistant.app",
+    featured: true,
+    role: "Full-stack Developer & Mobile Developer",
+    features: [
+      "📱 Cross-platform experience with React Native mobile app and Next.js web app",
+      "🧠 RAG-powered intelligent search across all your notes and documents",
+      "✍️ AI-assisted writing with smart suggestions and auto-completion",
+      "🔍 Semantic search to find notes by meaning, not just keywords",
+      "📂 Smart organization with AI-generated tags and categories",
+      "🔄 Real-time sync between web and mobile platforms",
+      "⚡ Self-hosted RAG infrastructure on VPS (12GB) for speed and privacy",
+      "🔒 End-to-end encryption for secure note storage",
+      "📊 Knowledge graph visualization for connected ideas",
+      "🌙 Beautiful dark mode and customizable themes"
+    ]
+  },
+  {
     id: 102,
     title: "ClawInst",
     description: "One-click OpenClaw instance deployment platform. Spin up fully configured OpenClaw instances instantly with automated provisioning, Docker-based isolation, and integrated billing via Polar Pay.",
     image: "/images/projects/clawinst.jpg",
-    tags: ["Next.js", "Docker", "VPS", "Polar Pay", "TypeScript", "OpenClaw", "Automation", "DevOps"],
+    tags: ["Not Maintaining", "Next.js", "Docker", "VPS", "Polar Pay", "TypeScript", "OpenClaw", "Automation", "DevOps"],
     live: "https://clawinst.com",
     featured: true,
     role: "Full-stack Developer",
@@ -55,48 +81,23 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 101,
-    title: "Notes.chatlo.io",
-    description: "AI-powered note-taking application with seamless web and mobile experiences. Features intelligent RAG-based search, smart organization, and AI-assisted writing to help you capture and retrieve knowledge effortlessly.",
-    image: "/images/projects/notes-chatlo.jpg",
-    tags: ["Next.js", "React Native", "RAG", "TypeScript", "AI", "Mobile App", "Web App", "VPS Hosting", "Vector Search"],
-    live: "https://notes.chatlo.io",
-    featured: true,
-    role: "Full-stack Developer & Mobile Developer",
-    features: [
-      "📱 Cross-platform experience with React Native mobile app and Next.js web app",
-      "🧠 RAG-powered intelligent search across all your notes and documents",
-      "✍️ AI-assisted writing with smart suggestions and auto-completion",
-      "🔍 Semantic search to find notes by meaning, not just keywords",
-      "📂 Smart organization with AI-generated tags and categories",
-      "🔄 Real-time sync between web and mobile platforms",
-      "⚡ Self-hosted RAG infrastructure on VPS (12GB) for speed and privacy",
-      "🔒 End-to-end encryption for secure note storage",
-      "📊 Knowledge graph visualization for connected ideas",
-      "🌙 Beautiful dark mode and customizable themes"
-    ]
-  },
-  {
     id: 0,
-    title: "Makemyflyer App",
-    description: "AI-powered photo editor and image generator mobile app. Create stunning photos, remove backgrounds, restore old photos, make professional headshots, and generate images from text prompts with advanced AI technology.",
+    title: "MakeMyFlyer",
+    description: "AI-powered design platform and mobile app for creating stunning marketing materials, faceless videos, and professional headshots. Seamless experience across web and mobile with advanced AI generation tools.",
     image: "/images/projects/makemyflyer-app.jpg",
-    tags: ["React Native", "TypeScript", "AI", "Image Processing", "Machine Learning", "Photo Editor", "Background Removal", "Text-to-Image", "Firebase", "Cloud Functions"],
-    live: "https://play.google.com/store/apps/details?id=com.flyeraidesigner.app",
+    tags: ["Next.js", "React Native", "TypeScript", "AI", "Image Processing", "OpenAI", "Runway ML", "Tailwind CSS", "Firebase"],
+    live: "https://makemyflyer.com",
+    android: "https://play.google.com/store/apps/details?id=com.flyeraidesigner.app",
     featured: true,
-    role: "Mobile App Developer",
+    role: "Full-stack & Mobile Developer",
     features: [
-      "🎨 AI-powered photo editing with advanced filters and effects",
-
-      12+12+      "🖼️ Text-to-image generation using state-of-the-art AI models",
-      "✂️ One-tap background removal with transparent PNG export",
-      "📸 Photo restoration and colorization for old or damaged images",
-      "👔 Professional AI headshot generation for LinkedIn and resumes",
-      "👗 Virtual try-on feature for digital outfit experimentation",
-      "🎭 Multiple art styles including anime, Pixar, Disney, and more",
-      "⚡ AI upscaling, noise reduction, and image enhancement tools",
-      "📱 Cross-platform mobile experience with React Native",
-      "🔒 Private and secure image processing with user data control"
+      "🎨 AI-powered design generation for marketing materials and flyers",
+      "🖼️ Text-to-image and faceless video creation using advanced ML models",
+      "✂️ One-tap background removal and professional image enhancement",
+      "👔 Professional AI headshot and avatar generation",
+      "📱 Cross-platform experience with React Native app and Next.js web platform",
+      "🔄 Seamless conversion of product descriptions to professional visuals",
+      "🚀 High-performance rendering integrated with Gemini 2.5 and Runway ML"
     ]
   },
   {
@@ -121,27 +122,6 @@ export const projects: Project[] = [
       "🎯 Personalized candidate matching with AI-driven recommendations",
       "📹 Video interview capabilities with WebRTC integration",
       "🔒 Enterprise-grade security for sensitive hiring data"
-    ]
-  },
-  {
-    id: 2,
-    title: "MakeMyFlyer.com",
-    description: "Transform your products into AI-powered designs. Create stunning flyers, ads, and marketing materials in seconds with our AI design tool. Generate faceless videos and professional visuals without design skills.",
-    image: "/images/projects/project1.jpg",
-    tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "OpenAI", "Gemini 2.5", "Runway ML", "Google Veo3"],
-    live: "https://makemyflyer.com",
-    featured: true,
-    role: "Full-stack developer",
-    features: [
-      "🎨 AI-powered design generation for marketing materials",
-      "🖼️ Faceless video creation using advanced ML models",
-      "✨ Integration with multiple AI image generation models",
-      "🔄 Seamless conversion of product descriptions to visuals",
-      "📱 Responsive design across all devices",
-      "🚀 High-performance rendering and processing",
-      "🧠 Integrated with Gemini 2.5 LLM for creative content",
-      "🎬 Runway ML for video creation capabilities",
-      "🔎 Google Veo3 integration for enhanced visual search"
     ]
   },
   {
@@ -175,7 +155,7 @@ export const projects: Project[] = [
     image: "/images/projects/project2.jpg",
     tags: ["Flutter", "Dart", "Firebase", "OpenAI", "Vertex AI", "Hive", "TensorFlow Lite", "Google ML Kit", "Cloud Functions", "FCM", "Stripe", "RevenueCat", "Health APIs"],
     github: "https://github.com/yourusername/dietly-ai",
-    live: "https://play.google.com/store/apps/details?id=com.rexa.nutrizenai",
+    android: "https://play.google.com/store/apps/details?id=com.rexa.nutrizenai",
     featured: true,
     features: [
       "📸 Advanced photo-based food recognition using custom-trained ML models",
@@ -192,42 +172,24 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    title: "Snapzy App",
-    description: "AI avatar e-commerce platform allowing users to create custom avatars and purchase physical products with their avatars. Utilizes fine-tuned LoRA models for instant ID image generation with personalized styles.",
+    title: "Snapzy",
+    description: "AI avatar e-commerce platform and custom design tool. Create personalized avatars, generate instant ID images with fine-tuned LoRA models, and order custom physical products like phone cases directly from web or mobile.",
     image: "/images/projects/project1.jpg",
-    tags: ["Kotlin", "Android", "MVVM", "Firebase", "LLMs", "LoRA", "Stable Diffusion", "AWS", "CloudFront", "WhatsApp API", "FCM", "Cloud Functions"],
+    tags: ["React", "Next.js", "Kotlin", "Android", "Firebase", "Stable Diffusion", "LoRA", "AWS", "WhatsApp API", "Serverless", "MVVM"],
     github: "https://github.com/yourusername/snapzy-app",
-    live: "https://play.google.com/store/apps/details?id=com.genai.aiphotoeditor&hl=en_IN",
-    features: [
-      "🖼️ Custom avatar generation with fine-tuned LoRA models",
-      "🎨 Multiple AI style options using Stable Diffusion variants",
-      "☁️ AWS S3 and CloudFront for image storage and CDN delivery",
-      "📱 Firebase Cloud Messaging for real-time push notifications",
-      "🔄 WhatsApp Cloud API integration for order tracking updates",
-      "⚡ Serverless cloud functions for AI processing tasks",
-      "🛒 Seamless e-commerce integration with secure checkout",
-      "📊 User behavior analytics and personalization"
-    ]
-  },
-  {
-    id: 6,
-    title: "Snapzy Web",
-    description: "Web platform for designing custom phone cases with AI-generated designs and user uploads. Features advanced image processing and a seamless ordering experience.",
-    image: "/images/projects/project2.jpg",
-    tags: ["React", "TypeScript", "Next.js", "AWS", "CloudFront", "Stable Diffusion", "LoRA", "WhatsApp API", "Serverless", "Cloud Functions", "Tailwind CSS"],
-    github: "https://github.com/yourusername/snapzy-web",
     live: "https://snapzy.in",
+    android: "https://play.google.com/store/apps/details?id=com.genai.aiphotoeditor&hl=en_IN",
     featured: true,
+    role: "Full-stack & Mobile Developer",
     features: [
-      "🎨 AI-powered design generation for phone cases using custom LoRA models",
-      "🖼️ Fine-tuned Stable Diffusion models for instant ID image generation",
-      "📱 Custom phone case creation workflow with live preview",
-      "🔄 WhatsApp Cloud API for order notifications and tracking updates",
+      "🖼️ Custom avatar and design generation using fine-tuned LoRA models",
+      "🎨 Multiple AI style options using Stable Diffusion variants",
+      "📱 Cross-platform experience with Native Android app and Next.js web platform",
+      "🛒 Seamless e-commerce integration for designing and purchasing phone cases",
       "☁️ AWS S3 and CloudFront for optimized image storage and delivery",
-      "⚡ Serverless cloud functions for handling AI processing workloads",
-      "🛒 E-commerce integration with secure checkout process",
-      "📊 User analytics and behavior tracking for personalization",
-      "🔄 Seamless mobile-to-web experience with shared user accounts"
+      "🔄 WhatsApp Cloud API integration for automated order notifications",
+      "⚡ Serverless cloud functions for handling complex AI processing tasks",
+      "📱 Firebase Cloud Messaging for real-time push notifications"
     ]
   },
   {
@@ -237,7 +199,7 @@ export const projects: Project[] = [
     image: "/images/projects/project3.jpg",
     tags: ["Kotlin", "Java", "Android", "Firebase", "End-to-End Encryption", "AES Cipher", "FCM", "Room DB", "MVVM", "Coroutines", "Jetpack"],
     github: "https://github.com/yourusername/lattice-app",
-    live: "https://play.google.com/store/apps/details?id=com.tkmce.latticeapp&hl=en_IN",
+    android: "https://play.google.com/store/apps/details?id=com.tkmce.latticeapp&hl=en_IN",
     features: [
       "🔒 End-to-end encrypted messaging using custom AES cipher implementation",
       "📱 Native Android development with Kotlin and Java",
@@ -256,7 +218,7 @@ export const projects: Project[] = [
     title: "M FLIX OTT App",
     description: "Video streaming platform with ExoPlayer integration, content management, and subscription features. Serving 10,000+ users with secure video delivery, adaptive streaming, and premium content management.",
     image: "/images/projects/project4.jpg",
-    tags: ["Java", "Android", "ExoPlayer", "Firebase", "AWS CloudFront", "HLS", "DASH", "DRM", "FCM", "Analytics", "Subscription"],
+    tags: ["Not Maintaining", "Java", "Android", "ExoPlayer", "Firebase", "AWS CloudFront", "HLS", "DASH", "DRM", "FCM", "Analytics", "Subscription"],
     github: "https://github.com/yourusername/m-flix",
     features: [
       "🎬 Custom ExoPlayer implementation with advanced controls and features",

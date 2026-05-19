@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiExternalLink, FiStar, FiLayers, FiUser, FiX, FiInfo, FiCode, FiGithub, FiArrowUpRight, FiGrid, FiFilter } from 'react-icons/fi';
+import { FaApple, FaGooglePlay } from 'react-icons/fa';
 import { projects } from '../data/projects';
 
 /* ─── Category Filter ─── */
@@ -113,13 +114,13 @@ const FeaturedCard: React.FC<{
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-3 mt-auto">
+          <div className="flex flex-wrap items-center gap-3 mt-auto">
             {project.live && (
               <motion.a
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-sm shadow-primary/20 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-sm shadow-primary/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 whileTap={{ scale: 0.97 }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -127,12 +128,38 @@ const FeaturedCard: React.FC<{
                 Live Demo
               </motion.a>
             )}
+            {project.ios && (
+              <motion.a
+                href={project.ios}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                whileTap={{ scale: 0.97 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FaApple size={14} />
+                App Store
+              </motion.a>
+            )}
+            {project.android && (
+              <motion.a
+                href={project.android}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                whileTap={{ scale: 0.97 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <FaGooglePlay size={12} />
+                Play Store
+              </motion.a>
+            )}
             {project.github && (
               <motion.a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 whileTap={{ scale: 0.97 }}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -238,7 +265,7 @@ const ProjectCard: React.FC<{
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               whileTap={{ scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
               aria-label={`Live demo for ${project.title}`}
@@ -246,12 +273,38 @@ const ProjectCard: React.FC<{
               <FiExternalLink size={14} />
             </motion.a>
           )}
+          {project.ios && (
+            <motion.a
+              href={project.ios}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`App Store link for ${project.title}`}
+            >
+              <FaApple size={14} />
+            </motion.a>
+          )}
+          {project.android && (
+            <motion.a
+              href={project.android}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+              aria-label={`Play Store link for ${project.title}`}
+            >
+              <FaGooglePlay size={12} />
+            </motion.a>
+          )}
           {project.github && (
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200"
+              className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               whileTap={{ scale: 0.95 }}
               onClick={(e) => e.stopPropagation()}
               aria-label={`GitHub repository for ${project.title}`}
@@ -380,7 +433,7 @@ const ProjectModal: React.FC<{
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-md shadow-primary/15 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-primary-foreground bg-primary hover:bg-primary/90 shadow-md shadow-primary/15 hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -389,12 +442,38 @@ const ProjectModal: React.FC<{
               <FiArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </motion.a>
           )}
+          {project.ios && (
+            <motion.a
+              href={project.ios}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <FaApple size={15} />
+              App Store
+            </motion.a>
+          )}
+          {project.android && (
+            <motion.a
+              href={project.android}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <FaGooglePlay size={13} />
+              Play Store
+            </motion.a>
+          )}
           {project.github && (
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-foreground bg-secondary/60 dark:bg-secondary/40 border border-border/60 hover:border-primary/25 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.97 }}
             >
