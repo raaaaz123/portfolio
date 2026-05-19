@@ -39,12 +39,6 @@ const Hero = () => {
   const handleSocialClick = (platform: string) => trackEvent('social_link_click', { platform });
   const handleResumeClick = () => trackEvent('resume_view');
 
-  const animationProps = shouldReduceMotion ? {
-    initial: { opacity: 0 },
-    animate: { opacity: 1 },
-    transition: { duration: 0.5 }
-  } : undefined;
-
   return (
     <section
       id="home"
@@ -68,10 +62,9 @@ const Hero = () => {
 
       <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center max-w-5xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          {...animationProps}
+          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8"
         >
           <div className="inline-flex items-center gap-3 rounded-full px-4 py-2 bg-secondary/80 border border-border backdrop-blur-md">
@@ -84,10 +77,9 @@ const Hero = () => {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          {...(shouldReduceMotion ? { ...animationProps, transition: { delay: 0.1 } } : {})}
+          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.2] tracking-tight text-foreground mb-6"
         >
           Building intelligent <span className="text-muted-foreground">experiences for</span> <br className="hidden lg:block" />
@@ -95,20 +87,18 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          {...(shouldReduceMotion ? { ...animationProps, transition: { delay: 0.2 } } : {})}
+          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 text-balance font-medium"
         >
           I'm {personalInfo.name.split(' ')[0]}, a software engineer specializing in scalable architecture and cutting-edge AI integrations. Transforming complex problems into elegant solutions.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          {...(shouldReduceMotion ? { ...animationProps, transition: { delay: 0.3 } } : {})}
+          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
         >
           <a
@@ -130,12 +120,10 @@ const Hero = () => {
           </a>
         </motion.div>
 
-        {/* Social Links */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          {...(shouldReduceMotion ? { ...animationProps, transition: { delay: 0.4 } } : {})}
+          transition={{ duration: shouldReduceMotion ? 0.5 : 1, delay: shouldReduceMotion ? 0.4 : 0.6 }}
           className="mt-16 flex items-center gap-6"
         >
           {[
@@ -162,8 +150,7 @@ const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
-        {...(shouldReduceMotion ? { ...animationProps, transition: { delay: 0.5 } } : {})}
+        transition={{ delay: shouldReduceMotion ? 0.5 : 1.2, duration: shouldReduceMotion ? 0.5 : 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
       >
         <a
