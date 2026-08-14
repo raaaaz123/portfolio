@@ -1,2 +1,22 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Binaries must never be line-ending normalized. Git's auto-detection misses
+# files whose first bytes contain no NULs (a PDF did exactly that, and checkout
+# injected CRs into it), so mark the formats explicitly.
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.avif  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+*.mp4   binary
+*.webm  binary
+*.zip   binary

@@ -60,14 +60,33 @@ const Hero: React.FC<{ onHire: () => void }> = ({ onHire }) => {
       )}
 
       <div className="shell">
+        {/* Status ribbon — centred so it lines up with the floating nav pill above */}
+        <motion.div
+          initial={{ opacity: 0, y: still ? 0 : -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease }}
+          className="mb-8 flex justify-center sm:mb-10"
+        >
+          <span className="glass label inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-foreground">
+            <span className="relative flex h-1.5 w-1.5">
+              {!still && (
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+              )}
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+            </span>
+            Available for work
+          </span>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-9"
         >
           <span className="label text-foreground">Full-Stack AI Builder</span>
-          <span className="h-px w-6 bg-hairline" aria-hidden="true" />
+          {/* hidden where the line wraps, so it never dangles at a line end */}
+          <span className="hidden h-px w-6 bg-hairline min-[420px]:block" aria-hidden="true" />
           <span className="label">{personalInfo.location}</span>
         </motion.div>
 
@@ -118,19 +137,7 @@ const Hero: React.FC<{ onHire: () => void }> = ({ onHire }) => {
           </motion.a>
         </motion.div>
 
-        <motion.div {...step(2)} className="mt-5">
-          <span className="glass label inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-foreground">
-            <span className="relative flex h-1.5 w-1.5">
-              {!still && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
-              )}
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-            </span>
-            Available for work
-          </span>
-        </motion.div>
-
-        <motion.div {...step(3)} className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-12">
+        <motion.div {...step(2)} className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-12">
           {socials.map((s) => (
             <a
               key={s.name}
