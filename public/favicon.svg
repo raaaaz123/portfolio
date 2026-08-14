@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Terminal prompt with caret">
+  <!-- Ink tile, same warm near-black as the site's dark background (#131211).
+       Kept dark in both browser themes so the amber always has contrast. -->
+  <rect width="32" height="32" rx="7.5" fill="#131211"/>
+
+  <!-- Prompt chevron, drawn as a path so it needs no font. Kept short and thick
+       so it survives being scaled down to 16px in a browser tab. -->
+  <path d="M10.2 11.5 L15 16 L10.2 20.5"
+        fill="none"
+        stroke="#EEEAE2"
+        stroke-width="2.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- The caret: the site's signature amber (#F59F3D), blinking like the hero -->
+  <rect x="19.4" y="10.2" width="3.8" height="11.6" rx="1.3" fill="#F59F3D">
+    <animate attributeName="opacity"
+             values="1;1;0;0;1"
+             keyTimes="0;0.49;0.5;0.99;1"
+             dur="1.15s"
+             repeatCount="indefinite"/>
+  </rect>
+</svg>

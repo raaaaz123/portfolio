@@ -11,6 +11,7 @@ export default {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        hairline: "hsl(var(--hairline))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
@@ -44,12 +45,13 @@ export default {
       },
       borderRadius: {
         lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        md: "calc(var(--radius) - 1px)",
+        sm: "calc(var(--radius) - 2px)",
       },
       fontFamily: {
-        sans: ['"Manrope"', 'sans-serif'],
-        display: ['"Outfit"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        display: ['"Newsreader"', 'ui-serif', 'Georgia', 'serif'],
       },
     },
   },

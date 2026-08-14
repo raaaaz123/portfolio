@@ -1,172 +1,150 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiArrowRight, FiArrowDown } from 'react-icons/fi';
+import { motion, useReducedMotion } from 'framer-motion';
 import { personalInfo } from '../data/personalInfo';
+import { ease } from '../lib/ui';
 import useAnalytics from '../hooks/usePostHog';
+import usePointerGlow from '../hooks/usePointerGlow';
 
-const RotatingRoles = () => {
-  const roles = ['AI Solutions', 'SaaS Platforms', 'Full-Stack Apps', 'RAG Systems'];
-  const [index, setIndex] = useState(0);
+const socials = [
+  { name: 'GitHub', href: personalInfo.socialLinks.github },
+  { name: 'LinkedIn', href: personalInfo.socialLinks.linkedin },
+  { name: 'Email', href: personalInfo.socialLinks.email },
+];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % roles.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [roles.length]);
+/** A headline line that slides up out of its own clipping box. */
+const Line: React.FC<{ children: React.ReactNode; delay: number; still: boolean }> = ({
+  children,
+  delay,
+  still,
+}) => (
+  <span className="block overflow-hidden pb-[0.08em]">
+    <motion.span
+      className="block"
+      initial={{ y: still ? 0 : '110%', opacity: still ? 0 : 1 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: still ? 0.5 : 1.05, delay, ease }}
+    >
+      {children}
+    </motion.span>
+  </span>
+);
 
-  return (
-    <span className="inline-flex flex-col overflow-hidden h-[1.3em] align-bottom text-left justify-start min-w-[260px] sm:min-w-[340px] md:min-w-[400px] lg:min-w-[480px]">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={index}
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -30, opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-primary whitespace-nowrap"
-        >
-          {roles[index]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-};
-
-const Hero = () => {
+const Hero: React.FC<{ onHire: () => void }> = ({ onHire }) => {
   const { trackEvent } = useAnalytics();
-  const shouldReduceMotion = useReducedMotion();
-  const handleSocialClick = (platform: string) => trackEvent('social_link_click', { platform });
-  const handleResumeClick = () => trackEvent('resume_view');
+  const glow = usePointerGlow();
+  const still = !!useReducedMotion();
+
+  const step = (i: number) => ({
+    initial: { opacity: 0, y: still ? 0 : 14 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.7, delay: 0.45 + 0.08 * i, ease },
+  });
 
   return (
     <section
       id="home"
-      className="min-h-[100dvh] flex flex-col justify-center relative overflow-hidden bg-background pt-24 pb-12"
+      className="relative z-10 flex min-h-[86svh] scroll-mt-20 flex-col justify-center overflow-hidden pb-14 pt-28 sm:min-h-[90svh] sm:pb-16 sm:pt-32"
     >
-      {/* Subtle Grid Background */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]" 
-        style={{
-          backgroundImage: `linear-gradient(to right, hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground)) 1px, transparent 1px)`,
-          backgroundSize: '4rem 4rem'
-        }}
-        aria-hidden="true"
-      />
-      
-      {/* Soft gradient blur */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 rounded-full blur-[120px] pointer-events-none opacity-50 dark:opacity-20"
-        aria-hidden="true"
-      />
+      {/* Something for the glass to refract. Kept faint on purpose — this is
+          atmosphere, not a gradient hero. */}
+      {!still && (
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <div
+            className="absolute -left-[8%] top-[6%] h-[46vmin] w-[46vmin] rounded-full bg-primary/[0.16] blur-[100px] dark:bg-primary/[0.13]"
+            style={{ animation: 'orb-drift 26s ease-in-out infinite' }}
+          />
+          <div
+            className="absolute right-[2%] top-[38%] h-[38vmin] w-[38vmin] rounded-full bg-foreground/[0.07] blur-[80px]"
+            style={{ animation: 'orb-drift 34s ease-in-out infinite reverse' }}
+          />
+        </div>
+      )}
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center max-w-5xl">
+      <div className="shell">
         <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-9"
         >
-          <div className="inline-flex items-center gap-3 rounded-full px-4 py-2 bg-secondary/80 border border-border backdrop-blur-md">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" aria-hidden="true"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" aria-hidden="true"></span>
-            </span>
-            <span className="text-xs font-semibold tracking-widest text-foreground uppercase">Available for work</span>
-          </div>
+          <span className="label text-foreground">Full-Stack AI Builder</span>
+          <span className="h-px w-6 bg-hairline" aria-hidden="true" />
+          <span className="label">{personalInfo.location}</span>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.2] tracking-tight text-foreground mb-6"
-        >
-          Building intelligent <span className="text-muted-foreground">experiences for</span> <br className="hidden lg:block" />
-          <RotatingRoles />
-        </motion.h1>
+        <h1 className="max-w-[19ch] font-display text-[2.1rem] font-light leading-[1.08] tracking-[-0.02em] text-foreground min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl">
+          <Line delay={0.05} still={still}>
+            I build AI products
+          </Line>
+          <Line delay={0.16} still={still}>
+            <span className="caret">from idea to launch.</span>
+          </Line>
+        </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12 text-balance font-medium"
+          {...step(0)}
+          className="mt-6 max-w-[54ch] text-[12.5px] leading-relaxed text-muted-foreground sm:mt-7 sm:text-sm"
         >
-          I'm {personalInfo.name.split(' ')[0]}, a software engineer specializing in scalable architecture and cutting-edge AI integrations. Transforming complex problems into elegant solutions.
+          Three years building SaaS platforms, RAG systems and full-stack apps — from vector
+          search infrastructure to mobile apps with 50k+ users.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduceMotion ? 0.5 : 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
-        >
-          <a
+        <motion.div {...step(1)} className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-3 sm:mt-10">
+          <motion.button
+            type="button"
+            onClick={onHire}
+            whileHover={still ? undefined : { y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.25, ease }}
+            className="sheen inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[12px] font-medium tracking-wide text-background shadow-lg shadow-foreground/15"
+          >
+            Hire me
+          </motion.button>
+
+          <motion.a
             href={personalInfo.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={handleResumeClick}
-            className="group flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto rounded-full font-semibold text-background bg-foreground hover:bg-foreground/90 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            onClick={() => trackEvent('resume_view')}
+            onPointerMove={glow}
+            whileHover={still ? undefined : { y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.25, ease }}
+            className="glass spotlight group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] font-medium tracking-wide text-foreground"
           >
-            View Resume
-            <FiArrowRight className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-          </a>
-          
-          <a
-            href="#projects"
-            className="group flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto rounded-full font-semibold text-foreground bg-transparent border border-border hover:bg-secondary transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          >
-            Explore Work
-          </a>
+            Résumé
+            <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              ↗
+            </span>
+          </motion.a>
         </motion.div>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: shouldReduceMotion ? 0.5 : 1, delay: shouldReduceMotion ? 0.4 : 0.6 }}
-          className="mt-16 flex items-center gap-6"
-        >
-          {[
-            { name: 'GitHub', icon: <FiGithub size={22} aria-hidden="true" />, href: personalInfo.socialLinks.github },
-            { name: 'LinkedIn', icon: <FiLinkedin size={22} aria-hidden="true" />, href: personalInfo.socialLinks.linkedin },
-            { name: 'Email', icon: <FiMail size={22} aria-hidden="true" />, href: personalInfo.socialLinks.email }
-          ].map((link) => (
+        <motion.div {...step(2)} className="mt-5">
+          <span className="glass label inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-foreground">
+            <span className="relative flex h-1.5 w-1.5">
+              {!still && (
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+              )}
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+            </span>
+            Available for work
+          </span>
+        </motion.div>
+
+        <motion.div {...step(3)} className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-12">
+          {socials.map((s) => (
             <a
-              key={link.name}
-              href={link.href}
+              key={s.name}
+              href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => handleSocialClick(link.name.toLowerCase())}
-              className="text-muted-foreground hover:text-foreground transition-colors p-2 -m-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md"
-              aria-label={link.name}
-              title={link.name}
+              onClick={() => trackEvent('social_link_click', { platform: s.name.toLowerCase() })}
+              className="label link-underline hover:text-foreground"
             >
-              {link.icon}
+              {s.name}
             </a>
           ))}
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: shouldReduceMotion ? 0.5 : 1.2, duration: shouldReduceMotion ? 0.5 : 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-      >
-        <a
-          href="#projects"
-          aria-label="Scroll down to projects section"
-          className="flex flex-col items-center gap-3 text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md p-2"
-        >
-          <span className="text-[10px] uppercase tracking-[0.2em] font-semibold">Scroll</span>
-          <motion.div
-            animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <FiArrowDown size={16} aria-hidden="true" />
-          </motion.div>
-        </a>
-      </motion.div>
     </section>
   );
 };

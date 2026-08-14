@@ -5,41 +5,22 @@ import './index.css'
 import { PostHogProvider } from 'posthog-js/react'
 import { ThemeProvider } from './contexts/ThemeContext'
 
-// Ensure proper viewport meta tag is set for mobile responsiveness
-const setViewportMeta = () => {
-  // Check if viewport meta tag exists
-  let viewportMeta = document.querySelector('meta[name="viewport"]')
-  
-  // If it doesn't exist, create it
-  if (!viewportMeta) {
-    viewportMeta = document.createElement('meta')
-    viewportMeta.setAttribute('name', 'viewport')
-    document.head.appendChild(viewportMeta)
-  }
-  
-  // Set the content attribute to ensure proper mobile scaling
-  viewportMeta.setAttribute(
-    'content', 
-    'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-  )
-}
-
-// Ensure proper theme-color meta for mobile browsers
+// Theme-color for mobile browser chrome, matched to the two palettes.
+// (Viewport is declared in index.html — pinch-zoom is left enabled on purpose.)
 const setThemeColorMeta = () => {
-  let themeColorMeta = document.querySelector('meta[name="theme-color"]')
-  
-  if (!themeColorMeta) {
-    themeColorMeta = document.createElement('meta')
-    themeColorMeta.setAttribute('name', 'theme-color')
-    document.head.appendChild(themeColorMeta)
+  const set = (media: string, color: string) => {
+    const meta = document.createElement('meta')
+    meta.setAttribute('name', 'theme-color')
+    meta.setAttribute('media', media)
+    meta.setAttribute('content', color)
+    document.head.appendChild(meta)
   }
-  
-  // Set theme color to match your primary color
-  themeColorMeta.setAttribute('content', '#f97316') // Adjust to match your primary color
+
+  document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.remove())
+  set('(prefers-color-scheme: light)', '#F8F6F1')
+  set('(prefers-color-scheme: dark)', '#131211')
 }
 
-// Set up meta tags
-setViewportMeta()
 setThemeColorMeta()
 
 const options = {
@@ -49,7 +30,7 @@ const options = {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <PostHogProvider 
+      <PostHogProvider
         apiKey={import.meta.env.VITE_PUBLIC_POSTHOG_KEY}
         options={options}
       >

@@ -10,10 +10,23 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    title: "AI Consultant & Full-Stack AI Developer",
+    company: "Self-employed",
+    period: "Dec 2025–Present",
+    type: "Freelance",
+    description: [
+      "Shipping independent SaaS and mobile products end to end — product, infrastructure, billing and support",
+      "Building AI automation for clients: agent workflows, RAG pipelines, voice agents and LLM integrations",
+      "Publishing native iOS and Android apps, most recently GlowZen on the App Store",
+      "Advising on model selection, cost control and self-hosted inference for small teams"
+    ],
+    technologies: ["Next.js", "React Native", "SwiftUI", "Python", "FastAPI", "AWS Bedrock", "LLMs", "AI Agents", "TypeScript"]
+  },
+  {
     title: "AI Engineer",
     company: "Geekflare",
-    period: "Sep 2025–Present",
-    type: "Full-time",
+    period: "Sep 2025–Dec 2025",
+    type: "Contract · Full-time",
     description: [
       "Built and deployed scalable RAG pipelines using LangChain and Qdrant vector database for intelligent document retrieval",
       "Developed generative AI features with OpenAI LLMs and custom embedding models",
@@ -29,8 +42,8 @@ export const experiences: Experience[] = [
   {
     title: "Indie SaaS Developer",
     company: "Self-employed",
-    period: "2022–Present",
-    type: "Full-time",
+    period: "2022–Sep 2025",
+    type: "Part-time",
     description: [
       "Built and launched MakeMyFlyer.com, a profitable SaaS for automated design generation",
       "Created Snapzy.in, an AI-based mobile case selling platform with 500+ sales using LoRAs and GenAI models",
@@ -41,34 +54,7 @@ export const experiences: Experience[] = [
     technologies: ["Next.js", "React", "TypeScript", "AI", "Node.js", "PostgreSQL", "Stripe", "LoRA", "GenAI"],
     websites: [
       { name: "MakeMyFlyer.com", url: "https://makemyflyer.com" },
-      { name: "Snapzy.in", url: "https://snapzy.in" },
-      { name: "Bioly.link", url: "https://bioly.link" }
+      { name: "Snapzy.in", url: "https://snapzy.in" }
     ]
-  },
-  {
-    title: "Software Development Consultant",
-    company: "Freelance",
-    period: "2020–2023",
-    type: "Contract",
-    description: [
-      "Delivered custom software solutions for multiple clients",
-      "Built AI-powered automation tools for business workflows",
-      "Developed mobile applications with Flutter for cross-platform deployment",
-      "Implemented serverless architectures for scalable backend systems"
-    ],
-    technologies: ["Flutter", "AWS", "Firebase", "AI Integration", "Serverless", "Node.js"]
-  },
-  {
-    title: "Tech Lead",
-    company: "Google Developer Student Club TKMCE",
-    period: "2022–2023",
-    type: "Volunteer",
-    description: [
-      "Organized and conducted multiple hackathons, workshops and tech fests",
-      "Mentored junior developers on mobile and web development",
-      "Advocated for Firebase, GCP and cloud technologies",
-      "Led a team of student developers on community projects"
-    ],
-    technologies: ["Android", "Firebase", "React", "Cloud", "GCP"]
   }
-]; 
+];

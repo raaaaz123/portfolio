@@ -1,59 +1,63 @@
-export interface Skill {
-  name: string;
-  icon?: string;
+export interface SkillGroup {
+  label: string;
+  items: string[];
 }
 
-export interface SkillCategory {
-  category: string;
-  skills: Skill[];
-}
-
-export const skills: SkillCategory[] = [
+/**
+ * Deliberately short. No proficiency percentages — self-assessed levels are
+ * noise, and every extra logo dilutes the ones that matter.
+ */
+export const skillGroups: SkillGroup[] = [
   {
-    category: "Languages",
-    skills: [
-      { name: "Java", icon: "/icons/tech/java.svg" },
-      { name: "Kotlin", icon: "/icons/tech/kotlin.svg" },
-      { name: "Dart", icon: "/icons/tech/dart.svg" },
-      { name: "TypeScript", icon: "/icons/typescript.svg" },
-      { name: "JavaScript", icon: "/icons/tech/javascript.svg" },
-      { name: "Python", icon: "/icons/tech/python.svg" },
-      { name: "SQL", icon: "/icons/tech/sql.svg" },
+    label: 'AI & Retrieval',
+    items: [
+      'RAG pipelines',
+      'LangChain',
+      'Qdrant',
+      'Pinecone',
+      'Embeddings',
+      'Re-ranking',
+      'AI agents',
+      'Prompt engineering',
     ],
   },
   {
-    category: "Frameworks & Platforms",
-    skills: [
-      { name: "Flutter", icon: "/icons/tech/flutter.svg" },
-      { name: "React", icon: "/icons/react.svg" },
-      { name: "Next.js", icon: "/icons/nextjs.svg" },
-      { name: "Android SDK", icon: "/icons/tech/android.svg" },
-      { name: "Firebase", icon: "/icons/tech/firebase.svg" },
-      { name: "Tailwind CSS", icon: "/icons/tailwind.svg" },
-      { name: "Node.js", icon: "/icons/nodejs.svg" },
+    label: 'Languages & UI',
+    items: [
+      'TypeScript',
+      'Python',
+      'Next.js',
+      'React',
+      'React Native',
+      'Flutter',
+      'Kotlin',
+      'Tailwind CSS',
     ],
   },
   {
-    category: "DevOps & Cloud",
-    skills: [
-      { name: "AWS", icon: "/icons/tech/aws.svg" },
-      { name: "GCP", icon: "/icons/tech/gcp.svg" },
-      { name: "Firebase", icon: "/icons/tech/firebase.svg" },
-      { name: "Serverless", icon: "/icons/serverless.svg" },
-      { name: "GitHub Actions", icon: "/icons/tech/github-actions.svg" },
-      { name: "Docker", icon: "/icons/tech/docker.svg" },
+    label: 'Backend & Data',
+    items: [
+      'Node.js',
+      'FastAPI',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'Celery',
+      'WebSockets',
+      'REST & API design',
     ],
   },
   {
-    category: "AI & Tools",
-    skills: [
-      { name: "OpenAI", icon: "/icons/ai.svg" },
-      { name: "Claude", icon: "/icons/tech/claude.svg" },
-      { name: "Vertex AI", icon: "/icons/tech/vertex.svg" },
-      { name: "CI/CD", icon: "/icons/tech/cicd.svg" },
-      { name: "REST APIs", icon: "/icons/tech/api.svg" },
-      { name: "Agile", icon: "/icons/tech/agile.svg" },
-      { name: "Git", icon: "/icons/tech/git.svg" },
+    label: 'Infra & Models',
+    items: [
+      'AWS',
+      'AWS Bedrock',
+      'Firebase',
+      'Docker',
+      'VPS / self-hosting',
+      'GitHub Actions',
+      'Claude',
+      'OpenAI / Gemini',
     ],
   },
-]; 
+];
