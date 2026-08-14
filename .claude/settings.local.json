@@ -11,7 +11,8 @@
       "WebFetch(domain:apps.apple.com)",
       "Bash(grep -n \"^\\\\s*,\\\\s*$\" src/data/projects.ts)",
       "Bash(grep -n \"},\\\\s*,\\\\|,\\\\s*,$\\\\|\\\\[\\\\s*,\\\\|,\\\\s*\\\\]\" src/data/projects.ts)",
-      "PowerShell(Copy-Item *)"
+      "PowerShell(Copy-Item *)",
+      "WebFetch(domain:rdap.org)"
     ]
   }
 }
