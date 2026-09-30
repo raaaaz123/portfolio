@@ -1,132 +1,118 @@
 import { motion } from 'framer-motion';
 import { experiences } from '../data/experience';
 import { education } from '../data/education';
-import { achievements } from '../data/achievements';
-import Section from './Section';
+import { personalInfo } from '../data/personalInfo';
+import { FiDownload } from 'react-icons/fi';
 import { ease } from '../lib/ui';
+import SectionHead from './SectionHead';
 
-const item = (i: number) => ({
-  initial: { opacity: 0, y: 10 },
+const reveal = (i: number) => ({
+  initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-40px' } as const,
-  transition: { duration: 0.45, delay: Math.min(i, 5) * 0.05, ease },
+  transition: { duration: 0.6, delay: Math.min(i, 4) * 0.06, ease },
 });
 
-/* ─── A role ─── */
-const Role: React.FC<{ role: (typeof experiences)[0]; i: number }> = ({ role, i }) => (
-  <motion.article {...item(i)} className="relative pb-9 pl-5 last:pb-0 sm:pb-10 sm:pl-8">
-    {/* hairline spine + node */}
-    <span className="absolute left-0 top-2 h-full w-px bg-hairline" aria-hidden="true" />
-    <span
-      className={`absolute -left-[3px] top-1.5 h-[7px] w-[7px] rounded-full ${
-        i === 0 ? 'bg-primary' : 'bg-hairline ring-2 ring-background'
-      }`}
-      aria-hidden="true"
-    />
+const Experience = () => (
+  <section id="experience" className="bg-paper pb-24 pt-20 text-ink sm:pb-32 sm:pt-28">
+    <div className="shell">
+      <SectionHead n="07" title="Experience" />
 
-    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <h3 className="font-display text-lg font-normal text-foreground sm:text-xl">{role.title}</h3>
-      <span className="label tabular-nums sm:ml-auto">{role.period}</span>
-    </div>
-
-    <p className="mt-1 text-[12.5px] text-muted-foreground">
-      {role.company}
-      {role.type && <span className="text-muted-foreground/60"> · {role.type}</span>}
-    </p>
-
-    <ul className="mt-4 space-y-1.5">
-      {role.description.slice(0, 3).map((d, k) => (
-        <li key={k} className="flex gap-3 text-[12.5px] leading-relaxed text-muted-foreground">
-          <span className="select-none text-primary/70">—</span>
-          <span>{d}</span>
-        </li>
-      ))}
-    </ul>
-
-    {role.technologies && (
-      <p className="mt-4 text-[11.5px] leading-relaxed text-muted-foreground/80">
-        {role.technologies.slice(0, 8).join(' · ')}
-      </p>
-    )}
-
-    {role.websites && role.websites.length > 0 && (
-      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
-        {role.websites.map((w) => (
-          <a
-            key={w.url}
-            href={w.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="label link-underline text-primary hover:text-primary"
+      <div>
+        {experiences.map((role, i) => (
+          <motion.article
+            key={role.title + role.period}
+            {...reveal(i)}
+            className="group grid gap-4 border-b-[1.5px] border-dashed border-ink/25 py-9 lg:grid-cols-[220px_1fr_1fr] lg:gap-10"
           >
-            {w.name} ↗
-          </a>
+            <div>
+              <p className="text-[15px] font-semibold tabular-nums">{role.period}</p>
+              {role.type && <p className="mt-1 text-[14px] text-muted-foreground">{role.type}</p>}
+            </div>
+            <div>
+              <h3
+                className="display text-[clamp(2.2rem,4vw,3.4rem)] group-hover:text-pop"
+                style={{ transition: 'color .3s' }}
+              >
+                {role.title}
+              </h3>
+              <p className="mt-2 text-[16px] font-semibold">
+                {role.company}
+                {role.websites?.map((w) => (
+                  <a
+                    key={w.url}
+                    href={w.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-1 inline-block px-2 py-2.5 font-medium underline decoration-pop decoration-2 underline-offset-4 hover:text-ink/70"
+                  >
+                    {w.name}
+                  </a>
+                ))}
+              </p>
+              {role.technologies && (
+                <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+                  {role.technologies.slice(0, 7).map((t) => (
+                    <li key={t} className="tag border-[1.5px] border-ink/25 text-[13px] text-ink/80">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <ul className="space-y-2.5">
+              {role.description.slice(0, 5).map((d, k) => (
+                <li key={k} className="flex gap-3 text-[16px] leading-snug text-muted-foreground">
+                  <span className="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-pop" aria-hidden="true" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+          </motion.article>
         ))}
       </div>
-    )}
-  </motion.article>
-);
 
-/* ─── Small sub-block heading ─── */
-const SubHeading: React.FC<{ children: string }> = ({ children }) => (
-  <div className="mb-5 flex items-center gap-4">
-    <span className="label text-foreground">{children}</span>
-    <span className="rule flex-1" />
-  </div>
-);
-
-const Experience = () => (
-  <Section id="experience" index="03" path="experience">
-    <div>
-      {experiences.map((role, i) => (
-        <Role key={role.title} role={role} i={i} />
-      ))}
+      <div className="mt-16 grid gap-12 lg:grid-cols-2">
+        <div>
+          <h3 className="display text-[40px]">Education</h3>
+          <dl className="mt-5">
+            {education.map((e, i) => (
+              <motion.div
+                key={e.degree}
+                {...reveal(i)}
+                className="flex gap-6 border-t-[1.5px] border-ink py-4"
+              >
+                <dt className="w-28 shrink-0 text-[15px] font-semibold tabular-nums">{e.period}</dt>
+                <dd>
+                  <span className="block text-[17px] font-semibold">{e.degree}</span>
+                  <span className="text-[15px] text-muted-foreground">{e.institution}</span>
+                </dd>
+              </motion.div>
+            ))}
+          </dl>
+        </div>
+        {/* The long version, for whoever is filling in the hiring form */}
+        <motion.a
+          {...reveal(1)}
+          href={personalInfo.resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex flex-col justify-between gap-10 rounded-[24px] border-[1.5px] border-ink bg-ink p-7 text-paper shadow-[8px_8px_0_0_hsl(var(--pop))] transition-transform duration-300 hover:-translate-y-1.5"
+        >
+          <span className="flex items-center justify-between text-[14px] font-semibold text-paper/70">
+            PDF résumé
+            <FiDownload className="text-[22px] text-pop transition-transform duration-300 group-hover:translate-y-1" aria-hidden="true" />
+          </span>
+          <span>
+            <span className="display block text-[clamp(2.6rem,4.5vw,4rem)]">Get the résumé</span>
+            <span className="mt-2 block text-[16px] text-paper/70">
+              Roles, stack, education and awards.
+            </span>
+          </span>
+        </motion.a>
+      </div>
     </div>
-
-    {/* Education — two lines, no cards */}
-    <div className="mt-11 sm:mt-12">
-      <SubHeading>Education</SubHeading>
-      <dl className="space-y-4">
-        {education.map((e, i) => (
-          <motion.div
-            key={e.degree}
-            {...item(i)}
-            className="flex flex-col gap-x-6 gap-y-1 sm:flex-row sm:items-baseline"
-          >
-            <dt className="label shrink-0 tabular-nums sm:w-28">{e.period}</dt>
-            <dd className="min-w-0">
-              <span className="text-[13px] text-foreground">{e.degree}</span>
-              <span className="block text-[12px] text-muted-foreground">{e.institution}</span>
-            </dd>
-          </motion.div>
-        ))}
-      </dl>
-    </div>
-
-    {/* Recognition — one line each */}
-    <div className="mt-10 sm:mt-12">
-      <SubHeading>Recognition</SubHeading>
-      <dl className="space-y-4">
-        {achievements.map((a, i) => (
-          <motion.div
-            key={a.id}
-            {...item(i)}
-            className="flex flex-col gap-x-6 gap-y-1 sm:flex-row sm:items-baseline"
-          >
-            <dt className="label shrink-0 tabular-nums sm:w-28">{a.year}</dt>
-            <dd className="min-w-0">
-              <span className="text-[13px] text-foreground">
-                {a.prize.split('–')[0].trim()} — {a.eventName}
-              </span>
-              <span className="block text-[12px] text-muted-foreground">
-                {a.projectName} · {a.location}
-              </span>
-            </dd>
-          </motion.div>
-        ))}
-      </dl>
-    </div>
-  </Section>
+  </section>
 );
 
 export default Experience;

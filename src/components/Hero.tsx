@@ -1,155 +1,136 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { SiGithub, SiLinkedin } from 'react-icons/si';
+import { FiDownload } from 'react-icons/fi';
 import { personalInfo } from '../data/personalInfo';
-import { ease } from '../lib/ui';
+import { ease, openHire } from '../lib/ui';
 import useAnalytics from '../hooks/usePostHog';
-import usePointerGlow from '../hooks/usePointerGlow';
 
-const socials = [
-  { name: 'GitHub', href: personalInfo.socialLinks.github },
-  { name: 'LinkedIn', href: personalInfo.socialLinks.linkedin },
-  { name: 'Email', href: personalInfo.socialLinks.email },
-];
+const FIRST = personalInfo.name.split(' ')[0];
 
-/** A headline line that slides up out of its own clipping box. */
-const Line: React.FC<{ children: React.ReactNode; delay: number; still: boolean }> = ({
-  children,
-  delay,
-  still,
-}) => (
-  <span className="block overflow-hidden pb-[0.08em]">
-    <motion.span
-      className="block"
-      initial={{ y: still ? 0 : '110%', opacity: still ? 0 : 1 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: still ? 0.5 : 1.05, delay, ease }}
-    >
-      {children}
-    </motion.span>
-  </span>
+/** Letters arrive wide and settle into the condensed cut. */
+const Squeeze: React.FC<{ text: string; delay: number; play: boolean }> = ({ text, delay, play }) => (
+  <>
+    {text.split('').map((ch, i) => (
+      <span
+        key={i}
+        aria-hidden="true"
+        className="inline-block"
+        style={{
+          animation: `squeeze-in 1.2s cubic-bezier(0.22,1,0.36,1) ${delay + i * 0.05}s both`,
+          animationPlayState: play ? 'running' : 'paused',
+          whiteSpace: 'pre',
+        }}
+      >
+        {ch}
+      </span>
+    ))}
+  </>
 );
 
-const Hero: React.FC<{ onHire: () => void }> = ({ onHire }) => {
+/** Typographic hero: meta row, a two-line name, one disc, two buttons. */
+const Hero: React.FC<{ ready: boolean }> = ({ ready }) => {
   const { trackEvent } = useAnalytics();
-  const glow = usePointerGlow();
   const still = !!useReducedMotion();
 
-  const step = (i: number) => ({
-    initial: { opacity: 0, y: still ? 0 : 14 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.7, delay: 0.45 + 0.08 * i, ease },
+  const fade = (delay: number) => ({
+    initial: { opacity: 0, y: still ? 0 : 12 },
+    animate: ready ? { opacity: 1, y: 0 } : undefined,
+    transition: { duration: 0.7, delay, ease },
   });
 
   return (
-    <section
-      id="home"
-      className="relative z-10 flex min-h-[86svh] scroll-mt-20 flex-col justify-center overflow-hidden pb-14 pt-28 sm:min-h-[90svh] sm:pb-16 sm:pt-32"
-    >
-      {/* Something for the glass to refract. Kept faint on purpose — this is
-          atmosphere, not a gradient hero. */}
-      {!still && (
-        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-          <div
-            className="absolute -left-[8%] top-[6%] h-[46vmin] w-[46vmin] rounded-full bg-primary/[0.16] blur-[100px] dark:bg-primary/[0.13]"
-            style={{ animation: 'orb-drift 26s ease-in-out infinite' }}
-          />
-          <div
-            className="absolute right-[2%] top-[38%] h-[38vmin] w-[38vmin] rounded-full bg-foreground/[0.07] blur-[80px]"
-            style={{ animation: 'orb-drift 34s ease-in-out infinite reverse' }}
-          />
-        </div>
-      )}
-
+    <section id="home" className="bg-paper pb-14 pt-28 text-ink sm:pb-20 sm:pt-32">
       <div className="shell">
-        {/* Status ribbon — centred so it lines up with the floating nav pill above */}
-        <motion.div
-          initial={{ opacity: 0, y: still ? 0 : -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease }}
-          className="mb-8 flex justify-center sm:mb-10"
+        {/* Meta row */}
+        <motion.div {...fade(0.2)}>
+          <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 pb-3 text-[13px] font-medium text-muted-foreground">
+            <span>AI & full-stack engineer</span>
+            <span className="hidden sm:inline">{personalInfo.location}, IST</span>
+            <span>Shipping since 2021</span>
+          </div>
+          <div className="rule-dash text-ink/30" />
+        </motion.div>
+
+        {/* Name */}
+        <h1
+          className="display relative mt-10 text-[26vw] leading-[0.84] sm:mt-12 sm:text-[19vw] xl:text-[18vw] 2xl:text-[17rem]"
+          aria-label={`${personalInfo.name}, ships AI`}
         >
-          <span className="glass label inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-foreground">
-            <span className="relative flex h-1.5 w-1.5">
-              {!still && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
-              )}
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
-            </span>
-            Available for work
+          <span className="block">
+            <Squeeze text={FIRST} delay={0.05} play={ready} />
           </span>
-        </motion.div>
+          <span className="block text-right">
+            <Squeeze text="ships AI." delay={0.3} play={ready} />
+          </span>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-7 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-9"
-        >
-          <span className="label text-foreground">Full-Stack AI Builder</span>
-          {/* hidden where the line wraps, so it never dangles at a line end */}
-          <span className="hidden h-px w-6 bg-hairline min-[420px]:block" aria-hidden="true" />
-          <span className="label">{personalInfo.location}</span>
-        </motion.div>
-
-        <h1 className="max-w-[19ch] font-display text-[2.1rem] font-light leading-[1.08] tracking-[-0.02em] text-foreground min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-7xl">
-          <Line delay={0.05} still={still}>
-            I build AI products
-          </Line>
-          <Line delay={0.16} still={still}>
-            <span className="caret">from idea to launch.</span>
-          </Line>
+          {/* Disc overlapping the two lines */}
+          <motion.span
+            aria-hidden="true"
+            initial={{ scale: 0, rotate: -90 }}
+            animate={ready ? { scale: 1, rotate: 0 } : undefined}
+            transition={{ type: 'spring', stiffness: 160, damping: 14, delay: 0.8 }}
+            className="absolute left-[46%] top-[27%] flex h-[0.62em] w-[0.62em] items-center justify-center rounded-full border-[0.045em] border-pop bg-ink text-pop"
+          >
+            <span className="text-[0.24em] [--wdth:80]">Dev</span>
+          </motion.span>
         </h1>
 
+        {/* What I'm looking for — the line a recruiter scans for */}
         <motion.p
-          {...step(0)}
-          className="mt-6 max-w-[54ch] text-[12.5px] leading-relaxed text-muted-foreground sm:mt-7 sm:text-sm"
+          {...fade(0.8)}
+          className="mt-10 flex max-w-[60ch] flex-wrap items-center gap-x-2 gap-y-1 text-[17px] sm:mt-12 sm:text-[19px]"
         >
-          Three years building SaaS platforms, RAG systems and full-stack apps — from vector
-          search infrastructure to mobile apps with 50k+ users.
+          <span className="mr-1 inline-flex items-center gap-2 rounded-full bg-ink px-3 py-1 text-[14px] font-semibold text-paper">
+            <span className="h-2 w-2 rounded-full bg-pop" aria-hidden="true" />
+            Available now
+          </span>
+          <span>
+            Looking for <strong>AI & full-stack engineering roles</strong>, remote or with relocation.
+          </span>
         </motion.p>
 
-        <motion.div {...step(1)} className="mt-9 flex flex-wrap items-center gap-x-3 gap-y-3 sm:mt-10">
-          <motion.button
-            type="button"
-            onClick={onHire}
-            whileHover={still ? undefined : { y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25, ease }}
-            className="sheen inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[12px] font-medium tracking-wide text-background shadow-lg shadow-foreground/15"
-          >
-            Hire me
-          </motion.button>
-
-          <motion.a
+        {/* Buttons */}
+        <motion.div {...fade(0.9)} className="mt-6 flex flex-wrap items-center gap-3">
+          <a
             href={personalInfo.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent('resume_view')}
-            onPointerMove={glow}
-            whileHover={still ? undefined : { y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25, ease }}
-            className="glass spotlight group inline-flex items-center gap-2 rounded-full px-6 py-3 text-[12px] font-medium tracking-wide text-foreground"
+            onClick={() => trackEvent('resume_view', { from: 'hero' })}
+            className="pill gap-2 border-[1.5px] border-ink bg-pop text-ink"
           >
-            Résumé
-            <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              ↗
-            </span>
-          </motion.a>
-        </motion.div>
-
-        <motion.div {...step(2)} className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 sm:mt-12">
-          {socials.map((s) => (
-            <a
-              key={s.name}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent('social_link_click', { platform: s.name.toLowerCase() })}
-              className="label link-underline hover:text-foreground"
-            >
-              {s.name}
-            </a>
-          ))}
+            <FiDownload aria-hidden="true" />
+            Download résumé
+          </a>
+          <button
+            type="button"
+            onClick={() => {
+              trackEvent('hire_open', { from: 'hero' });
+              openHire();
+            }}
+            className="pill border-[1.5px] border-ink text-ink hover:bg-ink hover:text-paper"
+          >
+            Get in touch
+          </button>
+          <a
+            href={personalInfo.socialLinks.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent('social_link_click', { platform: 'linkedin', from: 'hero' })}
+            aria-label="LinkedIn"
+            className="flex h-12 w-12 items-center justify-center rounded-full border-[1.5px] border-ink text-[18px] transition-colors hover:bg-ink hover:text-paper"
+          >
+            <SiLinkedin />
+          </a>
+          <a
+            href={personalInfo.socialLinks.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent('social_link_click', { platform: 'github', from: 'hero' })}
+            aria-label="GitHub"
+            className="flex h-12 w-12 items-center justify-center rounded-full border-[1.5px] border-ink text-[18px] transition-colors hover:bg-ink hover:text-paper"
+          >
+            <SiGithub />
+          </a>
         </motion.div>
       </div>
     </section>
