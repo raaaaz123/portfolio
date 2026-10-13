@@ -34,9 +34,9 @@ export const experiences: Experience[] = [
       "Moved heavy AI workloads onto async queues with Celery and Redis, keeping API requests responsive",
       "Containerised services with Docker for consistent deploys across environments"
     ],
-    technologies: ["LangChain", "OpenAI", "RAG", "FastAPI", "Qdrant", "Celery", "Redis", "Docker", "Gen AI", "Embeddings", "LLMs", "Python"],
+    technologies: ["Next.js", "FastAPI", "Python", "LangChain", "RAG", "Qdrant", "Embeddings", "OpenAI", "Celery", "Redis", "Docker", "Gen AI", "LLMs"],
     websites: [
-      { name: "Geekflare.ai", url: "https://geekflare.ai" }
+      { name: "Geekflare", url: "https://geekflare.com" }
     ]
   },
   {

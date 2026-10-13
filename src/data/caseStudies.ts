@@ -1,5 +1,5 @@
 /**
- * Written from the project data only — every decision and result here is
+ * Written from the project data only. Every decision and result here is
  * something the product actually does or has, not an estimate.
  */
 export interface FlowStep {

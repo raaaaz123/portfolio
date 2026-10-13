@@ -1,36 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        border: 'hsl(var(--border))',
-        hairline: 'hsl(var(--hairline))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        muted: {
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        ink: 'hsl(var(--ink) / <alpha-value>)',
-        paper: 'hsl(var(--paper) / <alpha-value>)',
-        pop: 'hsl(var(--pop) / <alpha-value>)',
-        mint: 'hsl(var(--mint) / <alpha-value>)',
-        sun: 'hsl(var(--sun) / <alpha-value>)',
-        moss: 'hsl(var(--moss) / <alpha-value>)',
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        canvas: 'rgb(var(--canvas) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
+        line: 'rgb(var(--line) / <alpha-value>)',
+        link: 'rgb(var(--link) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['Archivo', 'system-ui', 'sans-serif'],
-        display: ['Archivo', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+      maxWidth: {
+        page: '1120px',
+        text: '38rem',
       },
     },
   },
