@@ -15,7 +15,13 @@ const Hero: React.FC = () => {
     <section id="top" className="page pb-12 pt-10 sm:pt-14 lg:pb-16">
       <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-14">
         <div className="lift">
-          <p className="text-[14px] text-muted">Rasheed M, software engineer in Kerala</p>
+          <p className="font-mono text-[13px] text-muted">
+            <span className="text-link">~/rasheed</span> <span className="opacity-60">$</span> whoami
+          </p>
+          <p className="mt-1 font-mono text-[13px] text-ink/80">
+            Rasheed M, software engineer in Kerala
+            <span className="caret" aria-hidden />
+          </p>
           <h1 className="mt-3 text-[36px] font-semibold leading-[1.05] tracking-[-0.03em] sm:text-[48px] xl:text-[54px]">
             I build AI products and ship them to real users.
           </h1>

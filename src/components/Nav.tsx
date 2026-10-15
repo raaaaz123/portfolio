@@ -19,8 +19,8 @@ const Nav: React.FC<{ active: string }> = ({ active }) => {
       }`}
     >
       <nav className="page flex h-14 items-center justify-between gap-6 text-[15px]">
-        <a href="#top" className="font-semibold tracking-[-0.01em]">
-          Rasheed M
+        <a href="#top" className="font-mono text-[14px] font-semibold tracking-[-0.01em]">
+          <span className="text-link">&lt;</span>RasheedM <span className="text-link">/&gt;</span>
         </a>
 
         <div className="flex items-center gap-5">

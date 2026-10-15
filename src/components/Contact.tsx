@@ -76,7 +76,10 @@ const Contact: React.FC = () => {
       </section>
 
       <footer className="page flex flex-wrap justify-between gap-x-6 gap-y-1 pb-10 text-[14px] text-muted">
-        <p>© {new Date().getFullYear()} Rasheed M</p>
+        <p>
+          © {new Date().getFullYear()} Rasheed M{' '}
+          <span className="font-mono text-[12.5px] opacity-80">· built with React, Three.js and Framer Motion</span>
+        </p>
         <p>
           It’s {time} in {personalInfo.location.split(',')[0]} right now.
         </p>

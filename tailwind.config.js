@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Schibsted Grotesk"', 'system-ui', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       maxWidth: {
         page: '1120px',

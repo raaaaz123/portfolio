@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
+import { MotionConfig } from 'framer-motion'
 import { navLinks, OPEN_PROJECT_EVENT } from './lib/ui'
 import { projects } from './data/projects'
 import Nav from './components/Nav'
@@ -13,6 +14,16 @@ import CommandMenu from './components/CommandMenu'
 import ChatProvider from './components/ChatProvider'
 import ChatDock from './components/ChatDock'
 import useAnalytics from './hooks/usePostHog'
+
+// The WebGL backdrop is decorative, so it loads after the page and only where WebGL works.
+const BinaryField = lazy(() => import('./components/BinaryField'))
+const hasWebGL = (() => {
+  try {
+    return !!document.createElement('canvas').getContext('webgl2')
+  } catch {
+    return false
+  }
+})()
 
 const sectionIds = navLinks.map((l) => l.href.slice(1))
 
@@ -69,20 +80,27 @@ function App() {
 
   return (
     <ChatProvider>
-      <div className="min-h-screen">
-        <Nav active={active} />
-        <main>
-          <Hero />
-          <Experience />
-          <Work />
-          <Stack />
-          <Awards />
-          <Contact />
-        </main>
-        <CommandMenu />
-        <ChatDock />
-        <ProjectDrawer project={projects.find((p) => p.id === projectId) ?? null} onClose={closeProject} />
-      </div>
+      <MotionConfig reducedMotion="user">
+        {hasWebGL && (
+          <Suspense fallback={null}>
+            <BinaryField />
+          </Suspense>
+        )}
+        <div className="relative min-h-screen">
+          <Nav active={active} />
+          <main>
+            <Hero />
+            <Experience />
+            <Work />
+            <Stack />
+            <Awards />
+            <Contact />
+          </main>
+          <CommandMenu />
+          <ChatDock />
+          <ProjectDrawer project={projects.find((p) => p.id === projectId) ?? null} onClose={closeProject} />
+        </div>
+      </MotionConfig>
     </ChatProvider>
   )
 }
