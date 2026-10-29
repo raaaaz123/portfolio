@@ -1,158 +1,181 @@
+import { useState } from 'react';
+import { FiArrowRight, FiGlobe } from 'react-icons/fi';
+import { SiAppstore, SiGoogleplay } from 'react-icons/si';
 import { projects, type Project } from '../data/projects';
 import { caseStudies } from '../data/caseStudies';
-import { media, SHOWCASE_IDS, type ProjectMedia } from '../data/media';
-import { formatUsers, liveCount, openProject, projectLinks, spell } from '../lib/ui';
+import { media, SHOWCASE_IDS } from '../data/media';
+import { formatUsers, liveCount, openProject, platforms, spell, statusLabel } from '../lib/ui';
+import { Browser, Phones } from './Shots';
 import Section from './Section';
 
 const showcase = SHOWCASE_IDS.map((id) => projects.find((p) => p.id === id)!);
-const rest = projects.filter((p) => !SHOWCASE_IDS.includes(p.id)).sort((a, b) => b.year - a.year);
+const archive = projects.filter((p) => !SHOWCASE_IDS.includes(p.id)).sort((a, b) => b.year - a.year);
 
-const platforms = (p: Project) =>
-  [p.ios && 'iOS', p.android && 'Android', p.live && p.status !== 'expired' && 'Web'].filter(Boolean).join(', ');
+const FILTERS = {
+  All: () => true,
+  Mobile: (p: Project) => !!(p.ios || p.android || media[p.id]?.phones),
+  Web: (p: Project) => !!(p.live && p.status !== 'expired'),
+} as const;
+type Filter = keyof typeof FILTERS;
 
-const Media: React.FC<{ m: ProjectMedia; title: string }> = ({ m, title }) => {
-  if (m.phones)
-    return (
-      <div className="flex h-full items-end justify-center gap-2.5 overflow-hidden px-4 pt-6 lg:gap-4 lg:px-6 lg:pt-10">
-        {m.phones.map((src, i) => (
-          <div
-            key={src}
-            className={`phone h-[200px] w-[92px] shrink-0 !rounded-[16px] !border-[3px] sm:h-[260px] sm:w-[120px] lg:h-[330px] lg:w-[152px] lg:!rounded-[22px] lg:!border-[5px] xl:h-[357px] xl:w-[165px] ${
-              i === 1 ? '' : 'translate-y-5 lg:translate-y-8'
-            } ${i === 2 ? 'lg:hidden xl:block' : ''}`}
-          >
-            <img src={src} alt={`${title} screen ${i + 1}`} loading="lazy" />
-          </div>
-        ))}
-      </div>
-    );
+export const StatusDot: React.FC<{ p: Project; className?: string }> = ({ p, className = '' }) => (
+  <span className={`inline-flex items-center gap-1.5 ${className}`}>
+    <span className={`h-1.5 w-1.5 rounded-full ${p.status === 'live' ? 'bg-emerald-500' : 'bg-muted/50'}`} />
+    {statusLabel[p.status]}
+  </span>
+);
 
-  if (m.browser)
-    return (
-      <div className="flex h-full items-center py-5 pl-4 sm:pl-10 lg:py-10">
-        <div
-          className={`w-full overflow-hidden rounded-l-xl border border-r-0 shadow-[0_30px_60px_-30px_rgb(0_0_0/0.35)] ${
-            m.dark ? 'border-white/10 bg-black' : 'border-black/10 bg-white'
-          }`}
-        >
-          <div className={`flex h-8 items-center border-b px-3 ${m.dark ? 'border-white/10 bg-[#1b1b1d]' : 'border-black/5 bg-[#f6f6f7]'}`}>
-            <span className={`rounded-md px-2.5 py-0.5 text-[11.5px] ${m.dark ? 'bg-white/10 text-white/60' : 'bg-white text-black/50'}`}>
-              {m.browser.url}
-            </span>
-          </div>
-          <img src={m.browser.src} alt={`${title} website`} loading="lazy" className="block w-full" />
-        </div>
-      </div>
-    );
-
-  return null;
-};
-
-const Panel: React.FC<{ p: Project; flip: boolean }> = ({ p, flip }) => {
-  const m = media[p.id];
-  const hasCase = caseStudies.some((c) => c.projectId === p.id);
-  const facts = [
-    ['Users', p.users ? formatUsers(p.users).replace(' users', '') : 'Just launched'],
-    ['Runs on', platforms(p)],
-    p.status === 'live' ? ['Year', String(p.year)] : ['Status', `${p.status === 'expired' ? 'Offline' : 'Discontinued'}, ${p.year}`],
-  ];
+/** Icon links to the website and the stores. */
+export const StoreLinks: React.FC<{ p: Project }> = ({ p }) => {
+  const links = [
+    p.live && p.status !== 'expired' && { label: 'Website', href: p.live, Icon: FiGlobe },
+    p.ios && { label: 'App Store', href: p.ios, Icon: SiAppstore },
+    p.android && { label: 'Google Play', href: p.android, Icon: SiGoogleplay },
+  ].filter(Boolean) as { label: string; href: string; Icon: React.ComponentType<{ className?: string }> }[];
 
   return (
-    <article
-      style={{ backgroundColor: m.tint }}
-      className={`grid overflow-hidden rounded-[22px] lg:grid-cols-2 lg:rounded-[28px] ${m.dark ? 'text-white' : 'text-[#14161a]'}`}
-    >
-      <div className={`flex flex-col p-5 sm:p-8 lg:p-10 ${flip ? 'lg:order-2' : ''}`}>
-        {m.icon && <img src={m.icon} alt="" className="mb-3 h-9 w-9 rounded-lg lg:mb-6 lg:h-12 lg:w-12 lg:rounded-xl" loading="lazy" />}
-        <h3 className="text-[22px] font-semibold leading-tight tracking-[-0.02em] lg:text-[34px]">{p.title}</h3>
-        <p className={`mt-1.5 max-w-[30rem] text-[15px] leading-relaxed lg:mt-3 lg:text-[17px] ${m.dark ? 'text-white/70' : 'text-black/60'}`}>
-          <span className="lg:hidden">{p.summary}</span>
-          <span className="hidden lg:inline">{p.description.split('. ').slice(0, 2).join('. ').replace(/\.?$/, '.')}</span>
-        </p>
+    <div className="flex items-center gap-1">
+      {links.map(({ label, href, Icon }) => (
+        <a
+          key={href}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${p.title} on ${label}`}
+          title={label}
+          className="grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-canvas hover:text-ink"
+        >
+          <Icon className="h-[15px] w-[15px]" />
+        </a>
+      ))}
+    </div>
+  );
+};
 
-        <dl className={`mt-4 grid max-w-[30rem] grid-cols-3 gap-3 border-t pt-3 lg:mt-8 lg:gap-4 lg:pt-5 ${m.dark ? 'border-white/15' : 'border-black/10'}`}>
-          {facts.map(([k, v]) => (
-            <div key={k}>
-              <dt className={`text-[12px] lg:text-[13px] ${m.dark ? 'text-white/55' : 'text-black/50'}`}>{k}</dt>
-              <dd className="mt-0.5 text-[13.5px] font-medium leading-snug lg:text-[15px]">{v}</dd>
+const Card: React.FC<{ p: Project }> = ({ p }) => {
+  const m = media[p.id];
+  const hasCase = caseStudies.some((c) => c.projectId === p.id);
+  const meta = [platforms(p), p.year, p.users && formatUsers(p.users)].filter(Boolean).join(' · ');
+  const extra = p.tags.length - 5;
+
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-[22px] border border-line bg-surface transition-[border-color,box-shadow] hover:border-ink/15 hover:shadow-[0_20px_50px_-30px_rgb(0_0_0/0.35)]">
+      <button
+        type="button"
+        onClick={() => openProject(p.id)}
+        aria-label={`Open ${p.title}`}
+        style={{ backgroundColor: m.tint }}
+        className="relative block h-[240px] overflow-hidden sm:h-[290px]"
+      >
+        {m.phones ? (
+          <Phones srcs={m.phones} title={p.title} />
+        ) : (
+          m.browser && (
+            <div className="absolute inset-x-6 top-8 transition-transform duration-500 group-hover:-translate-y-1.5 sm:inset-x-10 sm:top-10">
+              <Browser shot={m.browser} dark={m.dark} title={p.title} />
             </div>
-          ))}
-        </dl>
+          )
+        )}
+      </button>
 
-        <div className="mt-6 hidden max-w-[30rem] flex-wrap gap-1.5 lg:flex">
-          {p.tags.slice(0, 6).map((t) => (
-            <span
-              key={t}
-              className={`rounded-full px-2.5 py-1 text-[13px] ${m.dark ? 'bg-white/10 text-white/80' : 'bg-black/[0.06] text-black/70'}`}
-            >
-              {t}
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="flex items-start gap-3">
+          {m.icon ? (
+            <img src={m.icon} alt="" className="h-11 w-11 shrink-0 rounded-[11px] border border-line" loading="lazy" />
+          ) : (
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-[11px] bg-canvas text-[17px] font-semibold">
+              {p.title[0]}
             </span>
-          ))}
+          )}
+          <div className="min-w-0 flex-1">
+            <h3 className="text-[19px] font-semibold leading-tight tracking-[-0.015em]">{p.title}</h3>
+            <p className="mt-1 truncate text-[13px] text-muted">{meta}</p>
+          </div>
+          <StatusDot p={p} className="mt-0.5 shrink-0 rounded-full bg-canvas px-2.5 py-1 text-[12px] font-medium" />
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 lg:mt-auto lg:gap-x-5 lg:gap-y-3 lg:pt-10">
+        <p className="mt-4 text-[15px] leading-relaxed text-ink/80">{p.summary}</p>
+
+        <ul className="mb-6 mt-4 flex flex-wrap gap-1.5" aria-label="Tech stack">
+          {p.tags.slice(0, 5).map((t) => (
+            <li key={t} className="rounded-md bg-canvas px-2 py-0.5 text-[12.5px] text-ink/70">
+              {t}
+            </li>
+          ))}
+          {extra > 0 && <li className="px-1 py-0.5 text-[12.5px] text-muted">+{extra}</li>}
+        </ul>
+
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-line pt-4">
           <button
             type="button"
             onClick={() => openProject(p.id)}
-            className={`btn h-9 px-4 text-[14px] lg:h-10 lg:px-5 lg:text-[15px] ${m.dark ? 'bg-white text-black hover:bg-white/85' : 'bg-[#14161a] text-white hover:bg-black/80'}`}
+            className="inline-flex items-center gap-1.5 text-[14px] font-medium hover:underline hover:underline-offset-4"
           >
-            {hasCase ? 'Read the case study' : 'See the details'}
+            {hasCase ? 'Read the case study' : 'View details'}
+            <FiArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </button>
-          {projectLinks(p).map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="a text-[14px] lg:text-[15px]">
-              {l.label}
-            </a>
-          ))}
+          <StoreLinks p={p} />
         </div>
-      </div>
-
-      <div className={`lg:min-h-[300px] ${flip ? 'lg:order-1' : ''}`}>
-        <Media m={m} title={p.title} />
       </div>
     </article>
   );
 };
 
-const Tile: React.FC<{ p: Project }> = ({ p }) => {
-  const note = p.status === 'live' ? 'Live' : p.status === 'expired' ? 'Offline' : 'Discontinued';
+const Work: React.FC = () => {
+  const [filter, setFilter] = useState<Filter>('All');
+  const shown = showcase.filter(FILTERS[filter]);
+
   return (
-    <button
-      type="button"
-      onClick={() => openProject(p.id)}
-      className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-5 text-left lg:p-6 transition-colors hover:border-ink/25"
+    <Section
+      id="work"
+      title="Selected work"
+      intro={`${spell(projects.length, true)} products of my own since 2022, from native iOS apps to AI SaaS. ${spell(liveCount, true)} are live today.`}
     >
-      <p className="flex items-center gap-2 text-[13px] text-muted">
-        <span className={`h-1.5 w-1.5 rounded-full ${p.status === 'live' ? 'bg-emerald-500' : 'bg-muted/40'}`} />
-        {note}, {p.year}
-      </p>
-      <h3 className="mt-3 text-[19px] font-semibold tracking-[-0.01em] group-hover:underline group-hover:decoration-ink/30 group-hover:underline-offset-4">
-        {p.title}
-      </h3>
-      <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{p.summary}</p>
-      {p.users && <p className="mt-auto pt-5 text-[14px] font-medium">{formatUsers(p.users)}</p>}
-    </button>
+      <div className="mb-6 flex gap-1.5" role="group" aria-label="Filter products">
+        {(Object.keys(FILTERS) as Filter[]).map((f) => (
+          <button
+            key={f}
+            type="button"
+            aria-pressed={filter === f}
+            onClick={() => setFilter(f)}
+            className={`btn h-8 px-3.5 text-[13.5px] ${
+              filter === f ? 'bg-ink text-surface' : 'border border-line bg-surface text-muted hover:text-ink'
+            }`}
+          >
+            {f}
+            <span className="opacity-60">{showcase.filter(FILTERS[f]).length}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2 lg:gap-5">
+        {shown.map((p) => (
+          <Card key={p.id} p={p} />
+        ))}
+      </div>
+
+      <h3 className="mt-16 text-[19px] font-semibold tracking-[-0.01em]">Earlier projects</h3>
+      <ul className="mt-4 divide-y divide-line overflow-hidden rounded-[22px] border border-line bg-surface">
+        {archive.map((p) => (
+          <li key={p.id}>
+            <button
+              type="button"
+              onClick={() => openProject(p.id)}
+              className="group grid w-full grid-cols-[3rem_1fr_auto] items-baseline gap-x-4 px-5 py-4 text-left transition-colors hover:bg-canvas/60 sm:grid-cols-[4rem_1fr_9rem_7rem] sm:px-6"
+            >
+              <span className="text-[13px] tabular-nums text-muted">{p.year}</span>
+              <span className="min-w-0">
+                <span className="font-semibold group-hover:underline group-hover:underline-offset-4">{p.title}</span>
+                <span className="mt-0.5 block text-[14px] text-muted sm:truncate">{p.summary}</span>
+              </span>
+              <span className="hidden text-[13.5px] text-ink/80 sm:block">{p.users ? formatUsers(p.users) : ''}</span>
+              <StatusDot p={p} className="justify-self-end text-[13px] text-muted" />
+            </button>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 };
-
-const Work: React.FC = () => (
-  <Section
-    id="work"
-    title="Products"
-    intro={`${spell(projects.length, true)} products of my own since 2022. ${spell(liveCount, true)} are still live.`}
-  >
-    <div className="space-y-4 lg:space-y-6">
-      {showcase.map((p, i) => (
-        <Panel key={p.id} p={p} flip={i % 2 === 1} />
-      ))}
-    </div>
-
-    <h3 className="mt-20 text-[22px] font-semibold tracking-[-0.015em]">More projects</h3>
-    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {rest.map((p) => (
-        <Tile key={p.id} p={p} />
-      ))}
-    </div>
-  </Section>
-);
 
 export default Work;

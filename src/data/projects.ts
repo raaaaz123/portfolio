@@ -24,9 +24,61 @@ export interface Project {
   featured?: boolean;
   features?: string[];
   role?: string;
+  /** Overrides the platforms derived from the links, e.g. for an app still in review. */
+  platforms?: string;
 }
 
 export const projects: Project[] = [
+  {
+    id: 105,
+    title: "Vocavoy",
+    status: "live",
+    summary: "Language-learning app: an AI tutor, voice calls and a word-by-word accent score.",
+    description: "Language-learning app for iPhone and iPad that teaches Spanish, French, Japanese, German, Korean and Italian in five minutes a day. Each course is a trip through real cities, from first words to everyday conversation. Learners chat with an AI tutor or call it out loud, get every word of their pronunciation scored by an Accent Coach, and review vocabulary on a spaced-repetition schedule. Free, with no sign-up, and localized into 10 app languages with a 19-locale website.",
+    year: 2026,
+    image: "/images/projects/vocavoy-1.jpg",
+    tags: ["Swift", "SwiftUI", "WidgetKit", "Live Activities", "Python", "FastAPI", "Firestore", "Kimi K2.5", "AWS Bedrock", "Amazon Polly", "Azure Speech", "WebRTC", "RevenueCat", "Next.js"],
+    live: "https://www.vocavoy.com",
+    ios: "https://apps.apple.com/us/app/learn-spanish-vocavoy/id6815779793",
+    featured: true,
+    role: "iOS, backend & AI",
+    features: [
+      "AI tutor chat in real-life scenes (café, hotel, shop) that corrects mistakes at the learner's level",
+      "Voice calls with the tutor over WebRTC, hands-free",
+      "Accent Coach: every word of a spoken phrase scored with Azure Speech pronunciation assessment",
+      "Native-speaker audio from Amazon Polly, cached per phrase",
+      "Spaced repetition for every learned word, plus 60-second vocab sprints",
+      "Stories, listening drills, grammar cards and Japanese and Korean alphabet trainers",
+      "Weekly leagues, streaks with shields, quests and a passport of city stamps",
+      "Home Screen and Lock Screen widgets and Live Activities",
+      "No account: progress follows the user through iCloud Keychain",
+      "UI in 10 languages; Next.js website with 19 localized landing pages, word lists and games"
+    ]
+  },
+  {
+    id: 106,
+    title: "Flashbae",
+    status: "live",
+    summary: "AI photo booth: film looks, a booth for two over live video, and AI selfie re-shoots.",
+    description: "Photo booth and AI photo app. The booth shoots a strip with pose prompts, a countdown and a flash, then finishes it in one of 33 film looks. Booth Together connects two phones over live video so both count down and flash at the same moment, miles apart. AI looks re-shoot a selfie in a new light or scene while keeping the face and pose. The iOS app is in App Store review; the AI generator already runs on the web at flashbae.com.",
+    year: 2026,
+    image: "/images/projects/flashbae-1.jpg",
+    tags: ["Swift", "SwiftUI", "Core Image", "Metal", "Vision", "LiveKit", "Kotlin", "Python", "FastAPI", "Gemini Image", "GPT Image", "RevenueCat", "Next.js", "Three.js"],
+    live: "https://www.flashbae.com",
+    featured: true,
+    role: "iOS, Android, backend & AI",
+    platforms: "Web, iOS (in review)",
+    features: [
+      "Photo booth with pose prompts, a 3-2-1 countdown and four strip layouts",
+      "33 film looks and 20 film filters rendered on-device with Core Image and Metal",
+      "Booth Together: two phones on a LiveKit video call, synchronised countdown and flash, one shared strip",
+      "AI looks (digicam flash, night flash, golden hour) that keep the face and pose, with before/after reveals",
+      "Film editor with 17 adjustments, face retouch, light leaks and frames",
+      "Plans and credit packs through RevenueCat",
+      "Native Swift app on iOS and Kotlin app on Android",
+      "Next.js website with a Three.js hero, a web AI generator behind Google sign-in, and Japanese and Korean pages"
+    ]
+  },
   {
     id: 104,
     title: "GlowZen",

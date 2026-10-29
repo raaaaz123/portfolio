@@ -90,8 +90,8 @@ function App() {
           <Nav active={active} />
           <main>
             <Hero />
-            <Experience />
             <Work />
+            <Experience />
             <Stack />
             <Awards />
             <Contact />

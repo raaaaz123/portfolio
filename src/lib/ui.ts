@@ -2,8 +2,8 @@
 import { projects, type Project } from '../data/projects';
 
 export const navLinks = [
+  { name: 'Work', href: '#work' },
   { name: 'Experience', href: '#experience' },
-  { name: 'Products', href: '#work' },
   { name: 'Stack', href: '#stack' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -22,11 +22,13 @@ export const usersReached = `${Math.floor(totalUsers / 1000)}k`;
 export const productsShipped = projects.length;
 export const liveCount = projects.filter((p) => p.status === 'live').length;
 
-/** The products that lead the page. All live, all with store or site links. */
-export const FLAGSHIP_IDS = [4, 100, 104, 101];
-
 /** "5k+" → "5,000+ users" */
 export const formatUsers = (u?: string) => (u ? `${u.replace(/k/i, ',000')} users` : '');
+
+/** Where a product runs, from its links: "iOS, Android, Web". */
+export const platforms = (p: Project) =>
+  p.platforms ??
+  [p.ios && 'iOS', p.android && 'Android', p.live && p.status !== 'expired' && 'Web'].filter(Boolean).join(', ');
 
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
 /** Small numbers read better as words in running text: 6 → "six". */
